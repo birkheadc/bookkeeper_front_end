@@ -1,23 +1,28 @@
-import logo from './logo.svg';
 import './App.css';
+import Navbar from './components/navbar/Navbar';
+import { Routes, Route, BrowserRouter } from 'react-router-dom';
+import Home from './components/home/Home';
+import Report from './components/report/Report';
+import Settings from './components/settings/Settings';
+import Login from './components/login/Login';
+import SummaryPage from './components/summary/SummaryPage';
 
 function App() {
   return (
     <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.js</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
+      
+      <BrowserRouter>
+        <header>
+          <Navbar />
+        </header>
+        <Routes>
+          <Route path ='/' element={<Home />} />
+          <Route path ='/report' element={<Report />} />
+          <Route path ='/settings' element={<Settings />} />
+          <Route path ='/login' element={<Login />} />
+          <Route path ='/summary' element={<SummaryPage apiUrl={process.env.REACT_APP_BOOKKEEPER_URL}/>} />
+        </Routes>
+      </BrowserRouter>
     </div>
   );
 }

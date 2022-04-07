@@ -1,0 +1,16 @@
+nav {
+    margin: 0;
+    padding: 0;
+
+    width: 100vw;
+    border: solid black 3px;
+}
+
+nav ul {
+    display: flex;
+    flex-direction: row;
+
+    gap: 1em;
+
+    list-style: none;
+}
