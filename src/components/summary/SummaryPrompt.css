@@ -1,0 +1,28 @@
+.summary-prompt-form {
+    display: flex;
+    flex-direction: column;
+
+    width: fit-content;
+}
+
+.summary-prompt-form-halves {
+    display: flex;
+    flex-direction: row;
+
+    gap: 1em;
+}
+
+.summary-prompt-form-half {
+    display: flex;
+    flex-direction: column;
+}
+
+.summary-prompt-form-half div {
+    display: flex;
+    flex-direction: row;
+}
+
+.summary-prompt-form button {
+    margin: 1em auto;
+    width: fit-content;
+}

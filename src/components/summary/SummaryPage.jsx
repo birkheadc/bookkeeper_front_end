@@ -3,6 +3,7 @@ import { useSearchParams } from 'react-router-dom';
 import './SummaryPage.css'
 import fetchSummary from '../../api/fetchSummary/FetchSummary';
 import Summary from './Summary';
+import SummaryPrompt from './SummaryPrompt';
 
 function SummaryPage(props) {
 
@@ -76,15 +77,21 @@ function SummaryPage(props) {
         getSummary();
     }, [startDate, endDate, props.apiUrl]);
 
-    useEffect(() => {
-
-    }, []);
-
+    const displaySummary = function() {
+        if (summary === undefined || summary === null) {
+            return(
+                <SummaryPrompt />
+            );
+        }
+        return(
+            <Summary summary={summary}/>
+        );
+    }
 
     return(
         <div>
             <h1>Summary</h1>
-            <Summary summary={summary}/>
+            {displaySummary()}
         </div>
     );
 }
