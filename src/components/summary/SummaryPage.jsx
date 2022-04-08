@@ -65,12 +65,30 @@ function SummaryPage(props) {
     // Runs when start and/or end date change
     useEffect(() => {
 
-        if (startDate === null || endDate === null || isNaN(startDate) || isNaN(endDate)) {
+        setSummary(null);
+
+        if (searchParams.get("startDate") === null || searchParams.get("endDate") === null) {
+            setMessage("Please select date(s) to search.");
+            return;
+        }
+
+        if (isNaN(startDate) || isNaN(endDate)) {
+            setMessage("Bad format.");
+            return;
+        }
+
+        if (endDate < startDate) {
+            setMessage("Start date must be before or the same as end date.");
             return;
         }
 
         const getSummary = async () => {
             const summary = await fetchSummary(props.apiUrl, startDate, endDate);
+            if (summary === null) {
+                setMessage("Error connecting to server.");
+                return;
+            }
+            setMessage("Please select date(s) to search.");
             setSummary(summary);
         }
 
@@ -78,20 +96,18 @@ function SummaryPage(props) {
     }, [startDate, endDate, props.apiUrl]);
 
     const displaySummary = function() {
-        if (summary === undefined || summary === null) {
+        if (summary !== undefined && summary !== null) {
             return(
-                <SummaryPrompt />
+                <Summary summary={summary}/>
             );
         }
-        return(
-            <Summary summary={summary}/>
-        );
     }
 
     return(
         <div>
             <h1>Summary</h1>
             {displaySummary()}
+            <SummaryPrompt message={message}/>
         </div>
     );
 }

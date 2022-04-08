@@ -2,6 +2,8 @@ import React from 'react';
 
 function Summary(props) {
 
+
+
     if (props.summary === undefined || props.summary === null) {
         return(
             <div>

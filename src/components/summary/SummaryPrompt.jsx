@@ -1,44 +1,44 @@
-import React from 'react';
-import { useNavigate } from 'react-router-dom';
+import React, { useEffect } from 'react';
+import { useNavigate, useSearchParams } from 'react-router-dom';
 import './SummaryPrompt.css'
 
 function SummaryPrompt(props) {
 
     const navigate = useNavigate();
 
+    const startDateInput = document.getElementById('start-date');
+    const endDateInput = document.getElementById('end-date');
+    const isSingleDayCheck = document.getElementById('single-day-check');
+
     const handleSingleDayCheckChange = (e) => {
-        let startDate = document.getElementById('start-date');
-        let endDate = document.getElementById('end-date');
 
         let isSingleDay = e.target.checked;
         
         if (isSingleDay === true) {
-            endDate.value = startDate.value;
+            endDateInput.value = startDateInput.value;
         }
 
-        endDate.disabled = isSingleDay;
+        endDateInput.disabled = isSingleDay;
     }
 
     const handleStartDateChange = () => {
-        let startDate = document.getElementById('start-date');
-        let endDate = document.getElementById('end-date');
-        let isSingleDay = document.getElementById('single-day-check').checked;
+        let isSingleDay = isSingleDayCheck.checked;
 
         if (isSingleDay === true) {
-            endDate.value = startDate.value;
+            endDateInput.value = startDateInput.value;
         }
     }
 
     const handleSearch = () => {
-        let startDate = document.getElementById('start-date').value;
-        let endDate = document.getElementById('end-date').value;
+        let startDate = startDateInput.value;
+        let endDate = endDateInput.value;
 
         navigate("/summary?startDate=" + startDate + "&endDate=" + endDate);
     }
 
     return(
         <>
-            <h2>Select date(s)</h2>
+        <h2>{props.message}</h2>
             <form className='summary-prompt-form'>
                 <div className='summary-prompt-form-halves'>
                     <div className='summary-prompt-form-half'>

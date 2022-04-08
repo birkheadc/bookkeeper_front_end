@@ -18,33 +18,49 @@ function App() {
   }, [])
 
   const handleLogout = () => {
-    console.log("LOGOUT");
+    window.localStorage.removeItem('password');
     setLoggedIn(false);
   }
   
-  const handleLogin = async () => {
+  const handleLogin = async (pw) => {
+    window.localStorage.setItem('password', pw);
     setLoggedIn(true);
   }
 
+  if (isLoggedIn === true) {
+    return (
+      <div className="App">
+        <BrowserRouter>
+          <header>
+            <Navbar isLoggedIn={isLoggedIn} logoutButton={<LogoutButton handleLogout={handleLogout}/>}/>
+          </header>
+          <main>
+            <Routes>
+              <Route path ='/' element={<Home />} />
+              <Route path ='/report' element={<Report />} />
+              <Route path ='/settings' element={<Settings />} />
+              <Route path ='/login' element={<Login handleLogin={handleLogin}/>} />
+              <Route path ='/summary' element={<SummaryPage apiUrl={process.env.REACT_APP_BOOKKEEPER_URL}/>} />
+            </Routes>
+          </main>
+        </BrowserRouter>
+      </div>
+    );
+  }
   return (
     <div className="App">
-      
-      <BrowserRouter>
-        <header>
-          <Navbar isLoggedIn={isLoggedIn} logoutButton={<LogoutButton handleLogout={handleLogout}/>}/>
-        </header>
-        <main>
-          <Routes>
-            <Route path ='/' element={<Home />} />
-            <Route path ='/report' element={<Report />} />
-            <Route path ='/settings' element={<Settings />} />
-            <Route path ='/login' element={<Login handleLogin={handleLogin}/>} />
-            <Route path ='/summary' element={<SummaryPage apiUrl={process.env.REACT_APP_BOOKKEEPER_URL}/>} />
-          </Routes>
-        </main>
-      </BrowserRouter>
-    </div>
+        <BrowserRouter>
+          <header>
+            <Navbar isLoggedIn={isLoggedIn} logoutButton={<LogoutButton handleLogout={handleLogout}/>}/>
+          </header>
+          <main>
+            <Login handleLogin={handleLogin}/>
+          </main>
+        </BrowserRouter>
+      </div>
   );
+
+  
 }
 
 export default App;

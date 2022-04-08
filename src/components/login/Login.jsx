@@ -23,7 +23,7 @@ function Login(props) {
             setMessage("Password incorrect");
             return;
         }
-        props.handleLogin();
+        props.handleLogin(pw);
         setLoggingIn(false);
         navigate('/');
     }
