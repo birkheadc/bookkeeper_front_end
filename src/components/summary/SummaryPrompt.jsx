@@ -1,14 +1,39 @@
 import React from 'react';
+import { useNavigate } from 'react-router-dom';
 import './SummaryPrompt.css'
 
 function SummaryPrompt(props) {
 
+    const navigate = useNavigate();
+
     const handleSingleDayCheckChange = (e) => {
+        let startDate = document.getElementById('start-date');
         let endDate = document.getElementById('end-date');
+
         let isSingleDay = e.target.checked;
+        
         if (isSingleDay === true) {
-            endDate.disable
+            endDate.value = startDate.value;
         }
+
+        endDate.disabled = isSingleDay;
+    }
+
+    const handleStartDateChange = () => {
+        let startDate = document.getElementById('start-date');
+        let endDate = document.getElementById('end-date');
+        let isSingleDay = document.getElementById('single-day-check').checked;
+
+        if (isSingleDay === true) {
+            endDate.value = startDate.value;
+        }
+    }
+
+    const handleSearch = () => {
+        let startDate = document.getElementById('start-date').value;
+        let endDate = document.getElementById('end-date').value;
+
+        navigate("/summary?startDate=" + startDate + "&endDate=" + endDate);
     }
 
     return(
@@ -18,7 +43,7 @@ function SummaryPrompt(props) {
                 <div className='summary-prompt-form-halves'>
                     <div className='summary-prompt-form-half'>
                         <label htmlFor='start-date'>From</label>
-                        <input id='start-date' type='date'></input>
+                        <input id='start-date' onChange={handleStartDateChange} type='date'></input>
                     </div>
                     <div className='summary-prompt-form-half'>
                         <div>
@@ -26,10 +51,10 @@ function SummaryPrompt(props) {
                             <input defaultChecked id='single-day-check' onChange={handleSingleDayCheckChange} type='checkbox'></input>
                             <label htmlFor='single-day-check'>Single day?</label>
                         </div>
-                        <input id='end-date' type='date'></input>
+                        <input disabled id='end-date' type='date'></input>
                     </div>
                 </div>
-                <button type='button'>Search</button>
+                <button onClick={handleSearch} type='button'>Search</button>
             </form>
         </>
     );
