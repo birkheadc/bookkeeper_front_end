@@ -14,7 +14,7 @@ function App() {
   const [isLoggedIn, setLoggedIn] = useState();
 
   useEffect(() => {
-    setLoggedIn(true);
+    setLoggedIn(false);
   }, [])
 
   const handleLogout = () => {

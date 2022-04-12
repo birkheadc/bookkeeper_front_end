@@ -13,10 +13,14 @@ async function verifyPassword(API_URL, password) {
 
     if (response.status === 200) {
         console.log("Password is correct");
-        return true;
+        return 200;
+    }
+    if (response.status === 404) {
+        console.log("Unable to connect to verification server.");
+        return 404;
     }
     console.log("Password is incorrect.");
-    return false;
+    return 401;
 }
 
 export default verifyPassword;

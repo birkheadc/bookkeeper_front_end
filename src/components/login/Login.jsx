@@ -18,9 +18,14 @@ function Login(props) {
 
         let isCorrect = await verifyPassword(process.env.REACT_APP_BOOKKEEPER_URL, pw);
 
-        if (isCorrect === false) {
+        if (isCorrect === 401) {
             setLoggingIn(false);
             setMessage("Password incorrect");
+            return;
+        }
+        if (isCorrect === 404) {
+            setLoggingIn(false);
+            setMessage("Unable to connect to server");
             return;
         }
         props.handleLogin(pw);
