@@ -2,9 +2,6 @@ async function fetchSummary(API_URL, startDate, endDate) {
 
     console.log("Attempting to fetch summary: " + startDate + " ~ " + endDate);
 
-    // TODO: Change this definitely.
-    const password = process.env.REACT_APP_BOOKKEEPER_PASSWORD;
-
     const subDir = "/transactions/summary";
     const apiUrl = API_URL + subDir;
 

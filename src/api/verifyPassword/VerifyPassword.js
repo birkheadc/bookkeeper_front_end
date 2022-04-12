@@ -3,13 +3,20 @@ async function verifyPassword(API_URL, password) {
     const apiUrl = API_URL + subDir;
     
     console.log("Attempting to verify password at: " + apiUrl);
-
-    let response = await fetch(apiUrl, {
-        method: 'POST',
-        headers: {
-            'Authorization': password
-        }
-    });
+    let response;
+    try {
+        response = await fetch(apiUrl, {
+            method: 'POST',
+            headers: {
+                'Authorization': password
+            }
+        });
+    }
+    catch {
+        console.log("Unable to connect to verification server.");
+        return 404;
+    }
+    
 
     if (response.status === 200) {
         console.log("Password is correct");

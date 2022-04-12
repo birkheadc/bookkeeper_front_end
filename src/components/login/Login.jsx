@@ -9,7 +9,8 @@ function Login(props) {
     const [message, setMessage] = useState();
     const navigate = useNavigate();
 
-    const handleLogin = async () => {
+    const handleLogin = async (e) => {
+        e.preventDefault();
         setLoggingIn(true);
 
         let pwField = document.getElementById('password-field');
@@ -49,12 +50,12 @@ function Login(props) {
         <div>
             <h1>Please log in</h1>
             {displayMessage()}
-            <form>
+            <form onSubmit={handleLogin}>
                 <div>
                     <label>Password</label>
                     <input id='password-field' type='password'></input>
                 </div>
-                <button onClick={handleLogin} type='button'>Login</button>
+                <button onClick={handleLogin} type='submit'>Login</button>
             </form>
         </div>
     );
