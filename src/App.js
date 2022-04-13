@@ -14,7 +14,7 @@ function App() {
   const [isLoggedIn, setLoggedIn] = useState();
 
   useEffect(() => {
-    setLoggedIn(false);
+    checkLoggedIn();
   }, [])
 
   const handleLogout = () => {
@@ -24,6 +24,14 @@ function App() {
   
   const handleLogin = async (pw) => {
     window.localStorage.setItem('password', pw);
+    setLoggedIn(true);
+  }
+
+  const checkLoggedIn = () => {
+    if (window.localStorage.getItem('password') === null || window.localStorage.getItem('password') === "") {
+      setLoggedIn(false);
+      return;
+    }
     setLoggedIn(true);
   }
 
