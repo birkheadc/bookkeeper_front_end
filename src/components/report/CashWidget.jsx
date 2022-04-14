@@ -38,7 +38,7 @@ function CashWidget(props) {
             }
             total += input.value * element.value;
         });
-
+        props.handleChange(total);
         setTotalCash(total);
     }
 

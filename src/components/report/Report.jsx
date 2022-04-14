@@ -27,12 +27,6 @@ function Report(props) {
     }, []);
 
     const renderPrompt = function() {
-        console.log("----------------------------------------");
-        console.log("IsLoading: " + isLoading);
-        console.log("isCashDefault: " + isCashDefault);
-        console.log("types: " + types);
-        console.log("denominations: " + denominations);
-        console.log("----------------------------------------");
 
         if (isLoading === undefined || isLoading === true) {
             return(
