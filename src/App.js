@@ -1,6 +1,6 @@
 import './App.css';
 import Navbar from './components/navbar/Navbar';
-import { Routes, Route, BrowserRouter, useNavigate } from 'react-router-dom';
+import { Routes, Route, BrowserRouter } from 'react-router-dom';
 import Home from './components/home/Home';
 import Report from './components/report/Report';
 import Settings from './components/settings/Settings';

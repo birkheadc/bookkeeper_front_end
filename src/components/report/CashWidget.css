@@ -1,0 +1,11 @@
+.cash-widget {
+    border: solid black 2px;
+
+    display: flex;
+    flex-direction: column;
+}
+
+.cash-widget-top {
+    display: flex;
+    flex-direction: row;
+}
