@@ -7,7 +7,10 @@ async function postReport(API_URL, transactions) {
 
     console.log("Attempting to post to: " + apiUrl);
     console.log("Object to post: ");
-    console.log(testTransactions);
+    console.log(transactions);
+
+    // console.log("Object we would like to post: ");
+    // console.log(transactions);
 
     try {
         let response = await fetch(apiUrl, {
@@ -17,7 +20,7 @@ async function postReport(API_URL, transactions) {
                 'Content-Type': 'application/json'
             },
             body: JSON.stringify({
-                transactions: testTransactions
+                transactions: transactions
             })
         });
         if (response.status !== 200) {

@@ -8,6 +8,7 @@ import postReport from '../../api/postReport/PostReport';
 
 function ReportPrompt(props) {
 
+    const [date, setDate] = useState(new Date());
     const [cash, setCash] = useState(0);
 
     const [hasAddedDefaults, setAddedDefaults] = useState(false);
@@ -102,7 +103,7 @@ function ReportPrompt(props) {
         const key = e.target.getAttribute('data-key');
         const polarity = e.target.getAttribute('data-polarity');
 
-        if (polarity === -1) {
+        if (polarity === -1 || polarity === '-1') {
             for (let i = 0; i < activeExpenseTypes.length; i ++) {
                 if (activeExpenseTypes[i].key === key) {
                     let types = [...activeExpenseTypes];
@@ -152,6 +153,63 @@ function ReportPrompt(props) {
         createNewTransaction(name, -1);
     }
 
+    const buildTransactions = function() {
+        let earnings = buildEarnings();
+        let expenses = buildExpenses();
+        let transactions = earnings.concat(expenses);
+        return transactions;
+    }
+
+    const buildEarnings = function() {
+        let earnings = [];
+        if (cash > 0) {
+            earnings.push({
+                'date': date,
+                'type': 'cash',
+                'amount': cash,
+                'note': ''
+            });
+        }
+        if (activeEarningTypes == null || activeEarningTypes.length < 1) {
+            return earnings;
+        }
+        activeEarningTypes.forEach(element => {
+            if (isNaN(element.value)) {
+                return;
+            }
+            if (element.value > 0) {
+                earnings.push({
+                    'date': date,
+                    'type': element.name,
+                    'amount': element.value * element.polarity,
+                    'note': ''
+                });
+            }
+        });
+        return earnings;
+    }
+
+    const buildExpenses = function() {
+        if (activeExpenseTypes == null || activeExpenseTypes.length < 1) {
+            return [];
+        }
+        let expenses = [];
+        activeExpenseTypes.forEach(element => {
+            if (isNaN(element.value)) {
+                return;
+            }
+            if (element.value > 0) {
+                expenses.push({
+                    'date': date,
+                    'type': element.name,
+                    'amount': element.value * element.polarity,
+                    'note': ''
+                });
+            }
+        });
+        return expenses;
+    }
+
     const handleSubmit = (e) => {
         e.preventDefault();
         console.log("----------------------------------------");
@@ -160,7 +218,8 @@ function ReportPrompt(props) {
         console.log(activeEarningTypes);
         console.log(activeExpenseTypes);
         console.log("----------------------------------------");
-        postReport(process.env.REACT_APP_BOOKKEEPER_URL, {});
+        
+        postReport(process.env.REACT_APP_BOOKKEEPER_URL, buildTransactions());
     }
 
     return(

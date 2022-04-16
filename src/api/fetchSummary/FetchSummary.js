@@ -2,7 +2,7 @@ async function fetchSummary(API_URL, startDate, endDate) {
 
     console.log("Attempting to fetch summary: " + startDate + " ~ " + endDate);
 
-    const subDir = "/transactions/summary";
+    const subDir = "/transaction/summary";
     const apiUrl = API_URL + subDir;
 
     const queryString = "?startDate=" + new Date(startDate).toLocaleDateString().replace(/\//g, '-') + "&endDate=" + new Date(endDate).toLocaleDateString().replace(/\//g, '-')
