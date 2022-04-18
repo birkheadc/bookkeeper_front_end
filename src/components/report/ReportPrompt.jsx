@@ -8,6 +8,7 @@ import postReport from '../../api/postReport/PostReport';
 import postTransactionTypes from '../../api/postReport/PostTransactionTypes';
 import postDenominations from '../../api/postReport/PostDenominations';
 import convertTransactionTypeName from '../../helpers/ConvertTransactionTypeName';
+import isTransactionNameValid from '../../helpers/IsTransactionNameValid';
 
 function ReportPrompt(props) {
 
@@ -37,7 +38,7 @@ function ReportPrompt(props) {
             })
         }
         setActiveEarningTypes(earnings);
-    }, [activeEarningTypes]);
+    }, []);
 
     const addActiveExpenses = useCallback((names) => {
         let expenses = [];
@@ -46,11 +47,12 @@ function ReportPrompt(props) {
                 'name': convertTransactionTypeName(names[i]),
                 'polarity': -1,
                 'key': getNewUUID(),
-                'value': 0
+                'value': 0,
+                'isAddToCash': false
             })
         }
         setActiveExpenseTypes(expenses);
-    }, [activeExpenseTypes]);
+    }, []);
 
     useEffect(() => {
         let earningTypes = [];
@@ -95,6 +97,9 @@ function ReportPrompt(props) {
     }, [transactionTypes, denominations, hasAddedDefaults, addActiveEarnings, addActiveExpenses]);
 
     const addActiveEarning = function(name) {
+        if (isTransactionNameValid(name) === false) {
+            return;
+        }
         const earning = {
             'name': convertTransactionTypeName(name),
             'polarity': 1,
@@ -110,11 +115,15 @@ function ReportPrompt(props) {
     }
 
     const addActiveExpense = function(name) {
+        if (isTransactionNameValid(name) === false) {
+            return;
+        }
         const expense = {
             'name': convertTransactionTypeName(name),
             'polarity': -1,
             'key': getNewUUID(),
-            'value': 0
+            'value': 0,
+            'isAddToCash': false
         }
         if (activeExpenseTypes == null) {
             setActiveExpenseTypes([expense]);
@@ -158,11 +167,30 @@ function ReportPrompt(props) {
         }
     }
 
+    const calculateBonusCash = function() {
+        if (activeExpenseTypes.length < 1) {
+            return 0;
+        }
+        
+        let bonus = 0;
+
+        activeExpenseTypes.forEach(element => {
+            if (element.isAddToCash === true) {
+                bonus += element.value;
+            }
+        });
+
+        return bonus;
+    }
+
     const handleCashChange = (value) => {
         setCash(value);
     }
 
     const createNewTransaction = function(name, polarity) {
+        if (isTransactionNameValid(name) === false) {
+            return;
+        }
         if (polarity === 1) {
             addActiveEarning(name);
         }
@@ -196,11 +224,12 @@ function ReportPrompt(props) {
 
     const buildEarnings = function() {
         let earnings = [];
-        if (cash > 0) {
+        let cashAndBonus = cash + parseInt(calculateBonusCash());
+        if (cashAndBonus > 0) {
             earnings.push({
                 'date': date,
                 'type': 'cash',
-                'amount': cash,
+                'amount': cashAndBonus,
                 'note': ''
             });
         }
@@ -273,15 +302,6 @@ function ReportPrompt(props) {
 
     const handleSubmit = (e) => {
         e.preventDefault();
-
-        console.log("TRANSACTIONS");
-        console.log(buildTransactions());
-        console.log("ACTIVE TRANSACTION TYPES");
-        console.log(getAllActiveTransactionTypes());
-        console.log("ACTIVE DENOMINATIONS");
-        console.log(getAllActiveDenominations());
-        console.log("ALL DENOMINATIONS");
-        console.log(denominations);
         
         postReport(process.env.REACT_APP_BOOKKEEPER_URL, buildTransactions());
 
@@ -339,8 +359,17 @@ function ReportPrompt(props) {
         const key = e.target.getAttribute('data-key');
         const isChecked = e.target.checked;
 
-        console.log("Change transaction with key: " + key);
-        console.log("New value should be: " + isChecked.toString());
+        let expenses = [...activeExpenseTypes];
+        let expense;
+        for (let i = 0; i < expenses.length; i++) {
+            if (expenses[i].key === key) {
+                expense = {...expenses[i]};
+                expense.isAddToCash = isChecked;
+                expenses[i] = expense;
+                break;
+            }
+        }
+        setActiveExpenseTypes(expenses);
     }
 
     return(
