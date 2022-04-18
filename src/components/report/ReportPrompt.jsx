@@ -5,6 +5,8 @@ import TransactionSelect from './TransactionSelect';
 import TransactionWidget from './TransactionWidget';
 import getNewUUID from '../../helpers/GetNewUUID';
 import postReport from '../../api/postReport/PostReport';
+import postTransactionTypes from '../../api/postReport/PostTransactionTypes';
+import postDenominations from '../../api/postReport/PostDenominations';
 
 function ReportPrompt(props) {
 
@@ -20,7 +22,78 @@ function ReportPrompt(props) {
     const [activeEarningTypes, setActiveEarningTypes] = useState();
     const [activeExpenseTypes, setActiveExpenseTypes] = useState();
 
-    const addActiveEarning = useCallback((name) => {
+    const [denominations, setDenominations] = useState(props.denominations);
+    const [activeDenominations, setActiveDenominations] = useState([]);
+
+    const addActiveEarnings = useCallback((names) => {
+        let earnings = [];
+        for (let i = 0; i < names.length; i++) {
+            earnings.push({
+                'name': names[i],
+                'polarity': 1,
+                'key': getNewUUID(),
+                'value': 0
+            })
+        }
+        setActiveEarningTypes(earnings);
+    }, [activeEarningTypes]);
+
+    const addActiveExpenses = useCallback((names) => {
+        let expenses = [];
+        for (let i = 0; i < names.length; i++) {
+            expenses.push({
+                'name': names[i],
+                'polarity': -1,
+                'key': getNewUUID(),
+                'value': 0
+            })
+        }
+        setActiveExpenseTypes(expenses);
+    }, [activeExpenseTypes]);
+
+    useEffect(() => {
+        let earningTypes = [];
+        let expenseTypes = [];
+        let defaultEarningTypes = [];
+        let defaultExpenseTypes = [];
+        let defaultDenominations = [];
+
+        transactionTypes.forEach(element => {
+            if (element.polarity === 1) {
+                earningTypes.push(element);
+                if (element.isDefault === true && hasAddedDefaults === false) {
+                    defaultEarningTypes.push(element.name);
+                }
+            }
+            else {
+                expenseTypes.push(element);
+                if (element.isDefault === true && hasAddedDefaults === false) {
+                    defaultExpenseTypes.push(element.name);
+                }
+            }
+        });
+
+        denominations.forEach(element => {
+            if (element.isDefault === true && hasAddedDefaults === false) {
+                defaultDenominations.push(element);
+            }
+        });
+
+        setEarningTypes(earningTypes);
+        setExpenseTypes(expenseTypes);
+
+        if (hasAddedDefaults === false) {
+
+            addActiveEarnings(defaultEarningTypes);
+            addActiveExpenses(defaultExpenseTypes);
+            setActiveDenominations(defaultDenominations);
+
+            setAddedDefaults(true);
+        }
+
+    }, [transactionTypes, denominations, hasAddedDefaults, addActiveEarnings, addActiveExpenses]);
+
+    const addActiveEarning = function(name) {
         const earning = {
             'name': name,
             'polarity': 1,
@@ -33,9 +106,9 @@ function ReportPrompt(props) {
         else {
             setActiveEarningTypes([...activeEarningTypes, earning]);
         }
-    }, [activeEarningTypes]);
+    }
 
-    const addActiveExpense = useCallback((name) => {
+    const addActiveExpense = function(name) {
         const expense = {
             'name': name,
             'polarity': -1,
@@ -48,46 +121,7 @@ function ReportPrompt(props) {
         else {
             setActiveExpenseTypes([...activeExpenseTypes, expense]);
         }
-    }, [activeExpenseTypes]);
-
-    useEffect(() => {
-        let earningTypes = [];
-        let expenseTypes = [];
-        let defaultEarningTypes = [];
-        let defaultExpenseTypes = [];
-
-        transactionTypes.forEach(element => {
-            if (element.polarity === 1) {
-                earningTypes.push(element);
-                if (element.isDefault === true && hasAddedDefaults === false) {
-                    defaultEarningTypes.push(element);
-                }
-            }
-            else {
-                expenseTypes.push(element);
-                if (element.isDefault === true && hasAddedDefaults === false) {
-                    defaultExpenseTypes.push(element);
-                }
-            }
-        });
-
-        setEarningTypes(earningTypes);
-        setExpenseTypes(expenseTypes);
-
-        if (hasAddedDefaults === false) {
-
-            defaultEarningTypes.forEach(element => {
-                addActiveEarning(element.name);
-            });
-    
-            defaultExpenseTypes.forEach(element => {
-                addActiveExpense(element.name);
-            });
-
-            setAddedDefaults(true);
-        }
-
-    }, [transactionTypes, hasAddedDefaults, addActiveEarning, addActiveExpense]);
+    }
 
     const handleAddEarning = (name) => {
         addActiveEarning(name);
@@ -124,7 +158,6 @@ function ReportPrompt(props) {
     }
 
     const handleCashChange = (value) => {
-        console.log("test")
         setCash(value);
     }
 
@@ -209,24 +242,99 @@ function ReportPrompt(props) {
         });
         return expenses;
     }
+    
+    const getAllActiveTransactionTypes = function() {
+        let all = [];
+        if (activeEarningTypes != null && activeEarningTypes.length > 0) {
+            activeEarningTypes.forEach(element => {
+                all.push({
+                    'name': element.name,
+                    'polarity': element.polarity,
+                    'isDefault': false
+                })
+            });
+        }
+        if (activeExpenseTypes != null && activeExpenseTypes.length > 0) {
+            activeExpenseTypes.forEach(element => {
+                all.push({
+                    'name': element.name,
+                    'polarity': element.polarity,
+                    'isDefault': false
+                })
+            });
+        }
+        return all;
+    }
+
+    const getAllActiveDenominations = function() {
+        return activeDenominations;
+    }
 
     const handleSubmit = (e) => {
         e.preventDefault();
-        console.log("----------------------------------------");
-        console.log("----------TOTAL UP THIS----------");
-        console.log("Cash = " + cash);
-        console.log(activeEarningTypes);
-        console.log(activeExpenseTypes);
-        console.log("----------------------------------------");
+
+        console.log("TRANSACTIONS");
+        console.log(buildTransactions());
+        console.log("ACTIVE TRANSACTION TYPES");
+        console.log(getAllActiveTransactionTypes());
+        console.log("ACTIVE DENOMINATIONS");
+        console.log(getAllActiveDenominations());
+        console.log("ALL DENOMINATIONS");
+        console.log(denominations);
         
         postReport(process.env.REACT_APP_BOOKKEEPER_URL, buildTransactions());
+
+        postTransactionTypes(process.env.REACT_APP_BOOKKEEPER_URL, getAllActiveTransactionTypes());
+
+        postDenominations(process.env.REACT_APP_BOOKKEEPER_URL, getAllActiveDenominations());
+    }
+
+    const handleAddDenomination = (value) => {
+        console.log("test");
+        if (isNaN(value)) {
+            return;
+        }
+        console.log("b")
+        for (let i = 0; i < activeDenominations.length; i++) {
+            if (activeDenominations[i].value.toString() === value.toString()) {
+                return;
+            }
+        }
+        console.log("c")
+        addActiveDenomination(value);
+    }
+
+    const createNewDenomination = function(value) {
+        for (let i = 0; i < denominations.length; i++) {
+            if (denominations[i].value.toString() === value.toString())
+            {
+                return;
+            }
+        }
+        addActiveDenomination(value);
+        setDenominations([...denominations, {
+            'value': parseInt(value),
+            'isDefault': false
+        }])
+    }
+
+    const promptNewDenomination = () => {
+        const value = prompt("Enter value of new denomination:");
+        createNewDenomination(value);
+    }
+
+    const addActiveDenomination = function(value) {
+        setActiveDenominations([...activeDenominations, {
+            'value': parseInt(value),
+            'isDefault': false
+        }]);
     }
 
     return(
         <form className='report-form' onSubmit={handleSubmit}>
             <div>
                 <h2>Earnings</h2>
-                <CashWidget display={props.isCashDefault} denominations={props.denominations} handleChange={handleCashChange}/>
+                <CashWidget display={props.isCashDefault} denominations={denominations} activeDenominations={activeDenominations} handleChange={handleCashChange} handleAddDenomination={handleAddDenomination} promptNewDenomination={promptNewDenomination}/>
                 <TransactionWidget handleValueChange={handleValueChange} transactions={activeEarningTypes} /> 
                 <TransactionSelect handleAddTransaction={handleAddEarning} promptNewTransaction={promptNewEarning} transactions={earningTypes} />
             </div>
