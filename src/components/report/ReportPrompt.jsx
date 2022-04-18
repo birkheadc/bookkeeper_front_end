@@ -7,10 +7,11 @@ import getNewUUID from '../../helpers/GetNewUUID';
 import postReport from '../../api/postReport/PostReport';
 import postTransactionTypes from '../../api/postReport/PostTransactionTypes';
 import postDenominations from '../../api/postReport/PostDenominations';
+import convertTransactionTypeName from '../../helpers/ConvertTransactionTypeName';
 
 function ReportPrompt(props) {
 
-    const [date, setDate] = useState(new Date());
+    const [date, setDate] = useState(new Date().toISOString().substring(0, 10));
     const [cash, setCash] = useState(0);
 
     const [hasAddedDefaults, setAddedDefaults] = useState(false);
@@ -29,7 +30,7 @@ function ReportPrompt(props) {
         let earnings = [];
         for (let i = 0; i < names.length; i++) {
             earnings.push({
-                'name': names[i],
+                'name': convertTransactionTypeName(names[i]),
                 'polarity': 1,
                 'key': getNewUUID(),
                 'value': 0
@@ -42,7 +43,7 @@ function ReportPrompt(props) {
         let expenses = [];
         for (let i = 0; i < names.length; i++) {
             expenses.push({
-                'name': names[i],
+                'name': convertTransactionTypeName(names[i]),
                 'polarity': -1,
                 'key': getNewUUID(),
                 'value': 0
@@ -95,7 +96,7 @@ function ReportPrompt(props) {
 
     const addActiveEarning = function(name) {
         const earning = {
-            'name': name,
+            'name': convertTransactionTypeName(name),
             'polarity': 1,
             'key': getNewUUID(),
             'value': 0
@@ -110,7 +111,7 @@ function ReportPrompt(props) {
 
     const addActiveExpense = function(name) {
         const expense = {
-            'name': name,
+            'name': convertTransactionTypeName(name),
             'polarity': -1,
             'key': getNewUUID(),
             'value': 0
@@ -290,17 +291,14 @@ function ReportPrompt(props) {
     }
 
     const handleAddDenomination = (value) => {
-        console.log("test");
         if (isNaN(value)) {
             return;
         }
-        console.log("b")
         for (let i = 0; i < activeDenominations.length; i++) {
             if (activeDenominations[i].value.toString() === value.toString()) {
                 return;
             }
         }
-        console.log("c")
         addActiveDenomination(value);
     }
 
@@ -320,6 +318,9 @@ function ReportPrompt(props) {
 
     const promptNewDenomination = () => {
         const value = prompt("Enter value of new denomination:");
+        if (isNaN(value)) {
+            return;
+        }
         createNewDenomination(value);
     }
 
@@ -330,17 +331,33 @@ function ReportPrompt(props) {
         }]);
     }
 
+    const handleDateChange = (e) => {
+        setDate(e.target.value);
+    }
+
+    const handleCheckChange = (e) => {
+        const key = e.target.getAttribute('data-key');
+        const isChecked = e.target.checked;
+
+        console.log("Change transaction with key: " + key);
+        console.log("New value should be: " + isChecked.toString());
+    }
+
     return(
         <form className='report-form' onSubmit={handleSubmit}>
             <div>
+                <label htmlFor={'report-form-date'}>Date</label>
+                <input value={date} id={'report-form-date'} onChange={handleDateChange} type='date'></input>
+            </div>
+            <div>
                 <h2>Earnings</h2>
                 <CashWidget display={props.isCashDefault} denominations={denominations} activeDenominations={activeDenominations} handleChange={handleCashChange} handleAddDenomination={handleAddDenomination} promptNewDenomination={promptNewDenomination}/>
-                <TransactionWidget handleValueChange={handleValueChange} transactions={activeEarningTypes} /> 
+                <TransactionWidget polarity={1} handleValueChange={handleValueChange} transactions={activeEarningTypes} /> 
                 <TransactionSelect handleAddTransaction={handleAddEarning} promptNewTransaction={promptNewEarning} transactions={earningTypes} />
             </div>
             <div>
                 <h2>Expenses</h2>
-                <TransactionWidget handleValueChange={handleValueChange} transactions={activeExpenseTypes} />
+                <TransactionWidget polarity={-1} handleCheckChange={handleCheckChange} handleValueChange={handleValueChange} transactions={activeExpenseTypes} />
                 <TransactionSelect handleAddTransaction={handleAddExpense} promptNewTransaction={promptNewExpense} transactions={expenseTypes} />
             </div>
             <button type='submit'>Submit</button>
