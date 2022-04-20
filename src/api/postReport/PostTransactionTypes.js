@@ -1,4 +1,8 @@
-async function postTransactionTypes(API_URL, transactionTypes) {
+async function postTransactionTypes(transactionTypes) {
+    if (process.env.REACT_APP_BOOKKEEPER_URL == null) {
+        console.log("Api url not set, aborting.");
+    }
+    const API_URL = process.env.REACT_APP_BOOKKEEPER_URL;
     const subdir = '/transactiontype';
     const apiUrl = API_URL + subdir;
 

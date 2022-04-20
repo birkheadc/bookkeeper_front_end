@@ -83,7 +83,7 @@ function SummaryPage(props) {
         }
 
         const getSummary = async () => {
-            const summary = await fetchSummary(props.apiUrl, startDate, endDate);
+            const summary = await fetchSummary(startDate, endDate);
             if (summary === null) {
                 setMessage("Error connecting to server.");
                 return;
@@ -93,7 +93,7 @@ function SummaryPage(props) {
         }
 
         getSummary();
-    }, [startDate, endDate, props.apiUrl]);
+    }, [startDate, endDate]);
 
     const displaySummary = function() {
         if (summary !== undefined && summary !== null) {

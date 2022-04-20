@@ -1,5 +1,9 @@
-async function fetchSettings(API_URL) {
-
+async function fetchSettings() {
+    if (process.env.REACT_APP_BOOKKEEPER_URL == null) {
+        console.log("Api url not set, aborting.");
+    }
+    const API_URL = process.env.REACT_APP_BOOKKEEPER_URL;
+    
     const subDir = "/setting";
     const apiUrl = API_URL + subDir;
     

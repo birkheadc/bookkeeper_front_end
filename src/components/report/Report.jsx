@@ -14,11 +14,11 @@ function Report(props) {
 
     useEffect(() => {
         const fetch = async () => {
-            let isCashDefault = await fetchSettings(process.env.REACT_APP_BOOKKEEPER_URL);
+            let isCashDefault = await fetchSettings();
             setCashDefault(isCashDefault.isCashDefault);
-            let types = await fetchTransactionTypes(process.env.REACT_APP_BOOKKEEPER_URL);
+            let types = await fetchTransactionTypes();
             setTypes(types);
-            let denominations = await fetchDenominations(process.env.REACT_APP_BOOKKEEPER_URL);
+            let denominations = await fetchDenominations();
             setDenominations(denominations);
             setLoading(false);
         }

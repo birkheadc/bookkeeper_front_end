@@ -1,4 +1,8 @@
-async function postDenominations(API_URL, denominations) {
+async function postDenominations(denominations) {
+    if (process.env.REACT_APP_BOOKKEEPER_URL == null) {
+        console.log("Api url not set, aborting.");
+    }
+    const API_URL = process.env.REACT_APP_BOOKKEEPER_URL;
     const subdir = '/denomination';
     const apiUrl = API_URL + subdir;
 

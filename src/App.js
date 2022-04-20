@@ -48,7 +48,7 @@ function App() {
               <Route path ='/report' element={<Report />} />
               <Route path ='/settings' element={<Settings />} />
               <Route path ='/login' element={<Login handleLogin={handleLogin}/>} />
-              <Route path ='/summary' element={<SummaryPage apiUrl={process.env.REACT_APP_BOOKKEEPER_URL}/>} />
+              <Route path ='/summary' element={<SummaryPage />} />
             </Routes>
           </main>
         </BrowserRouter>

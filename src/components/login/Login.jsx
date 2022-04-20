@@ -17,7 +17,7 @@ function Login(props) {
         let pw = pwField.value;
         pwField.value = "";
 
-        let isCorrect = await verifyPassword(process.env.REACT_APP_BOOKKEEPER_URL, pw);
+        let isCorrect = await verifyPassword(pw);
 
         if (isCorrect === 401) {
             setLoggingIn(false);

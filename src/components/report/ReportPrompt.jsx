@@ -303,11 +303,11 @@ function ReportPrompt(props) {
     const handleSubmit = (e) => {
         e.preventDefault();
         
-        postReport(process.env.REACT_APP_BOOKKEEPER_URL, buildTransactions());
+        postReport(buildTransactions());
 
-        postTransactionTypes(process.env.REACT_APP_BOOKKEEPER_URL, getAllActiveTransactionTypes());
+        postTransactionTypes(getAllActiveTransactionTypes());
 
-        postDenominations(process.env.REACT_APP_BOOKKEEPER_URL, getAllActiveDenominations());
+        postDenominations(getAllActiveDenominations());
     }
 
     const handleAddDenomination = (value) => {

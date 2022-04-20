@@ -10,6 +10,7 @@ Front end needs to recognize that "100" should be displayed as "$1.00", or "50" 
 
 ###Settings needed atm:
 
+-Cash Widget on or off by default
 -Current currency
 -Default denominations
 -Add / remove denominations entirely

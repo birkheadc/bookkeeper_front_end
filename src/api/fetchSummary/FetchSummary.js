@@ -1,4 +1,9 @@
-async function fetchSummary(API_URL, startDate, endDate) {
+async function fetchSummary(startDate, endDate) {
+
+    if (process.env.REACT_APP_BOOKKEEPER_URL == null) {
+        console.log("Api url not set, aborting.");
+    }
+    const API_URL = process.env.REACT_APP_BOOKKEEPER_URL;
 
     console.log("Attempting to fetch summary: " + startDate + " ~ " + endDate);
 

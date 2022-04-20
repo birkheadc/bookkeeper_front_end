@@ -1,4 +1,8 @@
-async function verifyPassword(API_URL, password) {
+async function verifyPassword(password) {
+    if (process.env.REACT_APP_BOOKKEEPER_URL == null) {
+        console.log("Api url not set, aborting.");
+    }
+    const API_URL = process.env.REACT_APP_BOOKKEEPER_URL;
     const subDir = "/password/verify";
     const apiUrl = API_URL + subDir;
     

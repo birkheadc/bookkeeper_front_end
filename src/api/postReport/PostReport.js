@@ -1,6 +1,8 @@
-async function postReport(API_URL, transactions) {
-
-    const testTransactions = getTestTransactions();
+async function postReport(transactions) {
+    if (process.env.REACT_APP_BOOKKEEPER_URL == null) {
+        console.log("Api url not set, aborting.");
+    }
+    const API_URL = process.env.REACT_APP_BOOKKEEPER_URL;
 
     const subdir = '/transaction/report';
     const apiUrl = API_URL + subdir;
@@ -8,9 +10,6 @@ async function postReport(API_URL, transactions) {
     console.log("Attempting to post to: " + apiUrl);
     console.log("Object to post: ");
     console.log(transactions);
-
-    // console.log("Object we would like to post: ");
-    // console.log(transactions);
 
     try {
         let response = await fetch(apiUrl, {
