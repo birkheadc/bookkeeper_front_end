@@ -9,6 +9,8 @@ function SummaryPage(props) {
 
     const [searchParams, setSearchParams] = useSearchParams();
 
+    const [status, setStatus] = useState('');
+
     // Dates are stored as seconds since epoch
     const [startDate, setStartDate] = useState();
     const [endDate, setEndDate] = useState();
@@ -53,8 +55,6 @@ function SummaryPage(props) {
     //     ],
     // }
     const [summary, setSummary] = useState();
-    
-    const [message, setMessage] = useState();
 
     // Runs when search parameters change
     useEffect(() => {
@@ -66,48 +66,53 @@ function SummaryPage(props) {
     useEffect(() => {
 
         setSummary(null);
+        setStatus('');
 
         if (searchParams.get("startDate") === null || searchParams.get("endDate") === null) {
-            setMessage("Please select date(s) to search.");
+            setStatus("Please select date(s) to search.");
             return;
         }
 
         if (isNaN(startDate) || isNaN(endDate)) {
-            setMessage("Bad format.");
+            setStatus("Bad format.");
             return;
         }
 
         if (endDate < startDate) {
-            setMessage("Start date must be before or the same as end date.");
+            setStatus("Start date must be before or the same as end date.");
             return;
         }
 
         const getSummary = async () => {
+            setStatus('Loading');
             const summary = await fetchSummary(startDate, endDate);
             if (summary === null) {
-                setMessage("Error connecting to server.");
+                setStatus("Error connecting to server.");
                 return;
             }
-            setMessage("Please select date(s) to search.");
             setSummary(summary);
+            setStatus('');
         }
 
         getSummary();
     }, [startDate, endDate]);
 
     const displaySummary = function() {
-        if (summary !== undefined && summary !== null) {
-            return(
-                <Summary summary={summary}/>
+        if (status !== '') {
+            return (
+                <h2>{status}</h2>
             );
         }
+        return (
+            <Summary summary={summary} />
+        );
     }
 
     return(
         <div>
             <h1>Summary</h1>
             {displaySummary()}
-            <SummaryPrompt message={message}/>
+            <SummaryPrompt />
         </div>
     );
 }

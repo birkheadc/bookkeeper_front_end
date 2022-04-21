@@ -29,7 +29,8 @@ function SummaryPrompt(props) {
         }
     }
 
-    const handleSearch = () => {
+    const handleSearch = (e) => {
+        e.preventDefault();
         let startDate = startDateInput.value;
         let endDate = endDateInput.value;
 
@@ -37,9 +38,9 @@ function SummaryPrompt(props) {
     }
 
     return(
-        <>
-        <h2>{props.message}</h2>
-            <form className='summary-prompt-form'>
+        <div>
+            <h2>Search</h2>
+            <form className='summary-prompt-form' onSubmit={handleSearch}>
                 <div className='summary-prompt-form-halves'>
                     <div className='summary-prompt-form-half'>
                         <label htmlFor='start-date'>From</label>
@@ -54,9 +55,9 @@ function SummaryPrompt(props) {
                         <input disabled id='end-date' type='date'></input>
                     </div>
                 </div>
-                <button onClick={handleSearch} type='button'>Search</button>
+                <button type='submit'>Search</button>
             </form>
-        </>
+        </div>
     );
 }
 
