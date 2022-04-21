@@ -300,14 +300,13 @@ function ReportPrompt(props) {
         return activeDenominations;
     }
 
-    const handleSubmit = (e) => {
+    const handleSubmit = async (e) => {
         e.preventDefault();
-        
-        postReport(buildTransactions());
-
-        postTransactionTypes(getAllActiveTransactionTypes());
-
-        postDenominations(getAllActiveDenominations());
+        props.beginSubmit();
+        await postReport(buildTransactions());
+        await postTransactionTypes(getAllActiveTransactionTypes());
+        await postDenominations(getAllActiveDenominations());
+        props.finishSubmit();
     }
 
     const handleAddDenomination = (value) => {

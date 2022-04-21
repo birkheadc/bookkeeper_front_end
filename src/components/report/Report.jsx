@@ -7,33 +7,41 @@ import fetchDenominations from '../../api/fetchDenominations/FetchDenominations'
 
 function Report(props) {
 
-    const [isLoading, setLoading] = useState();
+    const [status, setStatus] = useState('Loading');
     const [isCashDefault, setCashDefault] = useState();
     const [types, setTypes] = useState();
     const [denominations, setDenominations] = useState();
 
     useEffect(() => {
-        const fetch = async () => {
+        const getData = async () => {
+            setStatus('Loading');
             let isCashDefault = await fetchSettings();
             setCashDefault(isCashDefault.isCashDefault);
             let types = await fetchTransactionTypes();
             setTypes(types);
             let denominations = await fetchDenominations();
             setDenominations(denominations);
-            setLoading(false);
+            setStatus('');
         }
-        setLoading(true);
-        fetch();
+        getData();
     }, []);
+
+    const beginSubmit = function() {
+        setStatus('Submitting');
+    }
+
+    const finishSubmit = function() {
+        setStatus('');
+    }
 
     const renderPrompt = function() {
 
-        if (isLoading === undefined || isLoading === true) {
+        if (status !== '') {
             return(
-                <h2>Loading...</h2>
+                <h2>{status}</h2>
             );
         }
-        return <ReportPrompt isCashDefault={isCashDefault} transactionTypes={types} denominations={denominations}/>
+        return <ReportPrompt beginSubmit={beginSubmit} finishSubmit={finishSubmit} isCashDefault={isCashDefault} transactionTypes={types} denominations={denominations}/>
     }
     
     return(
