@@ -27,28 +27,32 @@ function ReportPrompt(props) {
     const [denominations, setDenominations] = useState(props.denominations);
     const [activeDenominations, setActiveDenominations] = useState([]);
 
-    const addActiveEarnings = useCallback((names) => {
+    const addActiveEarnings = useCallback((elements) => {
         let earnings = [];
-        for (let i = 0; i < names.length; i++) {
+        for (let i = 0; i < elements.length; i++) {
             earnings.push({
-                'name': convertTransactionTypeName(names[i]),
+                'name': convertTransactionTypeName(elements[i].name),
                 'polarity': 1,
                 'key': getNewUUID(),
-                'value': 0
+                'value': 0,
+                'isDefault': true,
+                'note': ''
             })
         }
         setActiveEarningTypes(earnings);
     }, []);
 
-    const addActiveExpenses = useCallback((names) => {
+    const addActiveExpenses = useCallback((elements) => {
         let expenses = [];
-        for (let i = 0; i < names.length; i++) {
+        for (let i = 0; i < elements.length; i++) {
             expenses.push({
-                'name': convertTransactionTypeName(names[i]),
+                'name': convertTransactionTypeName(elements[i].name),
                 'polarity': -1,
                 'key': getNewUUID(),
                 'value': 0,
-                'isAddToCash': false
+                'isAddToCash': false,
+                'isDefault': true,
+                'note': ''
             })
         }
         setActiveExpenseTypes(expenses);
@@ -65,13 +69,13 @@ function ReportPrompt(props) {
             if (element.polarity === 1) {
                 earningTypes.push(element);
                 if (element.isDefault === true && hasAddedDefaults === false) {
-                    defaultEarningTypes.push(element.name);
+                    defaultEarningTypes.push(element);
                 }
             }
             else {
                 expenseTypes.push(element);
                 if (element.isDefault === true && hasAddedDefaults === false) {
-                    defaultExpenseTypes.push(element.name);
+                    defaultExpenseTypes.push(element);
                 }
             }
         });
@@ -86,11 +90,9 @@ function ReportPrompt(props) {
         setExpenseTypes(expenseTypes);
 
         if (hasAddedDefaults === false) {
-
             addActiveEarnings(defaultEarningTypes);
             addActiveExpenses(defaultExpenseTypes);
             setActiveDenominations(defaultDenominations);
-
             setAddedDefaults(true);
         }
 
@@ -104,7 +106,9 @@ function ReportPrompt(props) {
             'name': convertTransactionTypeName(name),
             'polarity': 1,
             'key': getNewUUID(),
-            'value': 0
+            'value': 0,
+            'isDefault': false,
+            'note': ''
         }
         if (activeEarningTypes == null) {
             setActiveEarningTypes([earning]);
@@ -123,7 +127,9 @@ function ReportPrompt(props) {
             'polarity': -1,
             'key': getNewUUID(),
             'value': 0,
-            'isAddToCash': false
+            'isDefault': false,
+            'isAddToCash': false,
+            'note': ''
         }
         if (activeExpenseTypes == null) {
             setActiveExpenseTypes([expense]);
@@ -139,6 +145,31 @@ function ReportPrompt(props) {
 
     const handleAddExpense = (name) => {
         addActiveExpense(name);
+    }
+
+    const handleNoteChange = (e) => {
+        const note = e.target.value;
+        const key = e.target.getAttribute('data-key');
+        const polarity = e.target.getAttribute('data-polarity');
+
+        if (polarity === -1 || polarity === '-1') {
+            for (let i = 0; i < activeExpenseTypes.length; i ++) {
+                if (activeExpenseTypes[i].key === key) {
+                    let types = [...activeExpenseTypes];
+                    types[i].note = note;
+                    setActiveExpenseTypes(types);
+                }
+            }
+        }
+        else {
+            for (let i = 0; i < activeEarningTypes.length; i ++) {
+                if (activeEarningTypes[i].key === key) {
+                    let types = [...activeEarningTypes];
+                    types[i].note = note;
+                    setActiveEarningTypes(types);
+                }
+            }
+        }
     }
 
     const handleValueChange = (e) => {
@@ -245,7 +276,7 @@ function ReportPrompt(props) {
                     'date': date,
                     'type': element.name,
                     'amount': element.value * element.polarity,
-                    'note': ''
+                    'note': element.note
                 });
             }
         });
@@ -266,7 +297,7 @@ function ReportPrompt(props) {
                     'date': date,
                     'type': element.name,
                     'amount': element.value * element.polarity,
-                    'note': ''
+                    'note': element.note
                 });
             }
         });
@@ -280,7 +311,7 @@ function ReportPrompt(props) {
                 all.push({
                     'name': element.name,
                     'polarity': element.polarity,
-                    'isDefault': false
+                    'isDefault': element.isDefault
                 })
             });
         }
@@ -289,7 +320,7 @@ function ReportPrompt(props) {
                 all.push({
                     'name': element.name,
                     'polarity': element.polarity,
-                    'isDefault': false
+                    'isDefault': element.isDefault
                 })
             });
         }
@@ -380,12 +411,12 @@ function ReportPrompt(props) {
             <div>
                 <h2>Earnings</h2>
                 <CashWidget display={props.isCashDefault} denominations={denominations} activeDenominations={activeDenominations} handleChange={handleCashChange} handleAddDenomination={handleAddDenomination} promptNewDenomination={promptNewDenomination}/>
-                <TransactionWidget polarity={1} handleValueChange={handleValueChange} transactions={activeEarningTypes} /> 
+                <TransactionWidget polarity={1} handleNoteChange={handleNoteChange}  handleValueChange={handleValueChange} transactions={activeEarningTypes} /> 
                 <TransactionSelect handleAddTransaction={handleAddEarning} promptNewTransaction={promptNewEarning} transactions={earningTypes} />
             </div>
             <div>
                 <h2>Expenses</h2>
-                <TransactionWidget polarity={-1} handleCheckChange={handleCheckChange} handleValueChange={handleValueChange} transactions={activeExpenseTypes} />
+                <TransactionWidget polarity={-1} handleCheckChange={handleCheckChange} handleNoteChange={handleNoteChange} handleValueChange={handleValueChange} transactions={activeExpenseTypes} />
                 <TransactionSelect handleAddTransaction={handleAddExpense} promptNewTransaction={promptNewExpense} transactions={expenseTypes} />
             </div>
             <button type='submit'>Submit</button>
