@@ -6,17 +6,6 @@ Only thing that needs to change in back end is it needs to save the currency typ
 
 Front end needs to recognize that "100" should be displayed as "$1.00", or "50" should be "0.50" in USD, but in KRW it should be "₩100" or "₩50" if KRW.
 
-##Create settings menu.
-
-###Settings needed atm:
-
--Cash Widget on or off by default
--Current currency
--Default denominations
--Add / remove denominations entirely
--Default earning/expense transaction types
--Add / remove transaction types entirely
-
 ##Summary page needs a lot of work
 
 ###Include / ignore transaction types by check-box
