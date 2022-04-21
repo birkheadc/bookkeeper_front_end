@@ -4,12 +4,8 @@ function Summary(props) {
 
 
 
-    if (props.summary === undefined || props.summary === null) {
-        return(
-            <div>
-                <h2>Loading...</h2>
-            </div>
-        );
+    if (props.summary == null) {
+        return null;
     }
     return(
         <div>
