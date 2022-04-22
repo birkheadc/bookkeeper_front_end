@@ -4,6 +4,7 @@ import './Settings.css'
 import SettingWidget from './SettingWidget';
 import TransactionTypeWidget from './TransactionTypeWidget';
 import DenominationWidget from './DenominationWidget';
+import { Utils } from '../../helpers';
 
 function Settings(props) {
 
@@ -158,8 +159,8 @@ function Settings(props) {
         let newDenominations = [...denominations];
         let newDenomination;
         for (let i = 0; i < newDenominations.length; i++) {
-            console.log(newDenominations[i].value);
-            console.log(value);
+            Utils.devlog(newDenominations[i].value);
+            Utils.devlog(value);
             if (newDenominations[i].value.toString() === value) {
                 newDenomination = newDenominations[i];
                 break;
@@ -195,7 +196,7 @@ function Settings(props) {
         if (denominations == null) {
             return null;
         }
-        console.log(denominations);
+        Utils.devlog(denominations);
         return (
             <DenominationWidget denominations={denominations} handleDeleteDenomination={handleDeleteDenomination} handleIsDefaultChange={handleDenominationIsDefaultChange} handleNewDenomination={handleNewDenomination}/>
         );
@@ -219,7 +220,7 @@ function Settings(props) {
     }
 
     const handleCancel = () => {
-        console.log("Cancel");
+        Utils.devlog("Cancel");
         window.location.reload();
     }
 

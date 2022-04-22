@@ -1,6 +1,8 @@
+import { Utils } from '../../helpers'
+
 async function postReport(transactions) {
     if (process.env.REACT_APP_BOOKKEEPER_URL == null) {
-        console.log("Api url not set, aborting.");
+        Utils.devlog("Api url not set, aborting.");
         throw "Api url not configured.";
     }
     const API_URL = process.env.REACT_APP_BOOKKEEPER_URL;
@@ -9,9 +11,9 @@ async function postReport(transactions) {
     const apiUrl = API_URL + subdir;
 
     if (process.env.NODE_ENV === 'development') {
-        console.log("Attempting to post TRANSACTIONS to: " + apiUrl);
-        console.log("Object to post: ");
-        console.log(transactions);
+        Utils.devlog("Attempting to post TRANSACTIONS to: " + apiUrl);
+        Utils.devlog("Object to post: ");
+        Utils.devlog(transactions);
     }
 
     try {
@@ -26,13 +28,13 @@ async function postReport(transactions) {
             })
         });
         if (response.status !== 200) {
-            console.log("Failed to post transactions.");
+            Utils.devlog("Failed to post transactions.");
             throw "Could not connect to server."
         }
-        console.log("Successfully posted.");
+        Utils.devlog("Successfully posted.");
     }
     catch {
-        console.log("Failed to post transactions.");
+        Utils.devlog("Failed to post transactions.");
         throw "Could not connect to server."
     }
     

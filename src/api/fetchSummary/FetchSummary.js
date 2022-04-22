@@ -1,6 +1,8 @@
+import { Utils } from '../../helpers'
+
 async function fetchSummary(startDate, endDate) {
     if (process.env.REACT_APP_BOOKKEEPER_URL == null) {
-        console.log("Api url not set, aborting.");
+        Utils.devlog("Api url not set, aborting.");
         throw "Api url not configured.";
     }
     const API_URL = process.env.REACT_APP_BOOKKEEPER_URL;
@@ -11,7 +13,7 @@ async function fetchSummary(startDate, endDate) {
     const queryString = "?startDate=" + new Date(startDate).toLocaleDateString().replace(/\//g, '-') + "&endDate=" + new Date(endDate).toLocaleDateString().replace(/\//g, '-')
     
     if (process.env.NODE_ENV === 'development') {
-        console.log("Attempting to fetch SUMMARY from " + apiUrl + queryString);
+        Utils.devlog("Attempting to fetch SUMMARY from " + apiUrl + queryString);
     }
 
     try {
@@ -22,15 +24,15 @@ async function fetchSummary(startDate, endDate) {
             }
         });
         if (response.status !== 200) {
-            console.log("Failed to fetch summary. Access denied.");
+            Utils.devlog("Failed to fetch summary. Access denied.");
             throw "Could not connect to server."
         }
         let data = await response.json();
-        console.log("Successfully fetched summary.");
+        Utils.devlog("Successfully fetched summary.");
         return data;
     }
     catch {
-        console.log("Failed to fetch summary.");
+        Utils.devlog("Failed to fetch summary.");
         throw "Could not connect to server."
     }
 }

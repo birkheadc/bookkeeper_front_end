@@ -1,6 +1,8 @@
+import { Utils } from '../../helpers'
+
 async function fetchTransactionTypes() {
     if (process.env.REACT_APP_BOOKKEEPER_URL == null) {
-        console.log("Api url not set, aborting.");
+        Utils.devlog("Api url not set, aborting.");
         throw "Api url not configured.";
     }
     const API_URL = process.env.REACT_APP_BOOKKEEPER_URL;
@@ -9,7 +11,7 @@ async function fetchTransactionTypes() {
     const apiUrl = API_URL + subDir;
 
     if (process.env.NODE_ENV === 'development') {
-        console.log("Attempting to fetch TRANSACTION TYPES from: " + apiUrl);
+        Utils.devlog("Attempting to fetch TRANSACTION TYPES from: " + apiUrl);
     }
 
     try {
@@ -20,15 +22,15 @@ async function fetchTransactionTypes() {
             }
         });
         if (response.status !== 200) {
-            console.log("Unable to connect to server");
+            Utils.devlog("Unable to connect to server");
             throw "Could not connect to server."
         }
-        console.log("Fetched transaction types successfully.");
+        Utils.devlog("Fetched transaction types successfully.");
         let data = await response.json();
         return data;
     }
     catch {
-        console.log("Failed to fetch transaction types.");
+        Utils.devlog("Failed to fetch transaction types.");
         throw "Could not connect to server."
     }
 }

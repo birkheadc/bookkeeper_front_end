@@ -1,6 +1,8 @@
+import { Utils } from '../../helpers'
+
 async function deleteTransactionTypes(transactonTypes) {
     if (process.env.REACT_APP_BOOKKEEPER_URL == null) {
-        console.log("Api url not set, aborting.");
+        Utils.devlog("Api url not set, aborting.");
         throw "Api url not configured.";
     }
     const API_URL = process.env.REACT_APP_BOOKKEEPER_URL;
@@ -9,8 +11,8 @@ async function deleteTransactionTypes(transactonTypes) {
     const apiUrl = API_URL + subDir;
 
     if (process.env.NODE_ENV === 'development') {
-            console.log("Attempt to delete: ");
-            console.log(transactonTypes);
+            Utils.devlog("Attempt to delete: ");
+            Utils.devlog(transactonTypes);
     }
 
     try {
@@ -23,14 +25,14 @@ async function deleteTransactionTypes(transactonTypes) {
             body: JSON.stringify(transactonTypes)
         });
         if (response.status === 200) {
-            console.log("Successfully delete transaction types");
+            Utils.devlog("Successfully delete transaction types");
             return;
         }
-        console.log("Failed to delete transaction types");
+        Utils.devlog("Failed to delete transaction types");
         throw "Failed to delete transaction types."
     }
     catch {
-        console.log("Failed to delete transaction types");
+        Utils.devlog("Failed to delete transaction types");
         throw "Failed to delete transaction types."
     }
 
