@@ -1,7 +1,7 @@
-import React, { useEffect, useState } from 'react';
+import React, { useState } from 'react';
 import './Login.css';
-import verifyPassword from '../../api/verifyPassword/VerifyPassword';
 import { useNavigate } from 'react-router-dom';
+import { Api } from '../../api';
 
 function Login(props) {
 
@@ -17,7 +17,7 @@ function Login(props) {
         let pw = pwField.value;
         pwField.value = "";
 
-        let isCorrect = await verifyPassword(pw);
+        let isCorrect = await Api.verifyPassword(pw);
 
         if (isCorrect === 401) {
             setLoggingIn(false);

@@ -1,13 +1,16 @@
 async function fetchSettings() {
     if (process.env.REACT_APP_BOOKKEEPER_URL == null) {
         console.log("Api url not set, aborting.");
+        throw "Api url not configured.";
     }
     const API_URL = process.env.REACT_APP_BOOKKEEPER_URL;
     
     const subDir = "/setting";
     const apiUrl = API_URL + subDir;
-    
-    console.log("Attempting to fetch settings from: " + apiUrl);
+
+    if (process.env.NODE_ENV === 'development') {
+        console.log("Attempting to fetch settings from: " + apiUrl);
+    }
 
     try {
         let response = await fetch(apiUrl, {
@@ -18,7 +21,7 @@ async function fetchSettings() {
         });
         if (response.status !== 200) {
             console.log("Unable to connect to server");
-            return null;
+            throw "Could not connect to server."
         }
         console.log("Fetched settings successfully.");
         let data = await response.json();
@@ -26,7 +29,7 @@ async function fetchSettings() {
     }
     catch {
         console.log("Failed to fetch settings.");
-        return null;
+        throw "Could not connect to server."
     }
 }
 

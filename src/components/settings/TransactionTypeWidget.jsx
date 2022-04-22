@@ -1,5 +1,5 @@
-import React, { useEffect, useState } from 'react';
-import convertTransactionTypeName from '../../helpers/ConvertTransactionTypeName';
+import React from 'react';
+import { TransactionCategoryHelpers } from '../../helpers';
 import './TransactionTypeWidget.css'
 
 function TransactionTypeWidget(props) {
@@ -12,7 +12,7 @@ function TransactionTypeWidget(props) {
             props.transactionTypes.map(
                 transaction =>
                 <div key={transaction.name}>
-                    <label>{convertTransactionTypeName(transaction.name)}</label>
+                    <label>{TransactionCategoryHelpers.convertTransactionTypeName(transaction.name)}</label>
                     <select data-name={transaction.name} onChange={props.handlePolarityChange} value={transaction.polarity}>
                         <option value={1}>Earning</option>
                         <option value={-1}>Expense</option>

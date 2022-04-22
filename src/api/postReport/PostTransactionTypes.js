@@ -1,14 +1,18 @@
 async function postTransactionTypes(transactionTypes) {
     if (process.env.REACT_APP_BOOKKEEPER_URL == null) {
         console.log("Api url not set, aborting.");
+        throw "Api url not configured.";
     }
     const API_URL = process.env.REACT_APP_BOOKKEEPER_URL;
+
     const subdir = '/transactiontype';
     const apiUrl = API_URL + subdir;
 
-    console.log("Attempting to post transaction types to " + apiUrl);
-    console.log("Object to post: ");
-    console.log(transactionTypes);
+    if (process.env.NODE_ENV === 'development') {
+        console.log("Attempting to post TRANSACTION TYPES to " + apiUrl);
+        console.log("Object to post: ");
+        console.log(transactionTypes);
+    }
 
     try {
         let response = await fetch(apiUrl, {
@@ -24,10 +28,12 @@ async function postTransactionTypes(transactionTypes) {
             return;
         }
         console.log("Failed to post transaction types.");
+        throw "Could not connect to server."
         
     }
     catch {
-        console.loeg("Failed to post transaction types.");
+        console.log("Failed to post transaction types.");
+        throw "Could not connect to server."
     }
 }
 

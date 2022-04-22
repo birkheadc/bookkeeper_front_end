@@ -1,14 +1,18 @@
 async function postDenominations(denominations) {
     if (process.env.REACT_APP_BOOKKEEPER_URL == null) {
         console.log("Api url not set, aborting.");
+        throw "Api url not configured.";
     }
     const API_URL = process.env.REACT_APP_BOOKKEEPER_URL;
-    const subdir = '/denomination';
-    const apiUrl = API_URL + subdir;
 
-    console.log("Attempting to post denominations to " + apiUrl);
-    console.log("Object to post: ");
-    console.log(denominations);
+    const subDir = '/denomination';
+    const apiUrl = API_URL + subDir;
+
+    if (process.env.NODE_ENV === 'development') {
+        console.log("Attempting to post DENOMINATIONS to " + apiUrl);
+        console.log("Object to post: ");
+        console.log(denominations);
+    }
 
     try {
         let response = await fetch(apiUrl, {
@@ -24,10 +28,12 @@ async function postDenominations(denominations) {
             return;
         }
         console.log("Failed to post denominations.");
+        throw "Could not connect to server."
         
     }
     catch {
-        console.loeg("Failed to post denominations.");
+        console.log("Failed to post denominations.");
+        throw "Could not connect to server."
     }
 }
 

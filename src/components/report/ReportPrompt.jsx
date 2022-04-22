@@ -3,12 +3,8 @@ import CashWidget from './CashWidget';
 import './ReportPrompt.css'
 import TransactionSelect from './TransactionSelect';
 import TransactionWidget from './TransactionWidget';
-import getNewUUID from '../../helpers/GetNewUUID';
-import postReport from '../../api/postReport/PostReport';
-import postTransactionTypes from '../../api/postReport/PostTransactionTypes';
-import postDenominations from '../../api/postReport/PostDenominations';
-import convertTransactionTypeName from '../../helpers/ConvertTransactionTypeName';
-import isTransactionNameValid from '../../helpers/IsTransactionNameValid';
+import { Utils, TransactionCategoryHelpers } from '../../helpers';
+import { Api } from '../../api';
 
 function ReportPrompt(props) {
 
@@ -31,9 +27,9 @@ function ReportPrompt(props) {
         let earnings = [];
         for (let i = 0; i < elements.length; i++) {
             earnings.push({
-                'name': convertTransactionTypeName(elements[i].name),
+                'name': TransactionCategoryHelpers.convertTransactionTypeName(elements[i].name),
                 'polarity': 1,
-                'key': getNewUUID(),
+                'key': Utils.getNewUUID(),
                 'value': 0,
                 'isDefault': true,
                 'note': ''
@@ -46,9 +42,9 @@ function ReportPrompt(props) {
         let expenses = [];
         for (let i = 0; i < elements.length; i++) {
             expenses.push({
-                'name': convertTransactionTypeName(elements[i].name),
+                'name': TransactionCategoryHelpers.convertTransactionTypeName(elements[i].name),
                 'polarity': -1,
-                'key': getNewUUID(),
+                'key': Utils.getNewUUID(),
                 'value': 0,
                 'isAddToCash': false,
                 'isDefault': true,
@@ -99,13 +95,13 @@ function ReportPrompt(props) {
     }, [transactionTypes, denominations, hasAddedDefaults, addActiveEarnings, addActiveExpenses]);
 
     const addActiveEarning = function(name) {
-        if (isTransactionNameValid(name) === false) {
+        if (TransactionCategoryHelpers.isTransactionNameValid(name) === false) {
             return;
         }
         const earning = {
-            'name': convertTransactionTypeName(name),
+            'name': TransactionCategoryHelpers.convertTransactionTypeName(name),
             'polarity': 1,
-            'key': getNewUUID(),
+            'key': Utils.getNewUUID(),
             'value': 0,
             'isDefault': false,
             'note': ''
@@ -119,13 +115,13 @@ function ReportPrompt(props) {
     }
 
     const addActiveExpense = function(name) {
-        if (isTransactionNameValid(name) === false) {
+        if (TransactionCategoryHelpers.isTransactionNameValid(name) === false) {
             return;
         }
         const expense = {
-            'name': convertTransactionTypeName(name),
+            'name': TransactionCategoryHelpers.convertTransactionTypeName(name),
             'polarity': -1,
-            'key': getNewUUID(),
+            'key': Utils.getNewUUID(),
             'value': 0,
             'isDefault': false,
             'isAddToCash': false,
@@ -219,7 +215,7 @@ function ReportPrompt(props) {
     }
 
     const createNewTransaction = function(name, polarity) {
-        if (isTransactionNameValid(name) === false) {
+        if (TransactionCategoryHelpers.isTransactionNameValid(name) === false) {
             return;
         }
         if (polarity === 1) {
@@ -334,9 +330,9 @@ function ReportPrompt(props) {
     const handleSubmit = async (e) => {
         e.preventDefault();
         props.beginSubmit();
-        await postReport(buildTransactions());
-        await postTransactionTypes(getAllActiveTransactionTypes());
-        await postDenominations(getAllActiveDenominations());
+        await Api.postReport(buildTransactions());
+        await Api.postTransactionTypes(getAllActiveTransactionTypes());
+        await Api.postDenominations(getAllActiveDenominations());
         props.finishSubmit();
     }
 

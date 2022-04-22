@@ -1,5 +1,5 @@
 import React from 'react';
-import convertTransactionTypeName from '../../helpers/ConvertTransactionTypeName';
+import { TransactionCategoryHelpers } from '../../helpers';
 import './TransactionSelect.css'
 
 function TransactionSelect(props) {
@@ -28,7 +28,7 @@ function TransactionSelect(props) {
         return (
             props.transactions.map(
                 transaction =>
-                <option key={transaction.name} value={transaction.name}>{convertTransactionTypeName(transaction.name)}</option>
+                <option key={transaction.name} value={transaction.name}>{TransactionCategoryHelpers.convertTransactionTypeName(transaction.name)}</option>
             )
         );
     }

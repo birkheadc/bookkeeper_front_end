@@ -1,14 +1,17 @@
 async function deleteDenominations(denominations) {
     if (process.env.REACT_APP_BOOKKEEPER_URL == null) {
         console.log("Api url not set, aborting.");
+        throw "Api url not configured.";
     }
     const API_URL = process.env.REACT_APP_BOOKKEEPER_URL;
     
     const subDir = "/denomination";
     const apiUrl = API_URL + subDir;
 
-    console.log("Attempt to delete: ");
-    console.log(denominations);
+    if (process.env.NODE_ENV === 'development') {
+        console.log("Attempt to delete: ");
+        console.log(denominations);
+    }
 
     try {
         let response = await fetch(apiUrl, {
@@ -19,14 +22,16 @@ async function deleteDenominations(denominations) {
             },
             body: JSON.stringify(denominations)
         });
-        if (response.status === 200) {
-            console.log("Successfully deleted denominations");
-            return;
+        if (response.status !== 200) {
+            console.log("Failed to delete denominations");
+            throw "Could not connect to server.";
         }
-        console.log("Failed to delete denominations");
+        console.log("Successfully deleted denominations");
+        return;
     }
     catch {
         console.log("Failed to delete denominations");
+        throw "Could not connect to server.";
     }
 
     

@@ -1,5 +1,5 @@
-import React, { useEffect } from 'react';
-import { useNavigate, useSearchParams } from 'react-router-dom';
+import React from 'react';
+import { useNavigate } from 'react-router-dom';
 import './SummaryPrompt.css'
 
 function SummaryPrompt(props) {

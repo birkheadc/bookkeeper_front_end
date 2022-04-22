@@ -1,9 +1,7 @@
 import React, { useEffect, useState } from 'react';
 import './Report.css'
-import fetchSettings from '../../api/fetchSettings/FetchSettings';
 import ReportPrompt from './ReportPrompt';
-import fetchTransactionTypes from '../../api/fetchTransactionTypes/FetchTransactionTypes';
-import fetchDenominations from '../../api/fetchDenominations/FetchDenominations';
+import { Api } from '../../api';
 
 function Report(props) {
 
@@ -15,13 +13,19 @@ function Report(props) {
     useEffect(() => {
         const getData = async () => {
             setStatus('Loading');
-            let isCashDefault = await fetchSettings();
-            setCashDefault(isCashDefault.isCashDefault);
-            let types = await fetchTransactionTypes();
-            setTypes(types);
-            let denominations = await fetchDenominations();
-            setDenominations(denominations);
-            setStatus('');
+            try {
+                let isCashDefault = await Api.fetchSettings();
+                setCashDefault(isCashDefault.isCashDefault);
+                let types = await Api.fetchTransactionTypes();
+                setTypes(types);
+                let denominations = await Api.fetchDenominations();
+                setDenominations(denominations);
+                setStatus('');
+            }
+            catch(e) {
+                setStatus(e);
+            }
+            
         }
         getData();
     }, []);

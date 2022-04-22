@@ -1,6 +1,5 @@
-import React, { useEffect } from 'react';
+import React from 'react';
 import { NavLink } from 'react-router-dom';
-import LogoutButton from '../logoutButton/LogoutButton';
 import './Navbar.css';
 
 function Navbar(props) {

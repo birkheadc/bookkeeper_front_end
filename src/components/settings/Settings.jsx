@@ -1,16 +1,9 @@
 import React, { useEffect, useState } from 'react';
-import deleteDenominations from '../../api/deleteDenominations/DeleteDenominations';
-import deleteTransactionTypes from '../../api/deleteTransactionTypes/DeleteTransactionTypes';
-import fetchDenominations from '../../api/fetchDenominations/FetchDenominations';
-import fetchSettings from '../../api/fetchSettings/FetchSettings';
-import fetchTransactionTypes from '../../api/fetchTransactionTypes/FetchTransactionTypes';
-import postDenominations from '../../api/postReport/PostDenominations';
-import postSettings from '../../api/postReport/PostSettings';
-import postTransactionTypes from '../../api/postReport/PostTransactionTypes';
-import DenominationWidget from './DenominationWidget';
+import { Api } from '../../api';
 import './Settings.css'
 import SettingWidget from './SettingWidget';
 import TransactionTypeWidget from './TransactionTypeWidget';
+import DenominationWidget from './DenominationWidget';
 
 function Settings(props) {
 
@@ -27,13 +20,18 @@ function Settings(props) {
 
         const getData = async function() {
             setStatus('Loading');
-            let settings = await fetchSettings();
-            setSettings(settings);
-            let transactions = await fetchTransactionTypes();
-            setTransactionTypes(transactions);
-            let denominations = await fetchDenominations();
-            setDenominations(denominations);
-            setStatus('');
+            try {
+                let settings = await Api.fetchSettings();
+                setSettings(settings);
+                let transactions = await Api.fetchTransactionTypes();
+                setTransactionTypes(transactions);
+                let denominations = await Api.fetchDenominations();
+                setDenominations(denominations);
+                setStatus('');
+            }
+            catch(e) {
+                setStatus(e);
+            }
         }
 
         getData();
@@ -180,7 +178,7 @@ function Settings(props) {
             return null;
         }
         return (
-            <SettingWidget handleChange={handleSettingChangeCheckbox} label={'Is Cash On By Default'} name={'isCashDefault'} type={'checkbox'} value={settings.isCashDefault == 'true' ? true : false}/>
+            <SettingWidget handleChange={handleSettingChangeCheckbox} label={'Is Cash On By Default'} name={'isCashDefault'} type={'checkbox'} value={settings.isCashDefault === 'true' ? true : false}/>
         );
     }
 
@@ -228,12 +226,17 @@ function Settings(props) {
     const handleSubmit = async (e) => {
         e.preventDefault();
         setStatus('Submitting');
-        await deleteTransactionTypes(transactionNamesToDelete).next
-        await deleteDenominations(denominationValuesToDelete);
-        await postSettings(settings);
-        await postTransactionTypes(transactionTypes);
-        await postDenominations(denominations);
-        setStatus('');
+        try {
+            await Api.deleteTransactionTypes(transactionNamesToDelete).next
+            await Api.deleteDenominations(denominationValuesToDelete);
+            await Api.postSettings(settings);
+            await Api.postTransactionTypes(transactionTypes);
+            await Api.postDenominations(denominations);
+            setStatus('');
+        }
+        catch(e) {
+            setStatus(e);
+        }
     }
 
     return(

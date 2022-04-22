@@ -1,15 +1,18 @@
 async function postReport(transactions) {
     if (process.env.REACT_APP_BOOKKEEPER_URL == null) {
         console.log("Api url not set, aborting.");
+        throw "Api url not configured.";
     }
     const API_URL = process.env.REACT_APP_BOOKKEEPER_URL;
 
     const subdir = '/transaction/report';
     const apiUrl = API_URL + subdir;
 
-    console.log("Attempting to post to: " + apiUrl);
-    console.log("Object to post: ");
-    console.log(transactions);
+    if (process.env.NODE_ENV === 'development') {
+        console.log("Attempting to post TRANSACTIONS to: " + apiUrl);
+        console.log("Object to post: ");
+        console.log(transactions);
+    }
 
     try {
         let response = await fetch(apiUrl, {
@@ -24,13 +27,13 @@ async function postReport(transactions) {
         });
         if (response.status !== 200) {
             console.log("Failed to post transactions.");
-            return;
+            throw "Could not connect to server."
         }
         console.log("Successfully posted.");
     }
     catch {
         console.log("Failed to post transactions.");
-        return;
+        throw "Could not connect to server."
     }
     
 }

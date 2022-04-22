@@ -1,12 +1,17 @@
 async function verifyPassword(password) {
     if (process.env.REACT_APP_BOOKKEEPER_URL == null) {
         console.log("Api url not set, aborting.");
+        throw "Api url not configured.";
     }
     const API_URL = process.env.REACT_APP_BOOKKEEPER_URL;
+
     const subDir = "/password/verify";
     const apiUrl = API_URL + subDir;
+
+    if (process.env.NODE_ENV === 'development') {
+        console.log("Attempting to verify password at: " + apiUrl);
+    }
     
-    console.log("Attempting to verify password at: " + apiUrl);
     let response;
     try {
         response = await fetch(apiUrl, {

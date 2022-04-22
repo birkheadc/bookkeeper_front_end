@@ -1,7 +1,7 @@
 import React, { useEffect, useState } from 'react';
 import { useSearchParams } from 'react-router-dom';
 import './SummaryPage.css'
-import fetchSummary from '../../api/fetchSummary/FetchSummary';
+import { Api } from '../../api';
 import Summary from './Summary';
 import SummaryPrompt from './SummaryPrompt';
 
@@ -85,13 +85,18 @@ function SummaryPage(props) {
 
         const getSummary = async () => {
             setStatus('Loading');
-            const summary = await fetchSummary(startDate, endDate);
-            if (summary === null) {
-                setStatus("Error connecting to server.");
-                return;
+            try {
+                const summary = await Api.fetchSummary(startDate, endDate);
+                if (summary === null) {
+                    setStatus("Error connecting to server.");
+                    return;
+                }
+                setSummary(summary);
+                setStatus('');
             }
-            setSummary(summary);
-            setStatus('');
+            catch(e) {
+                setStatus(e);
+            }
         }
 
         getSummary();
