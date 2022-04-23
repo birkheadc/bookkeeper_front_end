@@ -2,6 +2,7 @@ import convertTransactionTypeName from "./ConvertTransactionTypeName";
 import devlog from "./Devlog";
 import getNewUUID from "./GetNewUUID";
 import isTransactionNameValid from "./IsTransactionNameValid";
+import isNoteNameValid from "./isNoteNameValid";
 
 const Utils = {
     devlog,
@@ -13,7 +14,12 @@ const TransactionCategoryHelpers = {
     isTransactionNameValid
 }
 
+const NoteHelpers = {
+    isNoteNameValid
+}
+
 export {
     Utils,
-    TransactionCategoryHelpers
+    TransactionCategoryHelpers,
+    NoteHelpers
 }

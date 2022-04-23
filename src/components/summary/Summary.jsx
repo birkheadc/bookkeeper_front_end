@@ -3,6 +3,10 @@ import './Summary.css'
 
 function Summary(props) {
 
+    const test = () => {
+        console.log('test');
+    }
+
     if (props.summary == null) {
         return null;
     }
@@ -27,12 +31,11 @@ function Summary(props) {
                         transaction =>
                         
                         <tr key={transaction.id}>    
-                            <td>{transaction.amount}</td>
-                            <td>{transaction.type}</td>
-                            <td>{transaction.note}</td>
-                            <td>{transaction.date.substr(0, 10)}</td>
+                            <td data-id={transaction.id} onClick={props.handleEditAmount}>{transaction.amount}</td>
+                            <td data-id={transaction.id} onClick={props.handleEditType}>{transaction.type}</td>
+                            <td data-id={transaction.id} onClick={props.handleEditNote}>{transaction.note}</td>
+                            <td data-id={transaction.id} onClick={props.handleEditDate}>{transaction.date.substr(0, 10)}</td>
                             <td><button data-id={transaction.id} onClick={props.handleDeleteTransaction} id={'transaction-delete_' + transaction.id}>Delete</button></td>
-                            <td><button data-id={transaction.id} onClick={props.handleEditTransaction} id={'transaction-edit_' + transaction.id}>Edit</button></td>
                         </tr>
                     )}
                 </tbody>
@@ -52,13 +55,12 @@ function Summary(props) {
                     {props.summary.negativeTransactions.map(
                         transaction =>
                         
-                        <tr key={transaction.id}>    
-                            <td>{transaction.amount}</td>
-                            <td>{transaction.type}</td>
-                            <td>{transaction.note}</td>
-                            <td>{transaction.date.substr(0, 10)}</td>
+                        <tr key={transaction.id}>
+                            <td onClick={props.handleEditAmount}>{transaction.amount}</td>
+                            <td onClick={props.handleEditType}>{transaction.type}</td>
+                            <td onClick={props.handleEditNote}>{transaction.note}</td>
+                            <td onClick={props.handleEditDate}>{transaction.date.substr(0, 10)}</td>
                             <td><button data-id={transaction.id} onClick={props.handleDeleteTransaction} id={'transaction-delete_' + transaction.id}>Delete</button></td>
-                            <td><button data-id={transaction.id} onClick={props.handleEditTransaction} id={'transaction-edit_' + transaction.id}>Edit</button></td>
                         </tr>
                     )}
                 </tbody>

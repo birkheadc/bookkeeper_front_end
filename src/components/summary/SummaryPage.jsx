@@ -4,7 +4,7 @@ import './SummaryPage.css'
 import { Api } from '../../api';
 import Summary from './Summary';
 import SummaryPrompt from './SummaryPrompt';
-import { Utils } from '../../helpers'
+import { TransactionCategoryHelpers, Utils, NoteHelpers } from '../../helpers'
 import deleteTransaction from '../../api/deleteTransaction/DeleteTransaction';
 
 function SummaryPage(props) {
@@ -124,6 +124,16 @@ function SummaryPage(props) {
         return undefined;
     }
 
+    const updateTransaction = async function(transaction) {
+        try {
+            await Api.updateTransactions([transaction]);
+            window.location.reload();
+        }
+        catch {
+            Utils.devlog("Failed to update transactions");
+        }
+    }
+
     const handleDeleteTransaction = async (e) => {
         const id = e.target.getAttribute('data-id');
         const transaction = getTransactionById(id);
@@ -140,6 +150,47 @@ function SummaryPage(props) {
         }
     }
 
+    const handleEditAmount = (e) => {
+        const id = e.target.getAttribute('data-id');
+        const transaction=getTransactionById(id);
+        const amount = prompt("Input new amount.");
+        if (isNaN(amount) === true || amount % 1 !== 0) {
+            alert("You must input a whole number.");
+            return;
+        }
+        transaction.amount =parseInt(amount);
+        updateTransaction(transaction);
+    }
+
+    const handleEditType = (e) => {
+        const id = e.target.getAttribute('data-id');
+        const transaction=getTransactionById(id);
+        const type = prompt("Input name of new category.");
+        if (TransactionCategoryHelpers.isTransactionNameValid(type) === false) {
+            alert("Category name may only contain letters, spaces, _ and/or -");
+            return;
+        }
+        transaction.type = type;
+        updateTransaction(transaction);
+        
+    }
+
+    const handleEditNote = (e) => {
+        const id = e.target.getAttribute('data-id');
+        const transaction=getTransactionById(id);
+        const note = prompt("Input new note.");
+        if (NoteHelpers.isNoteNameValid(note) === false) {
+            alert("Notes may only contain letters, spaces, _ and/or -");
+            return;
+        }
+        transaction.note = note;
+        updateTransaction(transaction);
+    }
+
+    const handleEditDate = (e) => {
+        alert("Sorry, date cannot be changed!");
+    }
+
     const handleEditTransaction = (e) => {
         Utils.devlog('edit: ' + e.target.getAttribute('data-id'));
     }
@@ -151,7 +202,7 @@ function SummaryPage(props) {
             );
         }
         return (
-            <Summary handleDeleteTransaction={handleDeleteTransaction} handleEditTransaction={handleEditTransaction} summary={summary} />
+            <Summary handleDeleteTransaction={handleDeleteTransaction} handleEditAmount={handleEditAmount} handleEditDate={handleEditDate} handleEditNote={handleEditNote} handleEditType={handleEditType} handleEditTransaction={handleEditTransaction} summary={summary} />
         );
     }
 

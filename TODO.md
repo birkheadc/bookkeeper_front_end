@@ -13,8 +13,6 @@ Front end needs to recognize that "100" should be displayed as "$1.00", or "50" 
 ie Earnings: 58% cash 41% card 1% direct-deposit, Expenses: 48% restock 15% rent 13% electric 4% delivery fees etc etc.
 Check a box to include / ignore numbers from this percentage as well
 
-##Ability to edit/remove individual transactions
-
 ##Ability to browse by day/week/month/year
 
 ##Quick select buttons on summary prompt to automatically select today/this week/month/year, maybe select week/month of (x day)

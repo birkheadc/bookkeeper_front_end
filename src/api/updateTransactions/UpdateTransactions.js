@@ -1,6 +1,6 @@
 import { Utils } from '../../helpers'
 
-async function postReport(transactions) {
+async function updateTransactions(transactions) {
     if (process.env.REACT_APP_BOOKKEEPER_URL == null) {
         Utils.devlog("Api url not set, aborting.");
         throw "Api url not configured.";
@@ -11,14 +11,14 @@ async function postReport(transactions) {
     const apiUrl = API_URL + subdir;
 
     if (process.env.NODE_ENV === 'development') {
-        Utils.devlog("Attempting to post TRANSACTIONS to: " + apiUrl);
+        Utils.devlog("Attempting to update TRANSACTIONS to: " + apiUrl);
         Utils.devlog("Object to post: ");
         Utils.devlog(transactions);
     }
 
     try {
         let response = await fetch(apiUrl, {
-            method: 'POST',
+            method: 'PUT',
             headers: {
                 'Authorization': window.localStorage.getItem('password'),
                 'Content-Type': 'application/json'
@@ -28,16 +28,16 @@ async function postReport(transactions) {
             })
         });
         if (response.status !== 200) {
-            Utils.devlog("Failed to post transactions.");
+            Utils.devlog("Failed to update transactions.");
             throw "Could not connect to server."
         }
-        Utils.devlog("Successfully posted.");
+        Utils.devlog("Successfully updated transactions.");
     }
     catch {
-        Utils.devlog("Failed to post transactions.");
+        Utils.devlog("Failed to update transactions.");
         throw "Could not connect to server."
     }
     
 }
 
-export default postReport;
+export default updateTransactions;
