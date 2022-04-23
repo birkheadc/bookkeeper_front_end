@@ -9,6 +9,7 @@ import postReport from "./postReport/PostReport";
 import postSettings from "./postReport/PostSettings";
 import postTransactionTypes from "./postReport/PostTransactionTypes";
 import verifyPassword from "./verifyPassword/VerifyPassword";
+import deleteTransaction from "./deleteTransaction/DeleteTransaction";
 
 const Api = {
     deleteDenominations,
@@ -21,7 +22,8 @@ const Api = {
     postReport,
     postSettings,
     postTransactionTypes,
-    verifyPassword
+    verifyPassword,
+    deleteTransaction
 }
 
 export { Api };

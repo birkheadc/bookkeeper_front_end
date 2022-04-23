@@ -3,8 +3,6 @@ import './Summary.css'
 
 function Summary(props) {
 
-
-
     if (props.summary == null) {
         return null;
     }
@@ -33,6 +31,8 @@ function Summary(props) {
                             <td>{transaction.type}</td>
                             <td>{transaction.note}</td>
                             <td>{transaction.date.substr(0, 10)}</td>
+                            <td><button data-id={transaction.id} onClick={props.handleDeleteTransaction} id={'transaction-delete_' + transaction.id}>Delete</button></td>
+                            <td><button data-id={transaction.id} onClick={props.handleEditTransaction} id={'transaction-edit_' + transaction.id}>Edit</button></td>
                         </tr>
                     )}
                 </tbody>
@@ -57,6 +57,8 @@ function Summary(props) {
                             <td>{transaction.type}</td>
                             <td>{transaction.note}</td>
                             <td>{transaction.date.substr(0, 10)}</td>
+                            <td><button data-id={transaction.id} onClick={props.handleDeleteTransaction} id={'transaction-delete_' + transaction.id}>Delete</button></td>
+                            <td><button data-id={transaction.id} onClick={props.handleEditTransaction} id={'transaction-edit_' + transaction.id}>Edit</button></td>
                         </tr>
                     )}
                 </tbody>
