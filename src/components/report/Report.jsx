@@ -2,13 +2,25 @@ import React, { useEffect, useState } from 'react';
 import './Report.css'
 import ReportPrompt from './ReportPrompt';
 import { Api } from '../../api';
+import { useSearchParams } from 'react-router-dom';
 
 function Report(props) {
 
+    const [searchParams, setSearchParams] = useSearchParams();
+
+    const [date, setDate] = useState();
+
     const [status, setStatus] = useState('Loading');
+
     const [isCashDefault, setCashDefault] = useState();
     const [types, setTypes] = useState();
     const [denominations, setDenominations] = useState();
+
+    const [csv, setCsv] = useState(null);
+
+    useEffect(() => {
+        setDate(searchParams.get("date"));
+    }, [searchParams]);
 
     useEffect(() => {
         const getData = async () => {
@@ -30,6 +42,10 @@ function Report(props) {
         getData();
     }, []);
 
+    const handleDateChange = (date) => {
+        setSearchParams({ 'date': date});
+    }
+
     const beginSubmit = function() {
         setStatus('Submitting');
     }
@@ -42,16 +58,51 @@ function Report(props) {
 
         if (status !== '') {
             return(
-                <h2>{status}</h2>
+                <div className='sub-section-wrapper'>
+                    <h2>{status}</h2>
+                </div>
             );
         }
-        return <ReportPrompt beginSubmit={beginSubmit} finishSubmit={finishSubmit} isCashDefault={isCashDefault} transactionTypes={types} denominations={denominations}/>
+        return <ReportPrompt beginSubmit={beginSubmit} defaultDate={date ? date : new Date().toISOString().substring(0, 10)} finishSubmit={finishSubmit} handleDateChange={handleDateChange} isCashDefault={isCashDefault} transactionTypes={types} denominations={denominations}/>
+    }
+
+    const handleCsvChange = (e) => {
+        setCsv(e.target.files[0]);
+    }
+
+    const uploadFile = async () => {
+        if (csv == null) {
+            alert("Please select a file to upload.");
+            return;
+        }
+        beginSubmit();
+        try {
+            console.log(csv);
+            await Api.uploadCsv(csv);
+            finishSubmit();
+        }
+        catch(e) {
+            alert(e);
+            finishSubmit();
+        }
+        
+    }
+
+    const renderUploadLink = function() {
+        return (
+            <form className='report-upload-form bordered padded'>
+                <h2>Upload by CSV</h2>
+                <input className='report-input upload-input' id='csv-file' onChange={handleCsvChange} type='file'></input>
+                <button className='report-submit-button upload-button' onClick={uploadFile} type='button'>Upload</button>
+            </form>
+        );
     }
     
     return(
-        <div>
+        <div className='section-wrapper'>
             <h1>Report</h1>
             {renderPrompt()}
+            {renderUploadLink()}
         </div>
     );
 }

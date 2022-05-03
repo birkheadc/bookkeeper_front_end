@@ -56,10 +56,10 @@ function Summary(props) {
                         transaction =>
                         
                         <tr key={transaction.id}>
-                            <td onClick={props.handleEditAmount}>{transaction.amount}</td>
-                            <td onClick={props.handleEditType}>{transaction.type}</td>
-                            <td onClick={props.handleEditNote}>{transaction.note}</td>
-                            <td onClick={props.handleEditDate}>{transaction.date.substr(0, 10)}</td>
+                            <td data-id={transaction.id} onClick={props.handleEditAmount}>{transaction.amount}</td>
+                            <td data-id={transaction.id} onClick={props.handleEditType}>{transaction.type}</td>
+                            <td data-id={transaction.id} onClick={props.handleEditNote}>{transaction.note}</td>
+                            <td data-id={transaction.id} onClick={props.handleEditDate}>{transaction.date.substr(0, 10)}</td>
                             <td><button data-id={transaction.id} onClick={props.handleDeleteTransaction} id={'transaction-delete_' + transaction.id}>Delete</button></td>
                         </tr>
                     )}

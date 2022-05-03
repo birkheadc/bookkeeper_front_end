@@ -1,0 +1,15 @@
+.report-upload-form {
+    display: flex;
+    flex-direction: column;
+    gap: 1em;
+}
+
+.upload-input {
+    max-width: 200px;
+    margin: 0 auto;
+}
+
+.upload-button {
+    width: fit-content;
+    margin: 0 auto;
+}

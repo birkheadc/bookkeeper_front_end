@@ -52,24 +52,45 @@ function CashWidget(props) {
         if (display === false) {
             return null;
         }
-        return props.activeDenominations.map(
-            denomination =>
-            <div className='cash-widget-row' key={denomination.value}>
-                <label htmlFor={'cash-widget-input$' + denomination.value}>{denomination.value}</label>
-                <input className='cash-widget-input' id={'cash-widget-input$' + denomination.value} onChange={updateTotalCash} type='number'></input>
-            </div>
+        return (
+            <>
+                <h5>Bills</h5>
+                {props.activeDenominations.map(
+                    denomination =>
+                    <div className='cash-widget-row' key={denomination.value}>
+                        <label htmlFor={'cash-widget-input$' + denomination.value}>{denomination.value}</label>
+                        <input className='cash-widget-input report-input' id={'cash-widget-input$' + denomination.value} onChange={updateTotalCash} type='number'></input>
+                    </div>
+                )}
+            </>
+        );
+    }
+
+    const displayDenominationSelect = function() {
+        if (display === false) {
+            return null;
+        }
+        return (
+            <DenominationSelect denominations={props.denominations} handleAddDenomination={handleAddDenomination} promptNewDenomination={promptNewDenomination} />
         );
     }
 
     return(
         <div className='cash-widget'>
-            <div className='cash-widget-top'>
-                    <h3>Cash</h3><input disabled type='number' value={totalCash}></input><button onClick={expandOrCollapse} type='button'>exp/col</button>
+            <h4>Cash</h4>
+            <div className='cash-widget-top report-transactions-row'>
+                <div>
+                    <label className='' htmlFor='total-cash-input'>Total</label>
+                    <input className='cash-widget-total-cash-input' disabled id='total-cash-input' type='number' value={totalCash}></input>
+                    <button className='cash-toggle-button' onClick={expandOrCollapse} type='button'>---</button>
                 </div>
-                <div className='cash-widget-body'>
-                    {displayDenominations()}
-                </div>
-                <DenominationSelect denominations={props.denominations} handleAddDenomination={handleAddDenomination} promptNewDenomination={promptNewDenomination} />
+
+            </div>
+            <div className='cash-widget-body'>
+                {displayDenominations()}
+                {displayDenominationSelect()}
+            </div>
+                
         </div>
     );
 }

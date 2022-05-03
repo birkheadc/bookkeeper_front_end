@@ -1,0 +1,15 @@
+.transaction-widgets-container {
+    display: flex;
+    flex-direction: column;
+    gap: 1em;
+}
+
+.transaction-widget {
+    border-style: solid;
+    border-width: 3px;
+    border-color: var(--clr-accent-1);
+
+    border-radius: 0.5em;
+
+    padding: 0.5em 1em 1em 1em;
+}

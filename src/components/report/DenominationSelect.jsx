@@ -33,7 +33,7 @@ function DenominationSelect(props) {
     }
 
     return(
-        <select onChange={handleSelect}>
+        <select className='denomination-select report-input' onChange={handleSelect}>
             <option value='$'>( Add Another )</option>
             {renderOptions()}
             <option value='$create-new'>( Create New )</option>

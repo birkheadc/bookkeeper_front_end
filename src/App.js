@@ -12,14 +12,24 @@ import LogoutButton from './components/logoutButton/LogoutButton';
 function App() {
 
   const [isLoggedIn, setLoggedIn] = useState();
+  const [width, setWidth] = useState(window.innerWidth);
 
   useEffect(() => {
     checkLoggedIn();
   }, [])
 
-  const handleLogout = () => {
+  useEffect(() => {
+    const handleResize = () => {
+        setWidth(window.innerWidth);
+    }
+    window.addEventListener('resize', handleResize);
+})
+
+  const handleLogout = (e) => {
+    e.preventDefault();
     window.localStorage.removeItem('password');
     setLoggedIn(false);
+    return false;
   }
   
   const handleLogin = async (pw) => {
@@ -40,16 +50,18 @@ function App() {
       <div className="App">
         <BrowserRouter>
           <header>
-            <Navbar isLoggedIn={isLoggedIn} logoutButton={<LogoutButton handleLogout={handleLogout}/>}/>
+            <Navbar MOBILE_WIDTH={800} width={width} isLoggedIn={isLoggedIn} logoutButton={<LogoutButton MOBILE_WIDTH={800} width={width} handleLogout={handleLogout}/>}/>
           </header>
           <main>
-            <Routes>
-              <Route path ='/' element={<Home />} />
-              <Route path ='/report' element={<Report />} />
-              <Route path ='/settings' element={<Settings />} />
-              <Route path ='/login' element={<Login handleLogin={handleLogin}/>} />
-              <Route path ='/summary' element={<SummaryPage />} />
-            </Routes>
+            <div className='main-wrapper'>
+              <Routes>
+                <Route path ='/' element={<Home />} />
+                <Route path ='/report' element={<Report />} />
+                <Route path ='/settings' element={<Settings />} />
+                <Route path ='/login' element={<Login handleLogin={handleLogin}/>} />
+                <Route path ='/summary' element={<SummaryPage />} />
+              </Routes>
+            </div>
           </main>
         </BrowserRouter>
       </div>
@@ -59,10 +71,12 @@ function App() {
     <div className="App">
         <BrowserRouter>
           <header>
-            <Navbar isLoggedIn={isLoggedIn} logoutButton={<LogoutButton handleLogout={handleLogout}/>}/>
+            <Navbar MOBILE_WIDTH={1000} width={width} isLoggedIn={isLoggedIn} logoutButton={<LogoutButton handleLogout={handleLogout}/>}/>
           </header>
           <main>
-            <Login handleLogin={handleLogin}/>
+            <div className='main-wrapper'>
+              <Login handleLogin={handleLogin}/>
+            </div>
           </main>
         </BrowserRouter>
       </div>

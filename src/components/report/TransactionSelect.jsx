@@ -34,7 +34,7 @@ function TransactionSelect(props) {
     }
 
     return(
-        <select onChange={handleAddTransaction}>
+        <select className='transaction-select report-input' onChange={handleAddTransaction}>
             <option value='$'>( Add Another )</option>
             {renderOptions()}
             <option value='$create-new'>( Create New )</option>

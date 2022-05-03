@@ -3,14 +3,39 @@ nav {
     padding: 0;
 
     width: 100vw;
-    border: solid black 3px;
+
+    position: fixed;
+
+    background-color: var(--clr-bg-1);
 }
 
 nav ul {
+    margin: 0;
+    padding: 0 3em;
     display: flex;
     flex-direction: row;
+    justify-content: center;
 
-    gap: 1em;
+    height: fit-content;
 
     list-style: none;
+}
+
+.navbar-link-active, .navbar-link-inactive {
+    padding: 1em;
+    display: block;
+}
+
+.navbar-link-active {
+    background-color: var(--clr-bg-1);
+}
+
+.navbar-link-active {
+    background-color: var(--clr-bg-2);
+}
+
+@media (max-width: 800px) {
+    .navbar-link-active, .navbar-link-inactive {
+        padding: 1em 2em;
+    }
 }

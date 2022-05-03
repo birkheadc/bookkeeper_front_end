@@ -11,6 +11,8 @@ import postTransactionTypes from "./postReport/PostTransactionTypes";
 import verifyPassword from "./verifyPassword/VerifyPassword";
 import deleteTransaction from "./deleteTransaction/DeleteTransaction";
 import updateTransactions from "./updateTransactions/UpdateTransactions";
+import fetchLastNDaysSummary from "./fetchLastNDaysSummary/FetchLastNDaysSummary";
+import uploadCsv from "./uploadCsv/UploadCsv";
 
 const Api = {
     deleteDenominations,
@@ -25,7 +27,9 @@ const Api = {
     postTransactionTypes,
     verifyPassword,
     deleteTransaction,
-    updateTransactions
+    updateTransactions,
+    fetchLastNDaysSummary,
+    uploadCsv
 }
 
 export { Api };

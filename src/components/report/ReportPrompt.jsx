@@ -7,8 +7,8 @@ import { Utils, TransactionCategoryHelpers } from '../../helpers';
 import { Api } from '../../api';
 
 function ReportPrompt(props) {
-
-    const [date, setDate] = useState(new Date().toISOString().substring(0, 10));
+    
+    const [date, setDate] = useState(props.defaultDate);
     const [cash, setCash] = useState(0);
 
     const [hasAddedDefaults, setAddedDefaults] = useState(false);
@@ -379,6 +379,7 @@ function ReportPrompt(props) {
 
     const handleDateChange = (e) => {
         setDate(e.target.value);
+        props.handleDateChange(e.target.value);
     }
 
     const handleCheckChange = (e) => {
@@ -399,23 +400,26 @@ function ReportPrompt(props) {
     }
 
     return(
-        <form className='report-form' onSubmit={handleSubmit}>
-            <div>
-                <label htmlFor={'report-form-date'}>Date</label>
-                <input value={date} id={'report-form-date'} onChange={handleDateChange} type='date'></input>
+        <form className='report-form bordered padded margined' onSubmit={handleSubmit}>
+            <h2>Record Transactions</h2>
+            <div className='padded report-date report-transactions-row'>
+                <label className='report-transactions-label' htmlFor={'report-form-date'}>Date</label>
+                <input className='report-input' value={date} id={'report-form-date'} onChange={handleDateChange} type='date'></input>
             </div>
-            <div>
-                <h2>Earnings</h2>
+            <div className='padded report-transactions'>
+                <h3>Earnings</h3>
                 <CashWidget display={props.isCashDefault} denominations={denominations} activeDenominations={activeDenominations} handleChange={handleCashChange} handleAddDenomination={handleAddDenomination} promptNewDenomination={promptNewDenomination}/>
                 <TransactionWidget polarity={1} handleNoteChange={handleNoteChange}  handleValueChange={handleValueChange} transactions={activeEarningTypes} /> 
                 <TransactionSelect handleAddTransaction={handleAddEarning} promptNewTransaction={promptNewEarning} transactions={earningTypes} />
             </div>
-            <div>
-                <h2>Expenses</h2>
+            <div className='padded report-transactions'>
+                <h3>Expenses</h3>
                 <TransactionWidget polarity={-1} handleCheckChange={handleCheckChange} handleNoteChange={handleNoteChange} handleValueChange={handleValueChange} transactions={activeExpenseTypes} />
                 <TransactionSelect handleAddTransaction={handleAddExpense} promptNewTransaction={promptNewExpense} transactions={expenseTypes} />
             </div>
-            <button type='submit'>Submit</button>
+            <div className='report-submit-button-wrapper'>
+                <button className='report-submit-button' type='submit'>Submit</button>
+            </div>
         </form>
     );
 }

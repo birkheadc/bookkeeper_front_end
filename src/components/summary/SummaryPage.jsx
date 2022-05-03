@@ -120,7 +120,7 @@ function SummaryPage(props) {
                 return transactions[i];
             }
         }
-        Utils.devlog("Failed to find transaction to delete...");
+        Utils.devlog("Failed to find transaction...");
         return undefined;
     }
 
@@ -154,6 +154,10 @@ function SummaryPage(props) {
         const id = e.target.getAttribute('data-id');
         const transaction=getTransactionById(id);
         const amount = prompt("Input new amount.");
+        if (amount == null)
+        {
+            return;
+        }
         if (isNaN(amount) === true || amount % 1 !== 0) {
             alert("You must input a whole number.");
             return;
@@ -166,6 +170,10 @@ function SummaryPage(props) {
         const id = e.target.getAttribute('data-id');
         const transaction=getTransactionById(id);
         const type = prompt("Input name of new category.");
+        if (type == null)
+        {
+            return;
+        }
         if (TransactionCategoryHelpers.isTransactionNameValid(type) === false) {
             alert("Category name may only contain letters, spaces, _ and/or -");
             return;
@@ -179,6 +187,10 @@ function SummaryPage(props) {
         const id = e.target.getAttribute('data-id');
         const transaction=getTransactionById(id);
         const note = prompt("Input new note.");
+        if (note == null)
+        {
+            return;
+        }
         if (NoteHelpers.isNoteNameValid(note) === false) {
             alert("Notes may only contain letters, spaces, _ and/or -");
             return;
@@ -191,10 +203,6 @@ function SummaryPage(props) {
         alert("Sorry, date cannot be changed!");
     }
 
-    const handleEditTransaction = (e) => {
-        Utils.devlog('edit: ' + e.target.getAttribute('data-id'));
-    }
-
     const displaySummary = function() {
         if (status !== '') {
             return (
@@ -202,7 +210,7 @@ function SummaryPage(props) {
             );
         }
         return (
-            <Summary handleDeleteTransaction={handleDeleteTransaction} handleEditAmount={handleEditAmount} handleEditDate={handleEditDate} handleEditNote={handleEditNote} handleEditType={handleEditType} handleEditTransaction={handleEditTransaction} summary={summary} />
+            <Summary handleDeleteTransaction={handleDeleteTransaction} handleEditAmount={handleEditAmount} handleEditDate={handleEditDate} handleEditNote={handleEditNote} handleEditType={handleEditType} summary={summary} />
         );
     }
 

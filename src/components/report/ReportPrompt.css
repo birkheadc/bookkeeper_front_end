@@ -1,3 +1,76 @@
 .report-form {
     background-color: var(--clr-form-background);
 }
+
+.report-transactions, .report-date {
+    display: flex;
+    flex-direction: column;
+    gap: 1em;
+}
+
+.report-date {
+    padding: 0.25em 0.5em;
+    width: fit-content;
+}
+
+.report-transactions-row {
+    display: flex;
+    flex-direction: row;
+    gap: 1em;
+    border-radius: 0.25em;
+    margin: 0.2em 0;
+    padding: 0.3em 0.5em;
+    background-color: var(--clr-bg-3);
+}
+
+.report-transactions-row div {
+    flex: 1 1 0px;
+    display: flex;
+    flex-direction: row;
+    gap: 1em;
+}
+
+.report-input {
+    background-color: var(--clr-bg-1);
+    color: var(--clr-text-1);
+    border-radius: 0.5em;
+    padding: 0.25em;
+    border-style: solid;
+    border-color: var(--clr-text-1);
+}
+
+.report-transactions-label {
+    padding: 0.25em;
+    flex-grow: 1;
+}
+
+.report-transactions-input {
+    flex-grow: 0;
+}
+
+.report-submit-button-wrapper {
+    width: 100%;
+    display: flex;
+    justify-content: center;
+}
+
+.report-submit-button {
+    background-color: var(--clr-bg-1);
+    color: var(--clr-accent-1);
+    border-radius: 1em;
+    border-color: var(--clr-accent-1);
+    padding: 0.25em 0.5em;
+
+    font-size: 1.5rem;
+}
+
+@media (max-width: 1000px) {
+
+    .report-transactions-input {
+        max-width: 150px;
+    }
+
+    .report-transactions-row {
+        flex-direction: column;
+    }
+}
