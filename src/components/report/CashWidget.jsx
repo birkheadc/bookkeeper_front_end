@@ -1,6 +1,7 @@
 import React, { useState } from 'react';
 import './CashWidget.css'
 import DenominationSelect from './DenominationSelect';
+import { LocaleConversions } from '../../helpers';
 
 function CashWidget(props) {
 
@@ -58,7 +59,7 @@ function CashWidget(props) {
                 {props.activeDenominations.map(
                     denomination =>
                     <div className='cash-widget-row' key={denomination.value}>
-                        <label className='report-transactions-label' htmlFor={'cash-widget-input$' + denomination.value}>{denomination.value}</label>
+                        <label className='report-transactions-label' htmlFor={'cash-widget-input$' + denomination.value}>{LocaleConversions.formatNumber(denomination.value)}</label>
                         <input className='cash-widget-input report-input' id={'cash-widget-input$' + denomination.value} onChange={updateTotalCash} type='number'></input>
                     </div>
                 )}

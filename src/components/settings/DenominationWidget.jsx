@@ -1,4 +1,5 @@
 import React from 'react';
+import { LocaleConversions } from '../../helpers';
 import './DenominationWidget.css'
 
 function DenominationWidget(props) {
@@ -20,7 +21,7 @@ function DenominationWidget(props) {
                     denomination =>
                     <div className='settings-transaction-row' key={denomination.value}>
                         <div className='settings-transaction-row-name'>
-                            <label>{denomination.value}</label>
+                            <label>{LocaleConversions.formatNumber(denomination.value)}</label>
                         </div>
                         <label htmlFor={'denomination-is-default_' + denomination.value}>Display by default?</label>
                         <input data-value={denomination.value} checked={denomination.isDefault} id={'denomination-is-default_' + denomination.value} onChange={props.handleIsDefaultChange} type='checkbox'></input>

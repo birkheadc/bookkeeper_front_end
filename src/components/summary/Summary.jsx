@@ -1,5 +1,6 @@
 import React from 'react';
 import './Summary.css'
+import { LocaleConversions } from '../../helpers';
 
 function Summary(props) {
 
@@ -42,21 +43,21 @@ function Summary(props) {
                 <div>
                     <div className='summary-totals-row'>
                         <h3 className='summary-totals-label '>Gross</h3>
-                        <h3 className='text-color summary-totals-value'>{gross}</h3>
+                        <h3 className='text-color summary-totals-value'>{LocaleConversions.formatNumber(gross)}</h3>
                     </div>
                     <div className='summary-totals-row'>
                         <h3 className='summary-totals-label '>Net</h3>
-                        <h3 className='text-color summary-totals-value'>{net}</h3>
+                        <h3 className='text-color summary-totals-value'>{LocaleConversions.formatNumber(net)}</h3>
                     </div>
                 </div>
                 <div>
                     <div className='summary-totals-row'>
                         <h3 className='summary-totals-label '>Average Gross</h3>
-                        <h3 className='text-color summary-totals-value'>{averageGross}</h3>
+                        <h3 className='text-color summary-totals-value'>{LocaleConversions.formatNumber(averageGross)}</h3>
                     </div>
                     <div className='summary-totals-row'>
                         <h3 className='summary-totals-label '>Average Net</h3>
-                        <h3 className='text-color summary-totals-value'>{averageNet}</h3>
+                        <h3 className='text-color summary-totals-value'>{LocaleConversions.formatNumber(averageNet)}</h3>
                     </div>
                 </div>
             </div>
@@ -102,7 +103,7 @@ function Summary(props) {
                 <tr key={transaction.id}>
                     <td className='home-summary-table-date' data-id={transaction.id} onClick={props.handleEditDate}>{transaction.date.substr(0, 10)}</td>
                     <td className='home-summary-table-date' data-id={transaction.id} onClick={props.handleEditType}>{transaction.type}</td>
-                    <td className='home-summary-table-gross' data-id={transaction.id} onClick={props.handleEditAmount}>{transaction.amount}</td>
+                    <td className='home-summary-table-gross' data-id={transaction.id} onClick={props.handleEditAmount}>{LocaleConversions.formatNumber(transaction.amount)}</td>
                     <td className='home-summary-table-button'><button className='home-create-button' data-id={transaction.id} onClick={props.handleDeleteTransaction} id={'transaction-delete_' + transaction.id}>{getCreateButtonContents()}</button></td>
                 </tr>
             );
@@ -112,7 +113,7 @@ function Summary(props) {
             <tr key={transaction.id}>
                 <td className='home-summary-table-date' data-id={transaction.id} onClick={props.handleEditDate}>{transaction.date.substr(0, 10)}</td>
                 <td className='home-summary-table-date' data-id={transaction.id} onClick={props.handleEditType}>{transaction.type}</td>
-                <td className='home-summary-table-gross' data-id={transaction.id} onClick={props.handleEditAmount}>{transaction.amount}</td>
+                <td className='home-summary-table-gross' data-id={transaction.id} onClick={props.handleEditAmount}>{LocaleConversions.formatNumber(transaction.amount)}</td>
                 <td className='summary-table-note' data-id={transaction.id} onClick={props.handleEditNote}>{transaction.note}</td>
                 <td className='home-summary-table-button'><button className='home-create-button' data-id={transaction.id} onClick={props.handleDeleteTransaction} id={'transaction-delete_' + transaction.id}>{getCreateButtonContents()}</button></td>
             </tr>

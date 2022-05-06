@@ -1,6 +1,7 @@
 import React from 'react';
 import DaySummary from './DaySummary';
 import './HomeSummary.css'
+import { LocaleConversions } from '../../helpers';
 
 function HomeSummary(props) {
 
@@ -25,12 +26,12 @@ function HomeSummary(props) {
         return (
             <div className='home-summary-totals'>
                 <div>
-                    <h3>Gross <span className='text-color'>{gross}</span></h3>
-                    <h3>Average <span className='text-color'>{averageGross}</span></h3>
+                    <h3>Gross <span className='text-color'>{LocaleConversions.formatNumber(gross)}</span></h3>
+                    <h3>Average <span className='text-color'>{LocaleConversions.formatNumber(averageGross)}</span></h3>
                 </div>
                 <div>
-                    <h3>Net <span className='text-color'>{net}</span></h3>
-                    <h3>Average <span className='text-color'>{averageNet}</span></h3>
+                    <h3>Net <span className='text-color'>{LocaleConversions.formatNumber(net)}</span></h3>
+                    <h3>Average <span className='text-color'>{LocaleConversions.formatNumber(averageNet)}</span></h3>
                 </div>
             </div>
         );

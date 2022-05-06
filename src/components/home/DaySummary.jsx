@@ -16,8 +16,6 @@ function DaySummary(props) {
     }
 
     const getCreateButtonContents = function() {
-        console.log("Current width: " + props.width);
-        console.log("Mobile width: " + process.env.REACT_APP_MOBILE_WIDTH);
         if (props.width < parseInt(process.env.REACT_APP_MOBILE_WIDTH)) {
             return '+';
         }
@@ -42,8 +40,8 @@ function DaySummary(props) {
     return(
         <tr>
             <td className='home-summary-table-date'>{getDate()}</td>  
-            <td className='home-summary-table-gross'>{props.summary.gross}</td>
-            <td className='home-summary-table-net'>{props.summary.net}</td>
+            <td className='home-summary-table-gross'>{LocaleConversions.formatNumber(props.summary.gross)}</td>
+            <td className='home-summary-table-net'>{LocaleConversions.formatNumber(props.summary.net)}</td>
             <td className='home-summary-table-button'>{displayCreateReportButton()}</td>
         </tr>
     );

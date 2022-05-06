@@ -5,6 +5,7 @@ import isTransactionNameValid from "./IsTransactionNameValid";
 import isNoteNameValid from "./isNoteNameValid";
 import getDayOfWeekFromDate from "./GetDayOfWeekFromDate";
 import getDateStringFromDate from "./GetDateStringFromDate";
+import formatNumber from "./FormatNumber";
 
 const Utils = {
     devlog,
@@ -22,7 +23,8 @@ const NoteHelpers = {
 
 const LocaleConversions = {
     getDayOfWeekFromDate,
-    getDateStringFromDate
+    getDateStringFromDate,
+    formatNumber
 }
 
 export {
