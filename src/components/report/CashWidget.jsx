@@ -53,16 +53,16 @@ function CashWidget(props) {
             return null;
         }
         return (
-            <>
+            <div className='cash-widget-denominations-wrapper'>
                 <h5>Bills</h5>
                 {props.activeDenominations.map(
                     denomination =>
                     <div className='cash-widget-row' key={denomination.value}>
-                        <label htmlFor={'cash-widget-input$' + denomination.value}>{denomination.value}</label>
+                        <label className='report-transactions-label' htmlFor={'cash-widget-input$' + denomination.value}>{denomination.value}</label>
                         <input className='cash-widget-input report-input' id={'cash-widget-input$' + denomination.value} onChange={updateTotalCash} type='number'></input>
                     </div>
                 )}
-            </>
+            </div>
         );
     }
 
@@ -78,8 +78,8 @@ function CashWidget(props) {
     return(
         <div className='cash-widget'>
             <h4>Cash</h4>
-            <div className='cash-widget-top report-transactions-row'>
-                <div>
+            <div className='cash-widget-top'>
+                <div className='cash-widget-row cash-widget-total-row'>
                     <label className='' htmlFor='total-cash-input'>Total</label>
                     <input className='cash-widget-total-cash-input' disabled id='total-cash-input' type='number' value={totalCash}></input>
                     <button className='cash-toggle-button' onClick={expandOrCollapse} type='button'>---</button>

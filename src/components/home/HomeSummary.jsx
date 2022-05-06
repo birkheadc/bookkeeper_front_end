@@ -39,15 +39,18 @@ function HomeSummary(props) {
     const displayIndividualDays = function() {
         return (
             <div className='home-summary-summaries-container'>
-                <table>
-                    <tr>
-                        <th>Date</th><th>Gross</th><th>Net</th>
-                    </tr>
-                
-                {props.summaries.map(
-                    summary =>
-                    <DaySummary key={summary.startDate} summary={summary} />
-                )}
+                <table className='home-summary-table'>
+                    <thead>
+                        <tr>
+                            <th>Date</th><th>Gross</th><th>Net</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        {props.summaries.map(
+                            summary =>
+                            <DaySummary key={summary.startDate} summary={summary} width={props.width} />
+                        )}
+                    </tbody>
                 </table>
             </div>
         );

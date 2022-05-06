@@ -206,11 +206,11 @@ function SummaryPage(props) {
     const displaySummary = function() {
         if (status !== '') {
             return (
-                <h2>{status}</h2>
+                null
             );
         }
         return (
-            <Summary handleDeleteTransaction={handleDeleteTransaction} handleEditAmount={handleEditAmount} handleEditDate={handleEditDate} handleEditNote={handleEditNote} handleEditType={handleEditType} summary={summary} />
+            <Summary width={props.width} handleDeleteTransaction={handleDeleteTransaction} handleEditAmount={handleEditAmount} handleEditDate={handleEditDate} handleEditNote={handleEditNote} handleEditType={handleEditType} summary={summary} />
         );
     }
 
@@ -226,6 +226,7 @@ function SummaryPage(props) {
     return(
         <div>
             <h1>Summary</h1>
+            <h2>{status}</h2>
             {displaySummary()}
             {displayPrompt()}
         </div>

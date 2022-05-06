@@ -55,11 +55,11 @@ function App() {
           <main>
             <div className='main-wrapper'>
               <Routes>
-                <Route path ='/' element={<Home />} />
-                <Route path ='/report' element={<Report />} />
-                <Route path ='/settings' element={<Settings />} />
+                <Route path ='/' element={<Home width={width} />} />
+                <Route path ='/report' element={<Report width={width}/>} />
+                <Route path ='/settings' element={<Settings width={width} />} />
                 <Route path ='/login' element={<Login handleLogin={handleLogin}/>} />
-                <Route path ='/summary' element={<SummaryPage />} />
+                <Route path ='/summary' element={<SummaryPage width={width}/>} />
               </Routes>
             </div>
           </main>

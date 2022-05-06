@@ -13,7 +13,7 @@ function LogoutButton(props) {
     }
 
     return(
-        <a className={'navbar-link-inactive'} href="" onClick={props.handleLogout}>{getLink()}</a>
+        <a className={'navbar-link navbar-link-inactive'} href="" onClick={props.handleLogout}>{getLink()}</a>
     );
 }
 

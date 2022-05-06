@@ -41,14 +41,14 @@ function Home(props) {
         if (status === '')
         {
             return (
-                <HomeSummary numDays={NUM_DAYS} summaries={summaries} />
+                <HomeSummary numDays={NUM_DAYS} summaries={summaries} width={props.width}/>
             );
         }
         return null;
     }
 
     return(
-        <div>
+        <div className=''>
             {displaySummaries()}
         </div>
     );

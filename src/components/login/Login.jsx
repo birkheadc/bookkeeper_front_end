@@ -47,15 +47,15 @@ function Login(props) {
         return <h1>Logging in...</h1>
     }
     return(
-        <div>
+        <div className='login-wrapper'>
             <h1>Please log in</h1>
             {displayMessage()}
             <form onSubmit={handleLogin}>
-                <div>
+                <div className='login-form-row'>
                     <label>Password</label>
-                    <input id='password-field' type='password'></input>
+                    <input className='login-form-input' id='password-field' type='password'></input>
                 </div>
-                <button onClick={handleLogin} type='submit'>Login</button>
+                <button className='login-button' onClick={handleLogin} type='submit'>Login</button>
             </form>
         </div>
     );

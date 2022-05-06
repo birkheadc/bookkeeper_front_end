@@ -179,7 +179,9 @@ function Settings(props) {
             return null;
         }
         return (
-            <SettingWidget handleChange={handleSettingChangeCheckbox} label={'Is Cash On By Default'} name={'isCashDefault'} type={'checkbox'} value={settings.isCashDefault === 'true' ? true : false}/>
+            <div>
+                <SettingWidget width={props.width} handleChange={handleSettingChangeCheckbox} label={'Is Cash On By Default'} name={'isCashDefault'} type={'checkbox'} value={settings.isCashDefault === 'true' ? true : false}/>
+            </div>
         );
     }
 
@@ -188,7 +190,7 @@ function Settings(props) {
             return null;
         }
         return (
-            <TransactionTypeWidget handleDeleteTransaction={handleDeleteTransaction} handleIsDefaultChange={handleTransactionIsDefaultChange} handleNewTransactionType={handleNewTransactionType} handlePolarityChange={handleTransactionPolarityChange} transactionTypes={transactionTypes}/>
+                <TransactionTypeWidget width={props.width} handleDeleteTransaction={handleDeleteTransaction} handleIsDefaultChange={handleTransactionIsDefaultChange} handleNewTransactionType={handleNewTransactionType} handlePolarityChange={handleTransactionPolarityChange} transactionTypes={transactionTypes}/>
         );
     }
 
@@ -198,7 +200,7 @@ function Settings(props) {
         }
         Utils.devlog(denominations);
         return (
-            <DenominationWidget denominations={denominations} handleDeleteDenomination={handleDeleteDenomination} handleIsDefaultChange={handleDenominationIsDefaultChange} handleNewDenomination={handleNewDenomination}/>
+            <DenominationWidget width={props.width} denominations={denominations} handleDeleteDenomination={handleDeleteDenomination} handleIsDefaultChange={handleDenominationIsDefaultChange} handleNewDenomination={handleNewDenomination}/>
         );
     }
 
@@ -210,11 +212,16 @@ function Settings(props) {
         }
         return (
             <form onSubmit={handleSubmit}>
-                {renderSettings()}
+                <div className='settings-section-wrapper'>
+                    <h2>Preferences</h2>
+                    {renderSettings()}
+                </div>
                 {renderTransactionTypes()}
                 {renderDenominations()}
-                <button onClick={handleCancel} type='button'>Cancel</button>
-                <button type='submit'>Submit</button>
+                <div className='settings-button-wrapper'>
+                    <button onClick={handleCancel} type='button'>Cancel</button>
+                    <button type='submit'>Submit</button>
+                </div>
             </form>
         );
     }

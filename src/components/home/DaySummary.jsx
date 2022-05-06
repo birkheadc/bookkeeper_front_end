@@ -3,6 +3,9 @@ import { useNavigate } from 'react-router-dom';
 import { LocaleConversions, Utils } from '../../helpers';
 import './DaySummary.css'
 
+import createReportIcon from '../../media/images/icons/plus_icon.png';
+
+
 function DaySummary(props) {
 
     const navigate = useNavigate();
@@ -12,20 +15,36 @@ function DaySummary(props) {
         navigate(path);
     }
 
+    const getCreateButtonContents = function() {
+        console.log("Current width: " + props.width);
+        console.log("Mobile width: " + process.env.REACT_APP_MOBILE_WIDTH);
+        if (props.width < parseInt(process.env.REACT_APP_MOBILE_WIDTH)) {
+            return '+';
+        }
+        return 'Create';
+    }
+
     const displayCreateReportButton = function() {
         if (props.summary.gross === 0 && props.summary.net === 0) {
             return (
-                <button onClick={handleCreateReportButton} type='button'>Create</button>
+                <button className='home-create-button' onClick={handleCreateReportButton} type='button'>{getCreateButtonContents()}</button>
             );
         }
     }
 
+    const getDate = function() {
+        if (props.width < 500) {
+            return LocaleConversions.getDateStringFromDate(props.summary.startDate);
+        }
+        return LocaleConversions.getDayOfWeekFromDate(props.summary.startDate) + ' ' + LocaleConversions.getDateStringFromDate(props.summary.startDate);
+    }
+
     return(
         <tr>
-            <td>{LocaleConversions.getDayOfWeekFromDate(props.summary.startDate)} {LocaleConversions.getDateStringFromDate(props.summary.startDate)}</td>  
-            <td>{props.summary.gross}</td>
-            <td>{props.summary.net}</td>
-            <td>{displayCreateReportButton()}</td>
+            <td className='home-summary-table-date'>{getDate()}</td>  
+            <td className='home-summary-table-gross'>{props.summary.gross}</td>
+            <td className='home-summary-table-net'>{props.summary.net}</td>
+            <td className='home-summary-table-button'>{displayCreateReportButton()}</td>
         </tr>
     );
 }

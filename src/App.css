@@ -1,20 +1,39 @@
+@import url('https://fonts.googleapis.com/css?family=Lato');
+@import url('https://fonts.googleapis.com/css?family=Koulen');
+@import url('https://fonts.googleapis.com/css?family=Roboto');
+
+/* Remove arrows from number inputs */
+
+/* Chrome, Safari, Edge, Opera */
+input::-webkit-outer-spin-button,
+input::-webkit-inner-spin-button {
+  -webkit-appearance: none;
+  margin: 0;
+}
+
+/* Firefox */
+input[type=number] {
+  -moz-appearance: textfield;
+}
+
 :root {
-    --clr-form-background: #2A2C24;
-    --clr-bg-1: #151612;
-    --clr-bg-2: #2A2C24;
-    --clr-bg-3: #404337;
+    --clr-form-background: #1C1F22;
+    --clr-bg-1: #121416;
+    --clr-bg-2: #1C1F22;
+    --clr-bg-3: #25292D;
 
-    --clr-text-1: #E9F1F7;
+    --clr-text-1: #FFFFFC;
 
-    --clr-accent-1: #C2E812;
-    --clr-accent-2: #1098F7;
+    --clr-accent-1: #01BAEF;
+    --clr-accent-2: #FFFFFC;
 
-    --clr-border-1: #E9F1F7;
+    --clr-border-1: #FFFFFC;
 }
 
 html {
     background-color: var(--clr-bg-1);
     color: var(--clr-text-1);
+    font-family: 'Roboto', sans-serif;
 }
 
 main {
@@ -25,25 +44,34 @@ main {
 a {
     text-decoration: none;
     color: var(--clr-accent-1);
+    font-family: 'Lato', sans-serif;
 }
 
 a:hover, a:focus {
     color: var(--clr-accent-2);
 }
 
+button {
+    font-family: 'Lato', sans-serif;
+}
+
 .main-wrapper {
-    border-radius: 1em;
     box-sizing: border-box;
     padding: 4em 2em 2em 2em;
     margin: 0 auto;
-    width: fit-content;
+    width: 1000px;
     background-color: var(--clr-bg-2);
+    min-height: 100vh;
 }
 
 .section-wrapper {
     display: flex;
     flex-direction: column;
     justify-items: center;
+}
+
+h1, h2, h3, h4, h5, h6 {
+    font-family: 'Koulen', sans-serif;
 }
 
 h1, h2 {
@@ -59,20 +87,20 @@ h1 {
 }
 
 h2 {
-    font-size: 2.25rem;
+    font-size: 2.5rem;
 }
 
 h3 {
-    font-size: 1.75rem;
+    font-size: 2rem;
 }
 
 h4 {
-    font-size: 1.5rem;
+    font-size: 1.75rem;
     color: var(--clr-accent-1);
 }
 
 h5 {
-    font-size: 1.25rem;
+    font-size: 1.4rem;
     color: var(--clr-accent-1);
 }
 
@@ -92,6 +120,11 @@ h5 {
 .margined {
     margin: 1rem 0;
 }
+
+.hide-me {
+    visibility: hidden;
+}
+
 @media (max-width: 1000px) {
 
     html {
@@ -100,6 +133,7 @@ h5 {
 
     .main-wrapper {
         width: 100%;
-        max-width: 100%;
+        padding-right: 0.5em;
+        padding-left: 0.5em;
     }
 }

@@ -3,6 +3,7 @@ import './Report.css'
 import ReportPrompt from './ReportPrompt';
 import { Api } from '../../api';
 import { useSearchParams } from 'react-router-dom';
+import { render } from '@testing-library/react';
 
 function Report(props) {
 
@@ -55,14 +56,6 @@ function Report(props) {
     }
 
     const renderPrompt = function() {
-
-        if (status !== '') {
-            return(
-                <div className='sub-section-wrapper'>
-                    <h2>{status}</h2>
-                </div>
-            );
-        }
         return <ReportPrompt beginSubmit={beginSubmit} defaultDate={date ? date : new Date().toISOString().substring(0, 10)} finishSubmit={finishSubmit} handleDateChange={handleDateChange} isCashDefault={isCashDefault} transactionTypes={types} denominations={denominations}/>
     }
 
@@ -97,12 +90,29 @@ function Report(props) {
             </form>
         );
     }
+
+    const render = function() {
+        if (status !== '') {
+            return(
+                <div className='sub-section-wrapper'>
+                    <h2>{status}</h2>
+                </div>
+            );
+        }
+        return(
+            <>
+                {renderPrompt()}
+                {renderUploadLink()}
+            </>
+        );
+    }
     
     return(
         <div className='section-wrapper'>
             <h1>Report</h1>
-            {renderPrompt()}
-            {renderUploadLink()}
+            {render()}
+            {/* {renderPrompt()}
+            {renderUploadLink()} */}
         </div>
     );
 }

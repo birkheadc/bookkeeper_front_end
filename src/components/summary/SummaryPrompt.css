@@ -1,28 +1,49 @@
+.summary-prompt-wrapper {
+    width: fit-content;
+    margin: 0 auto;
+
+    width: auto;
+}
+
 .summary-prompt-form {
     display: flex;
     flex-direction: column;
 
     width: fit-content;
+
+    gap: 1em;
+    margin: 0 auto;
 }
 
-.summary-prompt-form-halves {
+.summary-prompt-form-row {
     display: flex;
     flex-direction: row;
-
+    align-items: center;
     gap: 1em;
 }
 
-.summary-prompt-form-half {
-    display: flex;
-    flex-direction: column;
+.summary-prompt-form-label {
+    width: 90px;
 }
 
 .summary-prompt-form-half div {
     display: flex;
-    flex-direction: row;
+    flex-direction: column;
 }
 
 .summary-prompt-form button {
     margin: 1em auto;
     width: fit-content;
+}
+
+.summary-prompt-button {
+    background-color: var(--clr-bg-1);
+    color: var(--clr-accent-1);
+    border-radius: 0.25em;
+    border-color: var(--clr-accent-1);
+    padding: 0.1em 0.5em 0.2em 0.5em;
+
+    font-size: 1rem;
+
+    margin: 0 auto;
 }

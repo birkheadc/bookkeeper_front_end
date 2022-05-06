@@ -1,0 +1,95 @@
+.summary-wrapper h3 {
+    text-align: center;
+}
+
+.summary-date {
+    display: flex;
+    flex-direction: row;
+    gap: 1em;
+    width: 100%;
+    justify-content: center;
+}
+
+.summary-totals {
+    display: flex;
+    flex-direction: row;
+
+    box-sizing: border-box;
+    width: 100%;
+    padding: 0 2em;
+    margin: 0 auto;
+
+    justify-content: space-between;
+}
+
+.summary-totals-row{
+    display: flex;
+    flex-direction: row;
+    gap: 2em;
+}
+
+.summary-totals-row h3 {
+    width: 100%;
+    white-space: nowrap;
+}
+
+.summary-totals-row-section {
+    
+}
+
+.summary-totals-label {
+    
+}
+
+.summary-totals-value {
+    text-align: right;
+}
+
+.right-align {
+    text-align: right;
+}
+
+.summary-summaries-container {
+    display: flex;
+    flex-direction: row;
+    width: 100%;
+    padding: 2em;
+    box-sizing: border-box;
+}
+
+.summary-table {
+    border-collapse: collapse;
+    width: 100%;
+}
+
+.summary-table th {
+    color: var(--clr-accent-1);
+    border-bottom: solid var(--clr-accent-1) 1px;
+    font-size: 1.25em;
+    padding: 1em;
+}
+
+.summary-table-note {
+    text-align: left;
+    border-bottom: solid var(--clr-border-1) 1px;
+    padding: 1em 2em;
+}
+
+@media (max-width: 1000px) {
+
+    .summary-date {
+        flex-direction: column;
+        gap: 0em;
+    }
+
+    .summary-totals {
+        flex-direction: column;
+        gap: 0em;
+        max-width: 30em;
+    }
+    
+    .summary-totals-row {
+        flex-direction: row;
+        gap: 0em;
+    }
+}

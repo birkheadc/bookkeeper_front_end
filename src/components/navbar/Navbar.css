@@ -21,9 +21,10 @@ nav ul {
     list-style: none;
 }
 
-.navbar-link-active, .navbar-link-inactive {
+.navbar-link {
     padding: 1em;
     display: block;
+    font-family: 'Lato', sans-serif;
 }
 
 .navbar-link-active {

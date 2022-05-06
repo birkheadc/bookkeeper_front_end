@@ -23,20 +23,22 @@
     background-color: var(--clr-bg-3);
 }
 
-.report-transactions-row div {
-    flex: 1 1 0px;
+.report-transactions-row-section {
     display: flex;
     flex-direction: row;
     gap: 1em;
+
+    align-items: center;
 }
 
 .report-input {
     background-color: var(--clr-bg-1);
     color: var(--clr-text-1);
     border-radius: 0.5em;
-    padding: 0.25em;
+    padding: 0.25em 0.5em;
     border-style: solid;
     border-color: var(--clr-text-1);
+    text-align: right;
 }
 
 .report-transactions-label {
@@ -71,6 +73,16 @@
     }
 
     .report-transactions-row {
+        display:inline;
         flex-direction: column;
+        gap: 1em;
+        background: none;
+    }
+    
+    .report-transactions-row-section {
+        border-radius: 0.5em;
+        margin: 0.2em 0;
+        padding: 0.5em 0.75em;
+        background-color: var(--clr-bg-3);
     }
 }

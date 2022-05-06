@@ -16,6 +16,10 @@
     flex-direction: row;
 }
 
+.cash-widget-total-row {
+    width: 100%;
+}
+
 .cash-widget-total-cash-input {
     background-color: var(--clr-bg-3);
     border-style: dotted;
@@ -25,6 +29,13 @@
     color: var(--clr-text-1);
 
     width: 200px;
+
+    text-align: right;
+    padding-right: 0.5em;
+
+    font-size: 1.5rem;
+
+    min-width: 200px;
 }
 
 .cash-toggle-button {
@@ -37,10 +48,37 @@
     font-size: 1rem;
 }
 
+.cash-widget-body, .cash-widget-denominations-wrapper {
+    display: flex;
+    flex-direction: column;
+    gap: 0.5em;
+}
+
+.cash-widget-body {
+    padding: 1em 0;
+}
+
+.cash-widget-row {
+    display: flex;
+    flex-direction: row;
+    gap: 0.5em;
+    align-items: center;
+
+    background-color: var(--clr-bg-3);
+    padding: 0.5em 1em;
+    border-radius: 0.5em;
+}
+
 @media (max-width: 1000px) {
 
     .cash-widget-total-cash-input {
         width: 50px;
         flex-grow: 1;
+        min-width: 0px;
+        max-width:200px;
+    }
+
+    .cash-widget-input {
+        max-width: 150px;
     }
 }

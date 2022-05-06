@@ -21,12 +21,12 @@ function Navbar(props) {
 
     const getNavlinkClass = function(linkName) {
         if (props.isLoggedIn === false) {
-            return 'navbar-link-inactive';
+            return 'navbar-link navbar-link-inactive';
         }
         if (linkName === activeLink) {
-            return 'navbar-link-active';
+            return 'navbar-link navbar-link-active';
         }
-        return 'navbar-link-inactive';
+        return 'navbar-link navbar-link-inactive';
     }
 
     const getSessionLink = function() {

@@ -1,6 +1,29 @@
 .home-summary-summaries-container {
     display: flex;
     flex-direction: row;
+    width: fit-content;
+    margin: 0 auto;
+}
+
+.home-summary-table {
+    border-collapse: collapse;
+}
+
+.home-summary-table th{
+    color: var(--clr-accent-1);
+    border-bottom: solid var(--clr-accent-1) 1px;
+    font-size: 1.25em;
+    padding: 1em;
+}
+
+.home-summary-table-date, .home-summary-table-gross, .home-summary-table-net {
+    text-align: right;
+    border-bottom: solid var(--clr-border-1) 1px;
+    padding: 1em 2em;
+}
+
+.home-summary-table-button {
+    padding: 0 1em;
 }
 
 .home-summary-totals {
@@ -26,4 +49,8 @@
     .home-summary-totals {
         width: 400px;
     }
+
+    .home-summary-table-date, .home-summary-table-gross, .home-summary-table-net {
+        padding: 0.5em 1em;
+    }   
 }
