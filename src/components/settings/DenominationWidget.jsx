@@ -33,10 +33,12 @@ function DenominationWidget(props) {
     }
 
     return(
-        <div className='settings-section-wrapper'>
+        <div className='settings-subsection-wrapper'>
             <h2>Denominations</h2>
             {renderDenominations()}
-            <button className='settings-add-button' onClick={props.handleNewDenomination} type='button'>Add New</button>
+            <div className='settings-button-wrapper'>
+                <button className='settings-add-button' onClick={props.handleNewDenomination} type='button'>Add New</button>
+            </div>
         </div>
     );
 }

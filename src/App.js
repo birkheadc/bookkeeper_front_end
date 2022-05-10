@@ -57,7 +57,7 @@ function App() {
               <Routes>
                 <Route path ='/' element={<Home width={width} />} />
                 <Route path ='/report' element={<Report width={width}/>} />
-                <Route path ='/settings' element={<Settings width={width} />} />
+                <Route path ='/settings' element={<Settings handleLogin={handleLogin} width={width} />} />
                 <Route path ='/login' element={<Login handleLogin={handleLogin}/>} />
                 <Route path ='/summary' element={<SummaryPage width={width}/>} />
               </Routes>

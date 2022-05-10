@@ -16,5 +16,3 @@ Check a box to include / ignore numbers from this percentage as well
 ##Ability to browse by day/week/month/year
 
 ##Quick select buttons on summary prompt to automatically select today/this week/month/year, maybe select week/month of (x day)
-
-##Password change function - back end is already fully in place

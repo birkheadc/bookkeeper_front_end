@@ -55,10 +55,12 @@ function TransactionTypeWidget(props) {
     }
 
     return(
-        <div className='settings-section-wrapper'>
+        <div className='settings-subsection-wrapper'>
             <h2>Transaction Categories</h2>
             {renderTransactionTypes()}
-            <button className='settings-add-button' onClick={props.handleNewTransactionType} type='button'>Add New</button>
+            <div className='settings-button-wrapper'>
+                <button className='settings-add-button' onClick={props.handleNewTransactionType} type='button'>Add New</button>
+            </div>
         </div>
     );
 }

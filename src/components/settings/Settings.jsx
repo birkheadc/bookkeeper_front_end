@@ -77,6 +77,9 @@ function Settings(props) {
 
     const handleNewTransactionType = () => {
         const name = prompt("Enter name of new transaction category.");
+        if (name == null || name.length < 1) {
+            return;
+        }
         for (let i = 0; i < transactionTypes.length; i++) {
             if (transactionTypes[i].name === name) {
                 alert("A category with that name already exists.");
@@ -126,6 +129,17 @@ function Settings(props) {
 
     const handleNewDenomination = () => {
         const value = prompt("Enter value of new denomination.");
+        if (value == null) {
+            return;
+        }
+        if (isNaN(value)) {
+            alert('Must be a number!');
+            return;
+        }
+        if (value <= 0) {
+            alert('Must be a positive number!');
+            return;
+        }
         for (let i = 0; i < denominations.length; i++) {
             if (denominations[i].value.toString() === value) {
                 alert("A denomination with that value already exists.");
@@ -204,6 +218,44 @@ function Settings(props) {
         );
     }
 
+    const changePassword = async (e) => {
+        e.preventDefault();
+        setStatus('Submitting');
+        try {
+            const oldPassword = document.getElementById('settings-change-password-old-password').value;
+            const newPassword = document.getElementById('settings-change-password-new-password').value;
+            await Api.changePassword(oldPassword, newPassword);
+            props.handleLogin(newPassword);
+            setStatus('');
+        }
+        catch(e) {
+            setStatus(e);
+        }
+    }
+
+    const renderChangePasswordForm = function() {
+        return (
+            <div className='settings-change-password-form padded margined bordered'>
+                <h2>Change Password</h2>
+                <form onSubmit={changePassword}>
+                    <div className='settings-change-password-form'>
+                        <div className='settings-change-password-form-row'>
+                            <label htmlFor='settings-change-password-old-password'>Old Password</label>
+                            <input className='login-form-input' id='settings-change-password-old-password' type='password'></input>
+                        </div>
+                        <div className='settings-change-password-form-row'>
+                            <label htmlFor='settings-change-password-new-password'>New Password</label>
+                            <input className='login-form-input' id='settings-change-password-new-password' type='password'></input>
+                        </div>
+                        <div className='settings-change-password-button-wrapper'>
+                            <button type='submit'>Submit</button>
+                        </div>
+                    </div>
+                </form>
+            </div>
+        );
+    }
+
     const renderForm = function() {
         if (status !== '') {
             return (
@@ -211,18 +263,21 @@ function Settings(props) {
             );
         }
         return (
-            <form onSubmit={handleSubmit}>
+            <>
                 <div className='settings-section-wrapper'>
-                    <h2>Preferences</h2>
-                    {renderSettings()}
+                    <form onSubmit={handleSubmit}>
+                        {renderSettings()}
+                        {renderTransactionTypes()}
+                        {renderDenominations()}
+                        <div className='settings-button-wrapper'>
+                            <button onClick={handleCancel} type='button'>Cancel</button>
+                            <button type='submit'>Submit</button>
+                        </div>
+                    </form>
                 </div>
-                {renderTransactionTypes()}
-                {renderDenominations()}
-                <div className='settings-button-wrapper'>
-                    <button onClick={handleCancel} type='button'>Cancel</button>
-                    <button type='submit'>Submit</button>
-                </div>
-            </form>
+                {renderChangePasswordForm()}
+            </>
+
         );
     }
 

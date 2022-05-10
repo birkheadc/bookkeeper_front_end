@@ -11,6 +11,10 @@
     border-radius: 1em;
 }
 
+.settings-subsection-wrapper {
+    margin-bottom: 3em;
+}
+
 .settings-transaction-container {
     display: flex;
     flex-direction: column;
@@ -35,13 +39,29 @@
     align-items: center;
 }
 
+.settings-preference-row {
+    display: flex;
+    flex-direction: row;
+
+    gap: 2em;
+    padding: 0.25em 1em 0.25em 1em;
+
+    border-radius: 0.5em;
+    background-color: var(--clr-bg-3);
+    
+    align-items: center;
+
+    max-width: 600px;
+    margin: 0 auto;
+}
+
 .settings-transaction-row-name {
     color: var(--clr-accent-1);
     flex-grow: 1;
     white-space: nowrap;
 }
 
-.settings-transactions-delete-button, .settings-add-button, .settings-button-wrapper button {
+.settings-transactions-delete-button, .settings-add-button, .settings-button-wrapper button, .settings-change-password-button-wrapper button {
     background-color: var(--clr-bg-1);
     color: var(--clr-accent-1);
     border-radius: 0.25em;
@@ -53,6 +73,7 @@
 
 .settings-add-button {
     margin: 0 auto;
+    text-align: center;
 }
 
 .settings-button-wrapper {
@@ -61,10 +82,34 @@
     justify-content: center;
     gap: 2em;
 
-    margin-top: 2em;
-    margin-bottom: 2em;
-    padding: 1em 1em 2em;
+    margin-top: 1em;
     border-radius: 1em;
+}
+
+.settings-change-password-form {
+    display: flex;
+    flex-direction: column;
+    gap: 1em;
+
+    margin: 0 auto;
+}
+
+.settings-change-password-form-row {
+    display: flex;
+    flex-direction: row;
+    width: fit-content;
+
+    margin: 0 auto;
+}
+
+.settings-change-password-form-row label {
+    width: 10em;
+}
+
+.settings-change-password-button-wrapper {
+    display: flex;
+    flex-direction: row;
+    justify-content: center;
 }
 
 @media (max-width: 1000px) {
