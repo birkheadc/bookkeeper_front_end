@@ -1,11 +1,12 @@
 import { Utils } from '../../helpers'
+import getApiUrl from '../getApiUrl/GetApiUrl';
 
 async function postTransactionTypes(transactionTypes) {
-    if (process.env.REACT_APP_BOOKKEEPER_URL == null) {
+    if (getApiUrl() == null) {
         Utils.devlog("Api url not set, aborting.");
         throw "Api url not configured.";
     }
-    const API_URL = process.env.REACT_APP_BOOKKEEPER_URL;
+    const API_URL = getApiUrl();
 
     const subdir = '/transactiontype';
     const apiUrl = API_URL + subdir;
