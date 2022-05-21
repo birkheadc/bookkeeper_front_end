@@ -51,7 +51,7 @@ function App() {
         <BrowserRouter>
           <header>
             <Navbar MOBILE_WIDTH={800} width={width} isLoggedIn={isLoggedIn} logoutButton={<LogoutButton MOBILE_WIDTH={800} width={width} handleLogout={handleLogout}/>}/>
-          </header>
+          </header>g
           <main>
             <div className='main-wrapper'>
               <Routes>

@@ -6,8 +6,7 @@ COPY package.json ./
 COPY package-lock.json ./
 RUN npm ci
 COPY . ./
-ARG API_URL
-RUN REACT_APP_API_URL=$API_URL npm run build
+RUN npm run build
 
 # RUN REACT_APP_BASE_URL=this_works_to_hard_code_it npm run build
 
