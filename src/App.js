@@ -8,6 +8,9 @@ import Login from './components/login/Login';
 import SummaryPage from './components/summary/SummaryPage';
 import { useEffect, useState } from 'react';
 import LogoutButton from './components/logoutButton/LogoutButton';
+import Upload from './components/upload/Upload';
+
+import * as Constants from './constants/Constants.js'
 
 function App() {
 
@@ -50,8 +53,8 @@ function App() {
       <div className="App">
         <BrowserRouter>
           <header>
-            <Navbar MOBILE_WIDTH={800} width={width} isLoggedIn={isLoggedIn} logoutButton={<LogoutButton MOBILE_WIDTH={800} width={width} handleLogout={handleLogout}/>}/>
-          </header>g
+            <Navbar MOBILE_WIDTH={Constants.MOBILE_WIDTH} width={width} isLoggedIn={isLoggedIn} logoutButton={<LogoutButton MOBILE_WIDTH={Constants.MOBILE_WIDTH} width={width} handleLogout={handleLogout}/>}/>
+          </header>
           <main>
             <div className='main-wrapper'>
               <Routes>
@@ -60,6 +63,7 @@ function App() {
                 <Route path ='/settings' element={<Settings handleLogin={handleLogin} width={width} />} />
                 <Route path ='/login' element={<Login handleLogin={handleLogin}/>} />
                 <Route path ='/summary' element={<SummaryPage width={width}/>} />
+                <Route path ='upload' element={<Upload />} />
               </Routes>
             </div>
           </main>

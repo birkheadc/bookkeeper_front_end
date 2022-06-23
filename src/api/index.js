@@ -15,6 +15,7 @@ import fetchLastNDaysSummary from "./fetchLastNDaysSummary/FetchLastNDaysSummary
 import uploadCsv from "./uploadCsv/UploadCsv";
 import changePassword from "./changePassword/ChangePassword";
 import getApiUrl from "./getApiUrl/GetApiUrl";
+import fetchTransactionsFromDate from "./fetchTransactionsFromDate/FetchTransactionsFromDate";
 
 const Api = {
     deleteDenominations,
@@ -33,7 +34,8 @@ const Api = {
     fetchLastNDaysSummary,
     uploadCsv,
     changePassword,
-    getApiUrl
+    getApiUrl,
+    fetchTransactionsFromDate
 }
 
 export { Api };

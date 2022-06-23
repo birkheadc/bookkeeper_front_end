@@ -1,0 +1,14 @@
+.report-summary-wrapper {
+    width: 300px;
+    margin: 0 auto;
+
+    padding: 0.5em;
+
+    border-style: solid;
+    border-color: var(--clr-border-1);
+    border-width: 3px;
+
+    border-radius: 0.25em;
+
+    text-align: center;
+}

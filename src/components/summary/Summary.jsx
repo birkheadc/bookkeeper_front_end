@@ -7,7 +7,6 @@ function Summary(props) {
     const countNumActiveDays = function() {
         const isDateActive = function(date) {
             for (let i = 0; i < props.summary.positiveTransactions.length; i++) {
-                console.log(date);
                 const check = new Date(props.summary.positiveTransactions[i].date.substring(0, 10));
                 if (date.getDate() === check.getDate()) {
                     return true;

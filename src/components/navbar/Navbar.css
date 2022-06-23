@@ -6,7 +6,7 @@ nav {
 
     position: fixed;
 
-    background-color: var(--clr-bg-1);
+    background-color: var(--clr-header-1);
 }
 
 nav ul {
@@ -22,17 +22,26 @@ nav ul {
 }
 
 .navbar-link {
-    padding: 1em;
+    padding: 0.5em 1em;
     display: block;
-    font-family: 'Lato', sans-serif;
+    font-family: 'Koulen', sans-serif;
+    font-size: 1.2em;
+    font-weight: bold;
+
+    color: var(--clr-bg-2);
+}
+
+.navbar-link:hover, .navbar-link:focus {
+    color: var(--clr-accent-1);
 }
 
 .navbar-link-active {
-    background-color: var(--clr-bg-1);
-}
-
-.navbar-link-active {
+    color: var(--clr-header-1);
     background-color: var(--clr-bg-2);
+}
+
+.navbar-link-active:hover, .navbar-link-active:focus {
+    color: var(--clr-header-1);
 }
 
 @media (max-width: 800px) {
