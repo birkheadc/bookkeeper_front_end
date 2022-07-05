@@ -1,39 +1,39 @@
 import { Utils } from '../../helpers'
 import getApiUrl from '../getApiUrl/GetApiUrl';
 
-async function fetchSettings() {
+async function fetchSummary(startDate, endDate) {
     if (getApiUrl() == null) {
         Utils.devlog("Api url not set, aborting.");
         throw "Api url not configured.";
     }
     const API_URL = getApiUrl();
-    
-    const subDir = "/settings";
+
+    const subDir = "/report";
     const apiUrl = API_URL + subDir;
 
-    if (process.env.NODE_ENV === 'development') {
-        Utils.devlog("Attempting to fetch settings from: " + apiUrl);
-    }
+    const queryString = "?startDate=" + new Date(startDate).toLocaleDateString().replace(/\//g, '-') + "&endDate=" + new Date(endDate).toLocaleDateString().replace(/\//g, '-')
+    
+    Utils.devlog("Attempting to fetch REPORTS from " + apiUrl + queryString);
 
     try {
-        let response = await fetch(apiUrl, {
+        let response = await fetch(apiUrl + queryString, {
             method: 'GET',
             headers: {
                 Authorization: window.localStorage.getItem('password')
             }
         });
         if (response.status !== 200) {
-            Utils.devlog("Unable to connect to server");
+            Utils.devlog("Failed to fetch reports. Access denied.");
             throw "Could not connect to server."
         }
-        Utils.devlog("Fetched settings successfully.");
         let data = await response.json();
+        Utils.devlog("Successfully fetched reports.");
         return data;
     }
     catch {
-        Utils.devlog("Failed to fetch settings.");
+        Utils.devlog("Failed to fetch reports.");
         throw "Could not connect to server."
     }
 }
 
-export default fetchSettings;
+export default fetchSummary;

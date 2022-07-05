@@ -65,7 +65,7 @@ function Navbar(props) {
         if (props.width < props.MOBILE_WIDTH) {
             return <img src={summaryIcon} width={20}></img>;
         }
-        return 'Summary';
+        return 'Browse';
     }
 
     const getLinkSettings = function() {
@@ -78,9 +78,8 @@ function Navbar(props) {
     return(
         <nav id='navbar'>
             <ul>
-                <li><NavLink className={getNavlinkClass('')} to='/'>{getLinkHome()}</NavLink></li>
+                <li><NavLink className={getNavlinkClass('browse')} to='/browse'>{getLinkSummary()}</NavLink></li>
                 <li><NavLink className={getNavlinkClass('report')} to='/report'>{getLinkReport()}</NavLink></li>
-                <li><NavLink className={getNavlinkClass('summary')} to='/summary'>{getLinkSummary()}</NavLink></li>
                 <li><NavLink className={getNavlinkClass('settings')} to='/settings'>{getLinkSettings()}</NavLink></li>
                 <li>{getSessionLink()}</li>
             </ul>

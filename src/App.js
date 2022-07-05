@@ -1,16 +1,16 @@
 import './App.css';
 import Navbar from './components/navbar/Navbar';
 import { Routes, Route, BrowserRouter } from 'react-router-dom';
-import Home from './components/home/Home';
 import Report from './components/report/Report';
 import Settings from './components/settings/Settings';
 import Login from './components/login/Login';
-import SummaryPage from './components/summary/SummaryPage';
 import { useEffect, useState } from 'react';
 import LogoutButton from './components/logoutButton/LogoutButton';
 import Upload from './components/upload/Upload';
+import Home from './components/home/Home';
 
 import * as Constants from './constants/Constants.js'
+import BrowsePage from './components/browse/browsePage/BrowsePage';
 
 function App() {
 
@@ -58,11 +58,11 @@ function App() {
           <main>
             <div className='main-wrapper'>
               <Routes>
-                <Route path ='/' element={<Home width={width} />} />
+                <Route path = '/' element={<Home />} />
                 <Route path ='/report' element={<Report width={width}/>} />
                 <Route path ='/settings' element={<Settings handleLogin={handleLogin} width={width} />} />
                 <Route path ='/login' element={<Login handleLogin={handleLogin}/>} />
-                <Route path ='/summary' element={<SummaryPage width={width}/>} />
+                <Route path ='/browse' element={<BrowsePage width={width}/>} />
                 <Route path ='upload' element={<Upload />} />
               </Routes>
             </div>

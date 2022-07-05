@@ -1,32 +1,37 @@
 import { Utils } from '../../helpers'
 import getApiUrl from '../getApiUrl/GetApiUrl';
 
-async function postReport(transactions) {
-    if (getApiUrl() == null) {
+async function postReport(report) {
+    const API_URL = getApiUrl();
+
+    if (API_URL == null) {
         Utils.devlog("Api url not set, aborting.");
         throw "Api url not configured.";
     }
-    const API_URL = getApiUrl();
 
-    const subdir = '/transaction/report';
+    const subdir = '/report';
     const apiUrl = API_URL + subdir;
 
+    const reportDto = {
+        date : report.reports[0].date,
+        earnings : report.reports[0].earnings,
+        expenses : report.reports[0].expenses
+    }
+
     if (process.env.NODE_ENV === 'development') {
-        Utils.devlog("Attempting to post TRANSACTIONS to: " + apiUrl);
+        Utils.devlog("Attempting to post REPORT to: " + apiUrl);
         Utils.devlog("Object to post: ");
-        Utils.devlog(transactions);
+        Utils.devlog(reportDto);
     }
 
     try {
         let response = await fetch(apiUrl, {
-            method: 'POST',
+            method: 'PUT',
             headers: {
                 'Authorization': window.localStorage.getItem('password'),
                 'Content-Type': 'application/json'
             },
-            body: JSON.stringify({
-                transactions: transactions
-            })
+            body: JSON.stringify(reportDto)
         });
         if (response.status !== 200) {
             Utils.devlog("Failed to post transactions.");

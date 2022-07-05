@@ -1,14 +1,50 @@
 .report-summary-wrapper {
-    width: 300px;
+    width: fit-content;
     margin: 0 auto;
 
-    padding: 0.5em;
+    padding: 0.5em 0.2em;
 
     border-style: solid;
     border-color: var(--clr-border-1);
-    border-width: 3px;
+    border-width: 2px;
 
     border-radius: 0.25em;
 
     text-align: center;
 }
+
+.report-summary-table {
+    border-collapse: collapse;
+    margin: 0 auto;
+}
+
+.report-summary-table tbody:before {
+    content: '';
+    display: block;
+    height: 15px;
+}
+
+.report-summary-table td {
+    padding: 0 0.25em;
+    max-width: 80px;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    white-space: nowrap;
+}
+
+.report-summary-table td:hover {
+    overflow: visible;
+}
+
+.overflow:hover {
+    overflow: visible;
+  }
+  
+  .overflow:hover span {
+    padding: 0.1em;
+    position: relative;
+    background-color: var(--clr-bg-2);
+  
+    box-shadow: 0 0 4px 0 var(--clr-header-1);
+    border-radius: 1px;
+  }

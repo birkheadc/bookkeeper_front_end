@@ -6,10 +6,12 @@ import isNoteNameValid from "./isNoteNameValid";
 import getDayOfWeekFromDate from "./GetDayOfWeekFromDate";
 import getDateStringFromDate from "./GetDateStringFromDate";
 import formatNumber from "./FormatNumber";
+import getDatesByDateAndMode from "./GetDatesByDateAndMode";
 
 const Utils = {
     devlog,
-    getNewUUID
+    getNewUUID,
+    getDatesByDateAndMode
 }
 
 const TransactionCategoryHelpers = {

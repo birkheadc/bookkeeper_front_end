@@ -89,7 +89,7 @@ button:active {
     box-sizing: border-box;
     padding: 4em 2em 2em 2em;
     margin: 0 auto;
-    width: min(1400px, 90%);
+    width: min(1400px, 100%);
     background-color: var(--clr-bg-2);
     min-height: 100vh;
     box-shadow: 5px 5px 5px var(--clr-header-1), -2px 5px 10px var(--clr-header-1);
@@ -158,8 +158,65 @@ h5 {
     text-align: center;
 }
 
+.left-align {
+    text-align: left;
+}
+
+.right-align {
+    text-align: right;
+}
+
 .header-link {
     font-family: 'Koulen', sans-serif;
+}
+
+.tooltip {
+    position: relative;
+    display: inline-block;
+  }
+
+.tooltip .tooltiptext {
+    visibility: hidden;
+    background-color: var(--clr-bg-2);
+    color: var(--clr-text-1);
+    box-shadow: 2px 2px 2px var(--clr-header-1);
+    text-align: center;
+    padding: 0.25em;
+   
+    position: absolute;
+    z-index: 1;
+}
+  
+.tooltip:hover .tooltiptext {
+    visibility: visible;
+}
+
+.link-style-button {
+    border-style: none;
+    background-color: transparent;
+    color: var(--clr-accent-1);
+    cursor: pointer;
+
+    padding: 0;
+    margin: 0;
+}
+
+.link-style-button:hover {
+    color: var(--clr-accent-2);
+}
+
+.link-style-button:active {
+    background-color: transparent;
+    color: var(--clr-accent-2);
+}
+
+.small {
+    font-size: 1rem;
+}
+
+.large {
+    font-size: 2rem;
+    font-weight: bold;
 }
 
 .date-input {

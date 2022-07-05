@@ -1,78 +1,55 @@
 import React from 'react';
-import { useState } from 'react';
 import ReportSummary from '../summary/ReportSummary';
 import './ReportForm.css'
-import ReportFormCash from './ReportFormCash';
 import ReportFormEarning from './ReportFormEarning';
 import ReportFormExpense from './ReportFormExpense';
 
 function ReportForm(props) {
 
-    const [status, setStatus] = useState('');
-
-    function renderEarnings() {
-        function splitEarningsByCash(earnings) {
-            let nonCashEarnings = [];
-            let cashEarning = {};
-            for (let i = 0; i < earnings.length; i++) {
-                let earning = earnings[i];
-                console.log(earning);
-                if (earning.type !== 'cash') {
-                    nonCashEarnings.push(earning);
-                }
-                else {
-                    cashEarning = earning;
-                }
-            }
-            return {    
-                nonCashEarnings: nonCashEarnings,
-                cashEarning: cashEarning
-            };
-        }
-
-        let splitEarnings = splitEarningsByCash(props.reportData.earnings);
-
+    function renderEarnings(earnings) {
         return(
             <div>
-                <h3>Earnings</h3>
-                <ReportFormCash amount={splitEarnings.cashEarning.amount} denominations={props.reportData.denominations} isCashActive={props.reportData.isCashDefault || splitEarnings.cashEarning.amount > 0}/>
-                {splitEarnings.nonCashEarnings.map(
-                    earning =>  
-                    <ReportFormEarning key={earning.id} earning={earning} updateValue={props.updateEarning}/>
+                <h3 className='centered'>Earnings</h3>
+                {earnings.map(
+                    earning =>
+                    <ReportFormEarning date={props.report.reports[0].date} earning={earning} key={earning.id} removeEarning={props.removeEarning} updateValue={props.updateEarning}/>
                 )}
+                <button onClick={props.addEarning} type='button'>+</button>
             </div>
         );
     }
 
-    function renderExpenses() {
+    function renderExpenses(expenses) {
         return(
             <div>
-                <h3>Expenses</h3>
-                {props.reportData.expenses.map(
+                <h3 className='centered'>Expenses</h3>
+                {expenses.map(
                     expense =>
-                    <ReportFormExpense key={expense.id} expense={expense} updateValue={props.updateExpense}/>
+                    <ReportFormExpense date={props.report.reports[0].date} expense={expense} key={expense.id} removeExpense={props.removeExpense} updateValue={props.updateExpense}/>
                 )}
+                <button onClick={props.addExpense} type='button'>+</button>
             </div>
         );
+    }
+
+    function renderSummary() {
+        return(
+            <div>
+                <h3 className='centered'>Preview</h3>
+                <ReportSummary report={props.report.reports[0]}/>
+            </div>
+        )
     }
 
     function renderForm() {
-        if (status !== '') {
-            return(
-                <h2>{status}</h2>
-            );
-        }
         return(
             <>
-                <h2>{props.reportData.date}</h2>
+                <h2>{props.report.date}</h2>
                 <form className='report-form' onSubmit={submitReport}>
                     <div className='report-form-body'>
-                        {renderEarnings()}
-                        {renderExpenses()}
-                    </div>
-                    <div>
-                        <h2 className='centered'>Preview</h2>
-                        <ReportSummary />
+                        {renderEarnings(props.report.reports[0].earnings)}
+                        {renderExpenses(props.report.reports[0].expenses)}
+                        {renderSummary()}
                     </div>
                     <div className='report-form-button-wrapper'>
                         <button type='submit'>Submit</button>
@@ -85,14 +62,9 @@ function ReportForm(props) {
 
     const submitReport = (e) => {
         e.preventDefault();
-        console.log("Submit report here!");
+        props.submitReport();
     }
 
-    if (status !== '') {
-        return(
-            <h2>{status}</h2>
-        );
-    }
     return(
         <div className='report-form-wrapper'>
             {renderForm()}

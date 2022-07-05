@@ -1,18 +1,18 @@
 import { Utils } from '../../helpers'
 import getApiUrl from '../getApiUrl/GetApiUrl';
 
-async function fetchSettings() {
+async function fetchCategories() {
     if (getApiUrl() == null) {
         Utils.devlog("Api url not set, aborting.");
         throw "Api url not configured.";
     }
     const API_URL = getApiUrl();
-    
-    const subDir = "/settings";
+
+    const subDir = "/category";
     const apiUrl = API_URL + subDir;
 
     if (process.env.NODE_ENV === 'development') {
-        Utils.devlog("Attempting to fetch settings from: " + apiUrl);
+        Utils.devlog("Attempting to fetch CATEGORIES from: " + apiUrl);
     }
 
     try {
@@ -26,14 +26,14 @@ async function fetchSettings() {
             Utils.devlog("Unable to connect to server");
             throw "Could not connect to server."
         }
-        Utils.devlog("Fetched settings successfully.");
+        Utils.devlog("Fetched transaction types successfully.");
         let data = await response.json();
         return data;
     }
     catch {
-        Utils.devlog("Failed to fetch settings.");
+        Utils.devlog("Failed to fetch transaction types.");
         throw "Could not connect to server."
     }
 }
 
-export default fetchSettings;
+export default fetchCategories;
