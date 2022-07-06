@@ -11,9 +11,12 @@ import SettingsForm from './settingsForm/SettingsForm';
 function Settings(props) {
 
     const [settings, setSettings] = useState();
+    const [status, setStatus] = useState('initial');
+    const [message, setMessage] = useState();
 
     useEffect(() => {
         async function fetchAndSetSettings() {
+            setStatus('loading...');
             const newSettings = await Api.fetchSettings();
             setSettings(newSettings);
         }
@@ -21,14 +24,78 @@ function Settings(props) {
         if (settings == null) {
             fetchAndSetSettings();
         }
+        else {
+            setStatus('');
+        }
     }, [settings]);
+
+    function renderMessage() {
+        if (message == null) {
+            return null;
+        }
+        return (
+            <h2>{message}</h2>
+        );
+    }
+
+    const handleUserSettingValueChange = (name, value) => {
+        let newSettings = {...settings};
+        if (newSettings.userSettings[name] != null) {
+            newSettings.userSettings[name].value = value
+            setSettings(newSettings);
+        }
+    }
+
+    const handleChangeIsDefaultEarningCategory = (name, isDefault) => {
+        let newSettings = {...settings};
+        for (let i = 0; i < newSettings.earningCategories.length; i++) {
+            if (newSettings.earningCategories[i].name === name) {
+                newSettings.earningCategories[i].isDefault = isDefault;
+                setSettings(newSettings);
+                break;
+            }
+        }
+    }
+
+    const handleChangeIsDefaultExpenseCategory = (name, isDefault) => {
+        let newSettings = {...settings};
+        for (let i = 0; i < newSettings.expenseCategories.length; i++) {
+            if (newSettings.expenseCategories[i].name === name) {
+                newSettings.expenseCategories[i].isDefault = isDefault;
+                setSettings(newSettings);
+                break;
+            }
+        }
+    }
+
+    const handleDeleteEarningCategory = (name) => {
+        let newSettings = {...settings};
+        for (let i = 0; i < newSettings.earningCategories.length; i++) {
+            if (newSettings.earningCategories[i].name === name) {
+                newSettings.earningCategories.splice(i, 1);
+                setSettings(newSettings);
+                break;
+            }
+        }
+    }
+    
+    const handleDeleteExpenseCategory = (name) => {
+        let newSettings = {...settings};
+        for (let i = 0; i < newSettings.expenseCategories.length; i++) {
+            if (newSettings.expenseCategories[i].name === name) {
+                newSettings.expenseCategories.splice(i, 1);
+                setSettings(newSettings);
+                break;
+            }
+        }
+    }
 
     function renderSettingsForm() {
         if (settings == null) {
             return null;
         }
         return (
-            <SettingsForm settings={settings} />
+            <SettingsForm handleValueChange={handleUserSettingValueChange} settings={settings} />
         );
     }
 
@@ -37,7 +104,7 @@ function Settings(props) {
             return null;
         }
         return (
-            <CategoriesForm settings={settings} />
+            <CategoriesForm handleChangeIsDefaultEarning={handleChangeIsDefaultEarningCategory} handleChangeIsDefaultExpense={handleChangeIsDefaultExpenseCategory} handleDeleteEarning={handleDeleteEarningCategory} handleDeleteExpense={handleDeleteExpenseCategory} settings={settings} />
         );
     }
 
@@ -50,6 +117,34 @@ function Settings(props) {
         );
     }
 
+    const cancelChanges = async () => {
+
+    }
+
+    const submitChanges = async () => {
+        setStatus('submitting...');
+        try {
+            await Api.postSettings(settings);
+            setMessage('Submitted successfully!');
+        }
+        catch {
+            setMessage('Failed to submit changes!');
+        }
+        setStatus('');
+    }
+
+    function renderButtons() {
+        if (settings == null) {
+            return null;
+        }
+        return (
+            <div className='settings-button-wrapper'>
+                <button onClick={cancelChanges} type='button'>Cancel</button>
+                <button onClick={submitChanges} type='button'>Submit</button>
+            </div>
+        );
+    }
+
     function renderChangePasswordForm() {
         if (settings == null) {
             return null;
@@ -59,12 +154,25 @@ function Settings(props) {
         );
     }
 
+    if (status !== '') {
+        return (
+            <div>
+                <h1>Settings</h1>
+                <h2>{status}</h2>
+            </div>
+        );
+    }
+
     return (
         <div>
             <h1>Settings</h1>
+            {renderMessage()}
+            <div className='settings-section-wrapper'>
             {renderSettingsForm()}
             {renderCategoriesForm()}
             {renderDenominationsForm()}
+            {renderButtons()}
+            </div>
             {renderChangePasswordForm()}
         </div>
     );

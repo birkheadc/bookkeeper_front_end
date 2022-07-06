@@ -3,11 +3,13 @@ import './ChangePasswordForm.css'
 
 function ChangePasswordForm(props) {
     return(
-        <div>
-            <h2>Change Password</h2>
-            <form>
-                
-            </form>
+        <div className='settings-section-wrapper'>
+            <div className='settings-sub-section-wrapper'>
+                <h2>Change Password</h2>
+                <form>
+                    
+                </form>
+            </div>
         </div>
     );
 }

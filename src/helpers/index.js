@@ -7,11 +7,13 @@ import getDayOfWeekFromDate from "./GetDayOfWeekFromDate";
 import getDateStringFromDate from "./GetDateStringFromDate";
 import formatNumber from "./FormatNumber";
 import getDatesByDateAndMode from "./GetDatesByDateAndMode";
+import camelCaseToTitleCaseSpaces from "./CamelCaseToTitleCaseSpaces";
 
 const Utils = {
     devlog,
     getNewUUID,
-    getDatesByDateAndMode
+    getDatesByDateAndMode,
+    camelCaseToTitleCaseSpaces
 }
 
 const TransactionCategoryHelpers = {

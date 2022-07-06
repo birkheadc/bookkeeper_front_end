@@ -1,20 +1,20 @@
 import React from 'react';
 import './SettingsForm.css'
+import SettingsFormRow from './SettingsFormRow.jsx';
 
 function SettingsForm(props) {
 
-    function renderRows() {
-
-        for (let i = 0; i < settingNames.length; i++) {
-            
-        }
+    const handleValueChange = (name, value) => {
+        props.handleValueChange(name, value);
     }
 
     return(
-        <div>
+        <div className='settings-sub-section-wrapper'>
             <h2>User Settings</h2>
+            <hr></hr>
             <form className='settings-user-settings-form'>
-                {renderRows()}
+                <SettingsFormRow handleValueChange={handleValueChange} setting={props.settings.userSettings.emailName} />
+                <SettingsFormRow handleValueChange={handleValueChange} setting={props.settings.userSettings.emailAddress} />
             </form>
         </div>
     );
