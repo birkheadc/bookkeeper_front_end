@@ -13,13 +13,7 @@ Front end needs to recognize that "100" should be displayed as "$1.00", or "50" 
 ie Earnings: 58% cash 41% card 1% direct-deposit, Expenses: 48% restock 15% rent 13% electric 4% delivery fees etc etc.
 Check a box to include / ignore numbers from this percentage as well
 
-## Ability to browse by day/week/month/year
-
-## Quick select buttons on summary prompt to automatically select today/this week/month/year, maybe select week/month of (x day)
-
 ## It's possible that the way new default transactions are created in ReportForm.jsx will break something. The date format of the model created by the front-end is different than that of the one received from the back-end.
-
-## Add X button to delete transaction in top right of ReportFormExpense / ReportFormEarning
 
 ## Add ability to register multiple e-mail addresses to send reports to. The front-end should call an api end-point, supplying those addresses to send to. The back-end does not do this automatically like the last iteration.
 
@@ -30,3 +24,7 @@ Check a box to include / ignore numbers from this percentage as well
 ## Somehow make a week fit horizontally on the screen when on PC. Make everything scroll vertically on mobile
 
 ## Add Next/Prev buttons to browse screen to go to the next day/week/month depending on mode
+
+## Reformat settings page
+
+## Reformat log-in page

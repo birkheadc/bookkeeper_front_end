@@ -3,7 +3,7 @@ import './Report.css'
 import { Api } from '../../api';
 import { NavLink, useSearchParams } from 'react-router-dom';
 import ReportForm from './ReportForm';
-import { TransactionCategoryHelpers } from '../../helpers';
+import { TransactionCategoryHelpers, LocaleConversions } from '../../helpers';
 import { Utils } from '../../helpers';
 
 function Report(props) {
@@ -28,7 +28,9 @@ function Report(props) {
 
         function setDateFromSearchParams() {
             if (searchParams.has("date") === false) {
-                setStatus('no-date');
+                setSearchParams({
+                    date: new Date().toISOString().slice(0, 10)
+                });
                 return;
             }
             const date = new Date(Date.parse(searchParams.get("date")));
@@ -115,7 +117,7 @@ function Report(props) {
                 <div>
                     <h3 className='centered'>Select Date</h3>
                     <form onSubmit={handleSubmitDate} className='select-report-date-form'>
-                        <input className='date-input' defaultValue={searchParams.get('date')} id='report-date-input' type='date'></input>
+                        <input defaultValue={searchParams.get('date')} id='report-date-input' type='date'></input>
                         <button type='submit'>Go</button>
                     </form>
                 </div>

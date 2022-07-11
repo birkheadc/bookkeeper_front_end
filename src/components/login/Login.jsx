@@ -53,9 +53,9 @@ function Login(props) {
             <form onSubmit={handleLogin}>
                 <div className='login-form-row'>
                     <label>Password</label>
-                    <input className='login-form-input' id='password-field' type='password'></input>
+                    <input id='password-field' type='password'></input>
                 </div>
-                <button className='login-button' onClick={handleLogin} type='submit'>Login</button>
+                <button onClick={handleLogin} type='submit'>Log In</button>
             </form>
         </div>
     );
