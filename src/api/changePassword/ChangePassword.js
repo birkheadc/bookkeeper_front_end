@@ -23,8 +23,7 @@ async function changePassword(oldPassword, newPassword) {
                 'Content-Type': 'application/json'
             },
             body: JSON.stringify({
-                'old': oldPassword,
-                'new': newPassword
+                'password': newPassword,
             })
         });
         if (response.status !== 200) {

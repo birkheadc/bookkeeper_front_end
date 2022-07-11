@@ -7,6 +7,7 @@ import CategoriesForm from './categoriesForm/CategoriesForm';
 import DenominationsForm from './denominationsForm/DenominationsForm';
 import ChangePasswordForm from './changePasswordForm/ChangePasswordForm';
 import SettingsForm from './settingsForm/SettingsForm';
+import { TransactionCategoryHelpers } from '../../helpers';
 
 function Settings(props) {
 
@@ -99,13 +100,153 @@ function Settings(props) {
         );
     }
 
+    const handleAddEarning = () => {
+        const earning = promptNewEarning();
+        if (earning == null) {
+            return;
+        }
+        if (doesEarningsContainName(earning.name) === true) {
+            return;
+        }
+        let newSettings = {...settings};
+        newSettings.earningCategories.push(earning);
+        setSettings(newSettings);
+    }
+
+    function promptNewEarning() {
+        const name = prompt('Enter a name for the new earning category.');
+        if (TransactionCategoryHelpers.isTransactionNameValid(name) === false) {
+            alert('That name cannot be used.');
+            return null;
+        }
+        const earning = {
+            name: name,
+            isDefault: false
+        };
+        return earning;
+    }
+
+    function doesEarningsContainName(name) {
+        for (let i = 0; i < settings.earningCategories.length; i++) {
+            if (settings.earningCategories[i].name === name) {
+                return true;
+            }
+        }
+        return false;
+    }
+
+    const handleAddExpense = () => {
+        const expense = promptNewExpense();
+        if (expense == null) {
+            return;
+        }
+        if (doesExpensesContainName(expense.name) === true) {
+            return;
+        }
+        let newSettings = {...settings};
+        newSettings.expenseCategories.push(expense);
+        setSettings(newSettings);
+    }
+
+    function promptNewExpense() {
+        const name = prompt('Enter a name for the new expense category.');
+        if (TransactionCategoryHelpers.isTransactionNameValid(name) === false) {
+            alert('That name cannot be used.');
+            return null;
+        }
+        const expense = {
+            name: name,
+            isDefault: false
+        };
+        return expense;
+    }
+
+    function doesExpensesContainName(name) {
+        for (let i = 0; i < settings.expenseCategories.length; i++) {
+            if (settings.expenseCategories[i].name === name) {
+                return true;
+            }
+        }
+        return false;
+    }
+
     function renderCategoriesForm() {
         if (settings == null) {
             return null;
         }
         return (
-            <CategoriesForm handleChangeIsDefaultEarning={handleChangeIsDefaultEarningCategory} handleChangeIsDefaultExpense={handleChangeIsDefaultExpenseCategory} handleDeleteEarning={handleDeleteEarningCategory} handleDeleteExpense={handleDeleteExpenseCategory} settings={settings} />
+            <CategoriesForm handleAddEarning={handleAddEarning} handleAddExpense={handleAddExpense} handleChangeIsDefaultEarning={handleChangeIsDefaultEarningCategory} handleChangeIsDefaultExpense={handleChangeIsDefaultExpenseCategory} handleDeleteEarning={handleDeleteEarningCategory} handleDeleteExpense={handleDeleteExpenseCategory} settings={settings} />
         );
+    }
+
+    const handleAddDenomination = (value) => {
+        const denomination = promptNewDenomination();
+        if (denomination == null) {
+            return;
+        }
+        let newSettings = {...settings};
+        newSettings.denominations.push(denomination);
+        setSettings(newSettings);
+    }
+
+    function promptNewDenomination() {
+        const value = prompt('Enter value for new denomination.');
+        if (value == null) {
+            return null;
+        }
+        if (isDenominationValueValid(value) === false) {
+            alert('That value is invalid.');
+            return null;
+        }
+        if (doesDenominationExistOfValue(value) === true) {
+            alert('That denomination already exists.');
+            return null;
+        }
+        return {
+            value: parseInt(value),
+            isDefault: false
+        };
+    }
+
+    function isDenominationValueValid(value) {
+        if (isNaN(value) === true) {
+            return false;
+        }
+        if (value < 0) {
+            return false;
+        }
+        return true;
+    }
+
+    function doesDenominationExistOfValue(value) {
+        for (let i = 0; i < settings.denominations.length; i++) {
+            if (settings.denominations[i].value === parseInt(value)) {
+                return true;
+            }
+        }
+        return false;
+    }
+
+    const handleChangeIsDefaultDenomination = (value, isDefault) => {
+        let newSettings = {...settings};
+        for (let i = 0; i < newSettings.denominations.length; i++) {
+            if (newSettings.denominations[i].value === parseInt(value)) {
+                newSettings.denominations[i].isDefault = isDefault;
+                setSettings(newSettings);
+                break;
+            }
+        }
+    }
+
+    const handleDeleteDenomination = (value) => {
+        let newSettings = {...settings};
+        for (let i = 0; i < newSettings.denominations.length; i++) {
+            if (newSettings.denominations[i].value === parseInt(value)) {
+                newSettings.denominations.splice(i, 1);
+                setSettings(newSettings);
+                break;
+            }
+        }
     }
 
     function renderDenominationsForm() {
@@ -113,7 +254,7 @@ function Settings(props) {
             return null;
         }
         return (
-            <DenominationsForm settings={settings} />
+            <DenominationsForm handleAddDenomination={handleAddDenomination} handleChangeIsDefault={handleChangeIsDefaultDenomination} handleDeleteDenomination={handleDeleteDenomination} settings={settings} />
         );
     }
 
@@ -145,12 +286,25 @@ function Settings(props) {
         );
     }
 
+    const handleChangePassword = async (oldPassword, newPassword) => {
+        setStatus('submitting...');
+        try {
+            await Api.changePassword(oldPassword, newPassword);
+            setMessage('Password changed successfully!');
+        }
+        catch {
+            setMessage('Failed to change password!');
+        }
+        setStatus('');
+        
+    }
+
     function renderChangePasswordForm() {
         if (settings == null) {
             return null;
         }
         return (
-            <ChangePasswordForm settings={settings} />
+            <ChangePasswordForm handleChangePassword={handleChangePassword} settings={settings} />
         );
     }
 

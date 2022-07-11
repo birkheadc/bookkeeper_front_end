@@ -4,8 +4,12 @@ import CategoriesFormRow from './CategoriesFormRow';
 
 function CategoriesForm(props) {
 
-    const handleAddCategory = () => {
+    const handleAddEarning = () => {
+        props.handleAddEarning();
+    }
 
+    const handleAddExpense = () => {
+        props.handleAddExpense();
     }
 
     return(
@@ -18,13 +22,15 @@ function CategoriesForm(props) {
                     earningCategory =>
                     <CategoriesFormRow category={earningCategory} handleChangeIsDefault={props.handleChangeIsDefaultEarning} handleDeleteCategory={props.handleDeleteEarning} key={earningCategory.name} />
                 )}
+                <button onClick={handleAddEarning} type='button'>+</button>
                 <h3>Expenses</h3>
                 {props.settings.expenseCategories.map(
                     expenseCategory =>
                     <CategoriesFormRow category={expenseCategory} handleChangeIsDefault={props.handleChangeIsDefaultExpense} handleDeleteCategory={props.handleDeleteExpense} key={expenseCategory.name} />
                 )}
+                <button onClick={handleAddExpense} type='button'>+</button>
             </form>
-            <button onClick={handleAddCategory} type='button'>+</button>
+            
         </div>
     );
 }

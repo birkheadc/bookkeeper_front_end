@@ -5,7 +5,15 @@ import DenominationsFormRow from './DenominationsFormRow';
 function DenominationsForm(props) {
 
     const handleAddDenomination = () => {
+        props.handleAddDenomination();
+    }
 
+    const handleChangeIsDefault = (value, isDefault) => {
+        props.handleChangeIsDefault(value, isDefault);
+    }
+
+    const handleDeleteDenomination = (value) => {
+        props.handleDeleteDenomination(value);
     }
 
     return(
@@ -15,7 +23,7 @@ function DenominationsForm(props) {
             <form>
                 {props.settings.denominations.map(
                     denomination =>
-                    <DenominationsFormRow denomination={denomination} key={denomination.value} />
+                    <DenominationsFormRow denomination={denomination} handleChangeIsDefault={handleChangeIsDefault} handleDeleteDenomination={handleDeleteDenomination} key={denomination.value} />
                 )}
             </form>
             <button onClick={handleAddDenomination} type='button'>+</button>

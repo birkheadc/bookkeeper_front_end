@@ -1,4 +1,5 @@
 import React from 'react';
+import { TransactionCategoryHelpers } from '../../../helpers';
 
 function CategoriesFormRow(props) {
 
@@ -15,7 +16,7 @@ function CategoriesFormRow(props) {
 
     return(
         <div>
-            <label htmlFor={'category-checkbox_' + props.category.name}>{props.category.name}</label>
+            <label htmlFor={'category-checkbox_' + props.category.name}>{TransactionCategoryHelpers.convertTransactionTypeName(props.category.name)}</label>
             <input data-name={props.category.name} id={'category-checkbox_' + props.category.name} onChange={handleChangeIsDefault} type='checkbox' checked={props.category.isDefault}></input>
             <button data-name={props.category.name} onClick={handleDeleteCategory} type='button'>x</button>
         </div>
