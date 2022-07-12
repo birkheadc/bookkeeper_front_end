@@ -1,0 +1,9 @@
+.browse-sub-section-wrapper {
+    display: flex;
+    flex-direction: column;
+    gap: 0.5em;
+}
+
+.day-of-week-label>h2 {
+    font-size: 2rem;
+}

@@ -1,12 +1,14 @@
 import React, { useEffect, useState } from 'react';
 import './Report.css'
 import { Api } from '../../api';
-import { NavLink, useSearchParams } from 'react-router-dom';
+import { NavLink, useNavigate, useSearchParams } from 'react-router-dom';
 import ReportForm from './ReportForm';
 import { TransactionCategoryHelpers, LocaleConversions } from '../../helpers';
 import { Utils } from '../../helpers';
 
 function Report(props) {
+
+    const nav = useNavigate();
 
     const [searchParams, setSearchParams] = useSearchParams();
     const [status, setStatus] = useState('');
@@ -265,8 +267,9 @@ function Report(props) {
             console.log(response);
             return;
         }
-        displayMessage('Submitted Successfully!');      
-        setStatus('');  
+        displayMessage('Submitted Successfully!');
+        setStatus('');
+        nav('../browse?date=' + date.toISOString().slice(0, 10) + '&mode=week')
     }
 
     function displayMessage(message) {

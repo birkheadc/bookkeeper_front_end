@@ -28,3 +28,5 @@ Check a box to include / ignore numbers from this percentage as well
 ## Reformat settings page
 
 ## Reformat log-in page
+
+## 'NOTE' on browse page is cut off by border of summary

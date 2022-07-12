@@ -94,6 +94,26 @@ function BrowsePage(props) {
         );
     }
 
+    function renderDayOfWeekLabels() {
+
+        if ((mode !== 'week') && (mode !== 'month')) {
+            return null;
+        }
+
+        const days = ['Sunday', 'Monday', 'Tuesday', 'Wednesday', 'Thursday', 'Friday', 'Saturday'];
+
+        return (
+            <div className='browse-summaries-wrapper'>
+            {days.map(
+                day =>
+                <div className='report-summary-wrapper day-of-week-label' key={day}>
+                    <h2>{day}</h2>
+                </div>  
+            )}
+            </div>
+        );
+    }
+
     function renderSummaries() {
         if (report == null || status !== '') {
             return (
@@ -103,8 +123,9 @@ function BrowsePage(props) {
         
         return (
             <>
-                <BrowseSpanSummary report={report} />
-                <BrowseSummariesWrapper reports={report.reports} />
+                <BrowseSpanSummary summary={report.summary} />
+                {renderDayOfWeekLabels()}
+                <BrowseSummariesWrapper mode={mode} reports={report.reports} />
             </>
         );
     }
@@ -112,8 +133,10 @@ function BrowsePage(props) {
     return(
         <div className='section-wrapper'>
             <h1>Browse</h1>
-            {renderControls()}
-            {renderSummaries()}
+            <div className='browse-sub-section-wrapper'>
+                {renderControls()}
+                {renderSummaries()}
+            </div>
         </div>
     );
 }

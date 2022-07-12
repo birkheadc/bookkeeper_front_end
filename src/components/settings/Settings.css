@@ -17,28 +17,8 @@
     border-color: var(--clr-border-1);
 
     padding: 1em 2em;
-}
 
-.settings-subsection-wrapper {
-    margin-bottom: 3em;
-}
-
-.settings-preference-row {
-    display: flex;
-    flex-direction: row;
-
-    gap: 2em;
-    padding: 0.25em 1em 0.25em 1em;
-
-    border-radius: 0.5em;
-    border-style: solid;
-    border-width: 2px;
-    border-color: var(--clr-header-1);
-    
-    align-items: center;
-
-    max-width: 600px;
-    margin: 0 auto;
+    background-color: var(--clr-bg-2);
 }
 
 .settings-button-wrapper {
@@ -51,41 +31,4 @@
 
 .settings-button-wrapper>button {
     margin: 0;
-}
-
-.settings-change-password-form {
-    display: flex;
-    flex-direction: column;
-    gap: 1em;
-
-    margin: 0 auto;
-}
-
-.settings-change-password-form-row {
-    display: flex;
-    flex-direction: row;
-    width: fit-content;
-
-    margin: 0 auto;
-}
-
-.settings-change-password-form-row label {
-    width: 10em;
-}
-
-.settings-change-password-button-wrapper {
-    display: flex;
-    flex-direction: row;
-    justify-content: center;
-}
-
-@media (max-width: 1000px) {
-
-    .settings-transaction-container {
-        width: 100%;
-    }
-
-    .settings-transaction-row {
-        gap: 0.75em;
-    }    
 }

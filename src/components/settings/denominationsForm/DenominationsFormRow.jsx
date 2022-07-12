@@ -14,7 +14,7 @@ function DenominationsFormRow(props) {
     }
 
     return(
-        <div>
+        <div className='categories-form-row'>
             <label htmlFor={'denomination-checkbox_' + props.denomination.value}>{props.denomination.value}</label>
             <input data-value={props.denomination.value} id={'denomination-checkbox_' + props.denomination.value} onChange={handleChangeIsDefault} type='checkbox' checked={props.denomination.isDefault}></input>
             <button data-value={props.denomination.value} onClick={handleDeleteDenomination} type='button'>x</button>

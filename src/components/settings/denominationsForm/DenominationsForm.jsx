@@ -20,13 +20,19 @@ function DenominationsForm(props) {
         <div className='settings-sub-section-wrapper'>
             <h2>Calculator Denominations</h2>
             <hr></hr>
-            <form>
-                {props.settings.denominations.map(
-                    denomination =>
-                    <DenominationsFormRow denomination={denomination} handleChangeIsDefault={handleChangeIsDefault} handleDeleteDenomination={handleDeleteDenomination} key={denomination.value} />
-                )}
+            <form className='categories-form'>
+                <div className='categories-form-sub-section'>
+                    <h3>Denominations</h3>
+                    {props.settings.denominations.map(
+                        denomination =>
+                        <DenominationsFormRow denomination={denomination} handleChangeIsDefault={handleChangeIsDefault} handleDeleteDenomination={handleDeleteDenomination} key={denomination.value} />
+                    )}
+                    <div className='settings-button-wrapper'>
+                        <button onClick={handleAddDenomination} type='button'>+</button>
+                    </div>
+                </div>
             </form>
-            <button onClick={handleAddDenomination} type='button'>+</button>
+            
         </div>
     );
 }

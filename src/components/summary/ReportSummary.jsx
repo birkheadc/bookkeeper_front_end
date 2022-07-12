@@ -2,8 +2,11 @@ import React from 'react';
 import './ReportSummary.css'
 import { LocaleConversions } from '../../helpers';
 import { TransactionCategoryHelpers } from '../../helpers';
+import { useNavigate } from 'react-router-dom';
 
 function ReportSummary(props) {
+
+    const nav = useNavigate();
 
     function calculateTotal() {
         let total = 0;
@@ -102,6 +105,29 @@ function ReportSummary(props) {
         );
     }
 
+    const handleEditButton = (e) => {
+        const date = e.target.getAttribute('data-date');
+        nav('../report?date=' + date);
+    }
+
+    function renderEditButton() {
+        if (props.addEditButton === true) {
+            return (
+                <div className='report-summary-edit-button-wrapper'>
+                    <button className='report-summary-edit-button' data-date={props.report.date.slice(0, 10)} onClick={handleEditButton} type='button'>Edit</button>
+                </div>
+            );
+        }
+    }
+
+    if (props.report.isBlankDay === true) {
+        return (
+            <div className='report-summary-wrapper'>
+
+            </div>
+        );
+    }
+
     return(
         <div className='report-summary-wrapper'>
             <h3>{LocaleConversions.getDateStringFromDate(props.report.date)}</h3>
@@ -110,6 +136,7 @@ function ReportSummary(props) {
                 {renderEarnings(props.report.earnings)}
                 {renderExpenses(props.report.expenses)}
             </table>
+            {renderEditButton()}
         </div>
     );
 }

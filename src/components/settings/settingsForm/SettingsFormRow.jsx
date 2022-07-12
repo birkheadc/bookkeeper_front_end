@@ -9,12 +9,22 @@ function SettingsFormRow(props) {
         props.handleValueChange(name, value);
     }
 
-    return(
-        <div>
-            <label htmlFor={'user-setting_' + props.setting.name}>{Utils.camelCaseToTitleCaseSpaces(props.setting.name)}</label>
-            <input data-name={props.setting.name} id={'user-setting_' + props.setting.name} onChange={handleValueChange} type='text' value={props.setting.value}></input>
-        </div>
-    );
+    try {
+        return(
+            <div className='settings-user-settings-row'>
+                <label htmlFor={'user-setting_' + props.setting.name}>{Utils.camelCaseToTitleCaseSpaces(props.setting.name)}</label>
+                <input data-name={props.setting.name} id={'user-setting_' + props.setting.name} onChange={handleValueChange} type='text' value={props.setting.value}></input>
+            </div>
+        );
+    }
+
+    catch {
+        return (
+            <div className='settings-user-settings-row'>
+                <label>ERROR: Setting Missing!</label>
+            </div>
+        );
+    }
 }
 
 export default SettingsFormRow;

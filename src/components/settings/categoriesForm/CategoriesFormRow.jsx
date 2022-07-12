@@ -15,7 +15,7 @@ function CategoriesFormRow(props) {
     }
 
     return(
-        <div>
+        <div className='categories-form-row'>
             <label htmlFor={'category-checkbox_' + props.category.name}>{TransactionCategoryHelpers.convertTransactionTypeName(props.category.name)}</label>
             <input data-name={props.category.name} id={'category-checkbox_' + props.category.name} onChange={handleChangeIsDefault} type='checkbox' checked={props.category.isDefault}></input>
             <button data-name={props.category.name} onClick={handleDeleteCategory} type='button'>x</button>

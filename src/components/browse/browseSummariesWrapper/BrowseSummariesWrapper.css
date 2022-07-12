@@ -1,10 +1,9 @@
 .browse-summaries-wrapper {
     display: flex;
     flex-direction: row;
-    gap: 0.2em;
 }
 
 .browse-summaries-wrapper>div {
-    width: 15%;
-    overflow: hidden;
+    width: 13.2%;
+    overflow: show;
 }
