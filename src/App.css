@@ -216,8 +216,12 @@ h5 {
 }
 
 .large {
-    font-size: 2rem;
+    font-size: 1.3rem;
     font-weight: bold;
+}
+
+.warning-text {
+    color: #E01010;
 }
 
 .date-input {

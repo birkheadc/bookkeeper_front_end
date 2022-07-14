@@ -44,7 +44,7 @@ function ReportFormEarning(props) {
 
     const openCalculator = () => {
         // TODO
-        prompt('Sorry, calculator is not yet implemented.');
+        alert('Sorry, calculator is not yet implemented.');
     }
     
     return(

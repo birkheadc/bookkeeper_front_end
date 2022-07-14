@@ -11,11 +11,15 @@ import Home from './components/home/Home';
 
 import * as Constants from './constants/Constants.js'
 import BrowsePage from './components/browse/browsePage/BrowsePage';
+import { Api } from './api';
+import { UserSettings } from './helpers/settings';
 
 function App() {
 
   const [isLoggedIn, setLoggedIn] = useState();
   const [width, setWidth] = useState(window.innerWidth);
+
+  const [loading, setLoading] = useState(true);
 
   useEffect(() => {
     checkLoggedIn();
@@ -48,7 +52,28 @@ function App() {
     setLoggedIn(true);
   }
 
+  useEffect(() => {
+    async function fetchAndStoreUserSettings() {
+      let settings;
+      try {
+        settings = await Api.fetchSettings();
+      }
+      catch {
+        settings = {};
+      }
+      UserSettings.storeUserSettings(settings);
+      setLoading(false);
+    }
+    setLoading(true);
+    fetchAndStoreUserSettings();
+  }, [isLoggedIn]);
+
   if (isLoggedIn === true) {
+    if (loading === true) {
+      return (
+        <h1>Loading...</h1>
+      );
+    }
     return (
       <div className="App">
         <BrowserRouter>

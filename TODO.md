@@ -17,16 +17,14 @@ Check a box to include / ignore numbers from this percentage as well
 
 ## Add ability to register multiple e-mail addresses to send reports to. The front-end should call an api end-point, supplying those addresses to send to. The back-end does not do this automatically like the last iteration.
 
-## Add a 'summary' section to the report that comes from the back end to easier display average/totals/earning% for week/month
-
-## Add Days of the Week above Week view / Month view, make Month view stagger so that day 1 starts in the right place and wraps to the next row on sunday
-
 ## Somehow make a week fit horizontally on the screen when on PC. Make everything scroll vertically on mobile
 
 ## Add Next/Prev buttons to browse screen to go to the next day/week/month depending on mode
 
-## Reformat settings page
+## Organize my to-do list better, maybe properly learn markdown for a start.
 
-## Reformat log-in page
+## Finish formatting the SpanSummary on the Browse Page.
 
-## 'NOTE' on browse page is cut off by border of summary
+## Add Email-backup when submitting a report. Email Name and Address should be accessable via the new UserSettings function.
+
+## Build Calculator functionality. Needs a popup that lets you simply count bills add fill in how many of each denomination. Especially useful for CASH but also COUPONS etc. At the moment the Open Calculator button on the report page just opens an alert saying 'sorry'.

@@ -1,6 +1,7 @@
 import React from 'react';
 import './SettingsForm.css'
 import SettingsFormRow from './SettingsFormRow.jsx';
+import SettingsFormRowSelect from './SettingsFormRowSelect';
 
 function SettingsForm(props) {
 
@@ -22,7 +23,7 @@ function SettingsForm(props) {
                 </div>
                 <div className='categories-form-sub-section'>
                     <h3>Browsing</h3>
-                    <SettingsFormRow handleValueChange={handleValueChange} setting={props.settings.userSettings.defaultBrowseMode} />
+                    <SettingsFormRowSelect choices={['day', 'week', 'month']} handleValueChange={handleValueChange} setting={props.settings.userSettings.defaultBrowseMode} />
                 </div>
             </form>
         </div>

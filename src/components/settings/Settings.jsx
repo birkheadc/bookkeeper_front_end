@@ -8,6 +8,7 @@ import DenominationsForm from './denominationsForm/DenominationsForm';
 import ChangePasswordForm from './changePasswordForm/ChangePasswordForm';
 import SettingsForm from './settingsForm/SettingsForm';
 import { TransactionCategoryHelpers } from '../../helpers';
+import { UserSettings } from '../../helpers/settings';
 
 function Settings(props) {
 
@@ -265,7 +266,8 @@ function Settings(props) {
     const submitChanges = async () => {
         setStatus('submitting...');
         try {
-            await Api.postSettings(settings);
+            const newSettings = await Api.postSettings(settings);
+            UserSettings.storeUserSettings(newSettings);
             setMessage('Submitted successfully!');
         }
         catch {

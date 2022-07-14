@@ -8,6 +8,7 @@ import { Utils } from '../../../helpers';
 import { Api } from '../../../api';
 import BrowseSummariesWrapper from '../browseSummariesWrapper/BrowseSummariesWrapper';
 import BrowseSpanSummary from '../browseSpanSummary/BrowseSpanSummary';
+import { UserSettings } from '../../../helpers/settings';
 
 function BrowsePage(props) {
 
@@ -36,14 +37,17 @@ function BrowsePage(props) {
         }
 
         if ((mode == null) || (modes.includes(mode) === false)) {
-            mode = 'day';
+            mode = UserSettings.retrieveUserSettingByName('defaultBrowseMode');
+            if (modes.includes(mode) === false) {
+                mode = 'day';
+            }
             doesRequireReload = true;
         }
 
         if (doesRequireReload === true) {
             let newSearchParams = {
                 date: date.toISOString().slice(0, 10),
-                mode: 'day'
+                mode: mode
             }
             setSearchParams(newSearchParams);
         }

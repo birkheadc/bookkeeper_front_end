@@ -33,10 +33,13 @@ async function postSettings(settings) {
             throw "Could not connect to server."
         }
         Utils.devlog("Successfully posted.");
+        let data = await response.json();
+        return data;
     }
     catch {
         Utils.devlog("Failed to post settings.");
         throw "Could not connect to server."
+        return null;
     }
 }
 
