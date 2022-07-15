@@ -2,13 +2,15 @@ import { Utils } from '../../helpers'
 import getApiUrl from '../getApiUrl/GetApiUrl';
 
 async function uploadCsv(csv) {
-    if (getApiUrl() == null) {
+
+    const API_URL = getApiUrl();
+
+    if (API_URL == null) {
         Utils.devlog("Api url not set, aborting.");
         throw "Api url not configured.";
     }
-    const API_URL = getApiUrl();
 
-    const subdir = '/transaction/csv';
+    const subdir = '/report/csv';
     const apiUrl = API_URL + subdir;
 
     const data = new FormData();

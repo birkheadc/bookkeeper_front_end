@@ -1,0 +1,42 @@
+.settings-user-settings-form {
+    display: flex;
+    flex-direction: column;
+
+    width: min(100%, 500px);
+    margin: 0 auto;
+
+    gap: 0.5em;
+}
+
+.settings-user-settings-row {
+    box-sizing: border-box;
+
+    display: flex;
+    flex-direction: row;
+
+    background-color: var(--clr-bg-4);
+    padding: 0.25em 0.5em;
+    border-radius: 0.25em;
+
+    align-content: center;
+    align-items: center;
+
+    justify-content: space-between;
+
+    gap: 1em;
+}
+
+.settings-user-settings-row>label {
+    white-space: nowrap;
+    flex-grow: 1;
+}
+
+.settings-user-settings-row>input, .settings-user-settings-row>select {
+    min-width: 0;
+}
+
+@media (max-width: 60rem) {
+    .settings-user-settings-row {
+        width: 100%;
+    }
+}

@@ -8,7 +8,7 @@ async function fetchSettings() {
     }
     const API_URL = getApiUrl();
     
-    const subDir = "/setting";
+    const subDir = "/settings";
     const apiUrl = API_URL + subDir;
 
     if (process.env.NODE_ENV === 'development') {

@@ -1,0 +1,24 @@
+.browse-span-summary-wrapper {
+    width: fit-content;
+    margin: 0 auto;
+}
+
+.browse-span-summary-wrapper>div {
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+    gap: 4em;
+}
+
+.browse-span-summary-wrapper>table {
+    width: 100%;
+}
+
+.span-summary-table th {
+    font-size: 1.2em;
+  }
+
+  .span-summary-table {
+    border-collapse: collapse;
+    margin: 0 auto;
+}

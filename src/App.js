@@ -1,18 +1,26 @@
 import './App.css';
 import Navbar from './components/navbar/Navbar';
-import { Routes, Route, BrowserRouter } from 'react-router-dom';
-import Home from './components/home/Home';
+import { Routes, Route, BrowserRouter, useNavigate } from 'react-router-dom';
 import Report from './components/report/Report';
 import Settings from './components/settings/Settings';
 import Login from './components/login/Login';
-import SummaryPage from './components/summary/SummaryPage';
 import { useEffect, useState } from 'react';
 import LogoutButton from './components/logoutButton/LogoutButton';
+import Upload from './components/upload/Upload';
+import Home from './components/home/Home';
+
+import * as Constants from './constants/Constants.js'
+import BrowsePage from './components/browse/browsePage/BrowsePage';
+import { Api } from './api';
+import { UserSettings } from './helpers/settings';
+import { Utils } from './helpers';
 
 function App() {
 
   const [isLoggedIn, setLoggedIn] = useState();
   const [width, setWidth] = useState(window.innerWidth);
+
+  const [loading, setLoading] = useState(true);
 
   useEffect(() => {
     checkLoggedIn();
@@ -45,21 +53,49 @@ function App() {
     setLoggedIn(true);
   }
 
+  useEffect(() => {
+    async function fetchAndStoreUserSettings() {
+      let settings;
+      try {
+        settings = await Api.fetchSettings();
+      }
+      catch {
+        settings = {};
+      }
+      UserSettings.storeUserSettings(settings);
+      setLoading(false);
+    }
+    setLoading(true);
+    fetchAndStoreUserSettings();
+  }, [isLoggedIn]);
+
   if (isLoggedIn === true) {
+    if (loading === true) {
+      return (
+        <div className='App'>
+          <main>
+            <div className='main-wrapper'>
+
+            </div>
+          </main>
+        </div>
+      );
+    }
     return (
       <div className="App">
         <BrowserRouter>
           <header>
-            <Navbar MOBILE_WIDTH={800} width={width} isLoggedIn={isLoggedIn} logoutButton={<LogoutButton MOBILE_WIDTH={800} width={width} handleLogout={handleLogout}/>}/>
-          </header>g
+            <Navbar MOBILE_WIDTH={Constants.MOBILE_WIDTH} width={width} isLoggedIn={isLoggedIn} handleLogout={handleLogout}/>
+          </header>
           <main>
             <div className='main-wrapper'>
               <Routes>
-                <Route path ='/' element={<Home width={width} />} />
+                <Route path = '/' element={<Home />} />
                 <Route path ='/report' element={<Report width={width}/>} />
                 <Route path ='/settings' element={<Settings handleLogin={handleLogin} width={width} />} />
                 <Route path ='/login' element={<Login handleLogin={handleLogin}/>} />
-                <Route path ='/summary' element={<SummaryPage width={width}/>} />
+                <Route path ='/browse' element={<BrowsePage width={width}/>} />
+                <Route path ='upload' element={<Upload />} />
               </Routes>
             </div>
           </main>

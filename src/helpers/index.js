@@ -6,10 +6,14 @@ import isNoteNameValid from "./isNoteNameValid";
 import getDayOfWeekFromDate from "./GetDayOfWeekFromDate";
 import getDateStringFromDate from "./GetDateStringFromDate";
 import formatNumber from "./FormatNumber";
+import getDatesByDateAndMode from "./GetDatesByDateAndMode";
+import camelCaseToTitleCaseSpaces from "./CamelCaseToTitleCaseSpaces";
 
 const Utils = {
     devlog,
-    getNewUUID
+    getNewUUID,
+    getDatesByDateAndMode,
+    camelCaseToTitleCaseSpaces
 }
 
 const TransactionCategoryHelpers = {

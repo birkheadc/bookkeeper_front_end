@@ -1,0 +1,32 @@
+.browse-sub-section-wrapper {
+    display: flex;
+    flex-direction: column;
+    gap: 1em;
+}
+
+.day-of-week-label {
+    background-color: var(--clr-bg-4);
+}
+
+.day-of-week-label>h2 {
+    font-size: 2rem;
+}
+
+.disabled-summary {
+    background-color: var(--clr-bg-4);
+}
+
+.browse-summary-wrapper {
+    display: flex;
+    flex-direction: column;
+    gap: 0.5em;
+}
+
+@media (max-width:75rem) {
+    .day-of-week-label {
+        display: none;
+    }
+    .disabled-summary {
+        display: none;
+    }
+}

@@ -1,4 +1,4 @@
-.report-upload-form {
+/* .report-upload-form {
     display: flex;
     flex-direction: column;
     gap: 1em;
@@ -12,4 +12,28 @@
 .upload-button {
     width: fit-content;
     margin: 0 auto;
+} */
+
+.select-report-method {
+    box-sizing: border-box;
+    display: flex;
+    margin: 0 auto;
+    padding: 0 1em;
+    justify-content: space-between;
+    width: 100%;
+    max-width: 28em;
+}
+
+.select-report-method div {
+    align-self: center;
+}
+
+.select-report-date-form {
+    display: flex;
+    flex-direction: column;
+    gap: 1em;
+}
+
+.report-message-box {
+    padding: 2em 0 1em 0;
 }

@@ -6,7 +6,6 @@ import fetchSummary from "./fetchSummary/FetchSummary";
 import fetchTransactionTypes from "./fetchTransactionTypes/FetchTransactionTypes";
 import postDenominations from "./postReport/PostDenominations";
 import postReport from "./postReport/PostReport";
-import postSettings from "./postReport/PostSettings";
 import postTransactionTypes from "./postReport/PostTransactionTypes";
 import verifyPassword from "./verifyPassword/VerifyPassword";
 import deleteTransaction from "./deleteTransaction/DeleteTransaction";
@@ -15,6 +14,10 @@ import fetchLastNDaysSummary from "./fetchLastNDaysSummary/FetchLastNDaysSummary
 import uploadCsv from "./uploadCsv/UploadCsv";
 import changePassword from "./changePassword/ChangePassword";
 import getApiUrl from "./getApiUrl/GetApiUrl";
+import fetchTransactionsFromDate from "./fetchTransactionsFromDate/FetchTransactionsFromDate";
+import fetchReports from "./fetchReports/FetchReports";
+import fetchCategories from "./fetchCategories/FetchCategories";
+import postSettings from "./postSettings/PostSettings";
 
 const Api = {
     deleteDenominations,
@@ -33,7 +36,11 @@ const Api = {
     fetchLastNDaysSummary,
     uploadCsv,
     changePassword,
-    getApiUrl
+    getApiUrl,
+    fetchTransactionsFromDate,
+    fetchReports,
+    fetchCategories,
+    postSettings
 }
 
 export { Api };

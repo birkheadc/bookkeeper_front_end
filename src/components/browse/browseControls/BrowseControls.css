@@ -1,0 +1,18 @@
+.browse-controls-form {
+    display: flex;
+    flex-direction: column;
+    gap: 1em;
+    width: fit-content;
+    margin: 0 auto;
+}
+
+.browse-controls-mode-buttons {
+    display: flex;
+    flex-direction: row;
+    gap: 0.25em;
+}
+
+.browse-controls-button-active {
+    background-color: var(--clr-accent-2);
+    color: var(--clr-bg-2);
+}

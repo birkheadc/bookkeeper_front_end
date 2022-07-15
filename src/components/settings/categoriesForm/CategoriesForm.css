@@ -1,0 +1,41 @@
+.categories-form {
+    width: fit-content;
+    margin: 0 auto;
+
+    display: flex;
+    flex-direction: column;
+    gap: 1em;
+
+    width: min(100%, 500px);
+}
+
+.categories-form-categories-wrapper {
+    display: flex;
+    flex-direction: column;
+
+    gap: 0.5em;
+}
+
+.categories-form-row {
+    display: flex;
+    flex-direction: row;
+
+    background-color: var(--clr-bg-4);
+    padding: 0.25em 0.5em;
+    border-radius: 0.25em;
+
+    align-content: center;
+    align-items: center;
+
+    gap: 1em;
+}
+
+.categories-form-row>label {
+    flex-grow: 1;
+}
+
+.categories-form-sub-section {
+    display: flex;
+    flex-direction: column;
+    gap: 0.5em;
+}

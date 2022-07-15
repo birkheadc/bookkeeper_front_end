@@ -18,7 +18,12 @@
 
     gap: 1em;
 
+    align-content: center;
     align-items: center;
+
+    background-color: var(--clr-bg-4);
+    padding: 0.25em 0.5em;
+    border-radius: 0.25em;
 }
 
 .login-form-input {
