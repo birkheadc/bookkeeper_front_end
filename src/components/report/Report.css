@@ -15,8 +15,10 @@
 } */
 
 .select-report-method {
+    box-sizing: border-box;
     display: flex;
     margin: 0 auto;
+    padding: 0 1em;
     justify-content: space-between;
     width: 100%;
     max-width: 28em;

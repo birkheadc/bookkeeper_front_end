@@ -1,6 +1,10 @@
 @import url('https://fonts.googleapis.com/css?family=Lato');
 @import url('https://fonts.googleapis.com/css?family=Koulen');
 @import url('https://fonts.googleapis.com/css?family=Roboto');
+@import url('https://fonts.googleapis.com/css2?family=Oswald&display=swap');
+
+@import url('https://fonts.googleapis.com/css2?family=PT+Sans:wght@700&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Noto+Sans+KR&display=swap');
 
 /* Remove arrows from number inputs */
 
@@ -37,7 +41,7 @@ input[type=number] {
 html {
     
     color: var(--clr-text-1);
-    font-family: 'Roboto', sans-serif;
+    font-family: 'Roboto', 'Noto Sans KR', sans-serif;
     height: 100%;
 }
 
@@ -55,7 +59,7 @@ body {
 a {
     text-decoration: none;
     color: var(--clr-accent-1);
-    font-family: 'Lato', sans-serif;
+    font-family: 'Lato', 'Noto Sans KR', sans-serif;
 }
 
 a, .header-link {
@@ -67,7 +71,7 @@ a:hover, a:focus, .header-link:hover, .header-link:focus {
 }
 
 button {
-    font-family: 'Lato', sans-serif;
+    font-family: 'Lato', 'Noto Sans KR', sans-serif;
 
     background-color: var(--clr-accent-1);
     color: var(--clr-header-1);
@@ -102,8 +106,11 @@ button:active {
     justify-items: center;
 }
 
-h1, h2, h3, h4, h5, h6 {
-    font-family: 'Koulen', sans-serif;
+h1, h2 {
+    font-family: 'Koulen', 'Noto Sans KR', sans-serif;
+}
+h3, h4, h5, h6, .header-link {
+    font-family: 'Oswald', 'Noto Sans KR', sans-serif;
 }
 
 h1, h2 {
@@ -167,10 +174,6 @@ h5 {
     text-align: right;
 }
 
-.header-link {
-    font-family: 'Koulen', sans-serif;
-}
-
 .tooltip {
     position: relative;
     display: inline-block;
@@ -230,7 +233,13 @@ h5 {
     border-radius: 0.25em;
 }
 
-@media (max-width: 800px) {
+.border-bottom {
+    border-bottom: 2px solid var(--clr-border-1);
+}
+
+
+
+@media (max-width: 60rem) {
 
     html {
         background-color: var(--clr-bg-2);
@@ -238,7 +247,10 @@ h5 {
 
     .main-wrapper {
         width: 100%;
-        padding-right: 0.5em;
-        padding-left: 0.5em;
+        padding: 5em 0.2em 1em 0.2em;
+    }
+
+    .section-wrapper {
+        
     }
 }

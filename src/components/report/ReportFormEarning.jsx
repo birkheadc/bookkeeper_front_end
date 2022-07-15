@@ -54,7 +54,7 @@ function ReportFormEarning(props) {
             <div className='report-form-transaction-line'>
                 <label htmlFor={'earning-input_' + props.earning.id}>₩</label>
                 <input id={'earning-input_' + props.earning.id} type='number' onChange={handleValueChange} value={props.earning.amount}></input>
-                <button className='report-form-calculator-button' onClick={openCalculator}>Calc</button>
+                <button className='report-form-calculator-button' onClick={openCalculator} type='button'>Calc</button>
             </div>
         </div>
     );

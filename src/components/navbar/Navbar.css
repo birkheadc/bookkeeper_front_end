@@ -46,8 +46,16 @@ nav ul {
     color: var(--clr-header-1);
 }
 
+.navlink-text {
+    margin-left: 0.5em;
+}
+
 @media (max-width: 800px) {
     .navbar-link-active, .navbar-link-inactive {
         padding: 1em 2em;
+    }
+
+    .navlink-text {
+        display: none;
     }
 }

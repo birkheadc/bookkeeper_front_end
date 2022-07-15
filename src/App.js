@@ -1,6 +1,6 @@
 import './App.css';
 import Navbar from './components/navbar/Navbar';
-import { Routes, Route, BrowserRouter } from 'react-router-dom';
+import { Routes, Route, BrowserRouter, useNavigate } from 'react-router-dom';
 import Report from './components/report/Report';
 import Settings from './components/settings/Settings';
 import Login from './components/login/Login';
@@ -13,6 +13,7 @@ import * as Constants from './constants/Constants.js'
 import BrowsePage from './components/browse/browsePage/BrowsePage';
 import { Api } from './api';
 import { UserSettings } from './helpers/settings';
+import { Utils } from './helpers';
 
 function App() {
 
@@ -71,14 +72,20 @@ function App() {
   if (isLoggedIn === true) {
     if (loading === true) {
       return (
-        <h1>Loading...</h1>
+        <div className='App'>
+          <main>
+            <div className='main-wrapper'>
+
+            </div>
+          </main>
+        </div>
       );
     }
     return (
       <div className="App">
         <BrowserRouter>
           <header>
-            <Navbar MOBILE_WIDTH={Constants.MOBILE_WIDTH} width={width} isLoggedIn={isLoggedIn} logoutButton={<LogoutButton MOBILE_WIDTH={Constants.MOBILE_WIDTH} width={width} handleLogout={handleLogout}/>}/>
+            <Navbar MOBILE_WIDTH={Constants.MOBILE_WIDTH} width={width} isLoggedIn={isLoggedIn} handleLogout={handleLogout}/>
           </header>
           <main>
             <div className='main-wrapper'>

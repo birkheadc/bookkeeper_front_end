@@ -34,7 +34,7 @@ function ReportForm(props) {
 
     function renderSummary() {
         return(
-            <div>
+            <div className='report-preview-wrapper'>
                 <h3 className='centered'>Preview</h3>
                 <ReportSummary report={props.report.reports[0]}/>
             </div>
@@ -47,13 +47,13 @@ function ReportForm(props) {
                 <h2>{props.report.date}</h2>
                 <form className='report-form' onSubmit={submitReport}>
                     <div className='report-form-body'>
-                        {renderEarnings(props.report.reports[0].earnings)}
-                        {renderExpenses(props.report.reports[0].expenses)}
+                        <div className='report-form-transactions-wrapper'>
+                            {renderEarnings(props.report.reports[0].earnings)}
+                            {renderExpenses(props.report.reports[0].expenses)}
+                        </div>
                         {renderSummary()}
                     </div>
-                    <div className='report-form-button-wrapper'>
-                        <button type='submit'>Submit</button>
-                    </div>
+                    <button type='submit'>Submit</button>
                     
                 </form>
             </>

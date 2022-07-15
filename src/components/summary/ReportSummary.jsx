@@ -122,7 +122,7 @@ function ReportSummary(props) {
 
     if (props.report.isBlankDay === true) {
         return (
-            <div className='report-summary-wrapper'>
+            <div className='report-summary-wrapper disabled-summary'>
 
             </div>
         );

@@ -47,7 +47,7 @@ function Login(props) {
         return <h1>Logging in...</h1>
     }
     return(
-        <div className='login-wrapper'>
+        <div className='section-wrapper login-wrapper'>
             <h1>Please log in</h1>
             {displayMessage()}
             <form onSubmit={handleLogin}>

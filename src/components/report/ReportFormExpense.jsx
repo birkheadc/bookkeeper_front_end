@@ -58,7 +58,7 @@ function ReportFormExpense(props) {
             <div className='report-form-transaction-line'>
                 <label htmlFor={'expense-input_' + props.expense.id}>₩</label>
                 <input id={'expense-input_' + props.expense.id} type='number' onChange={handleValueChange} value={props.expense.amount}></input>
-                <button className='report-form-calculator-button' onClick={openCalculator}>Calc</button>
+                <button className='report-form-calculator-button' onClick={openCalculator} type='button'>Calc</button>
             </div>
             <div className='report-form-transaction-line'>
                 <label htmlFor={'expense-add_back_into_cash_' + props.expense.id}>Add Back Into Cash</label>

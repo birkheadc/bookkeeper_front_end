@@ -128,8 +128,10 @@ function BrowsePage(props) {
         return (
             <>
                 <BrowseSpanSummary summary={report.summary} />
-                {renderDayOfWeekLabels()}
-                <BrowseSummariesWrapper mode={mode} reports={report.reports} />
+                <div className='browse-summary-wrapper'>
+                    {renderDayOfWeekLabels()}
+                    <BrowseSummariesWrapper mode={mode} reports={report.reports} />
+                </div>
             </>
         );
     }

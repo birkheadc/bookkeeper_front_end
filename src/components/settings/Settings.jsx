@@ -312,7 +312,7 @@ function Settings(props) {
 
     if (status !== '') {
         return (
-            <div>
+            <div className='section-wrapper'>
                 <h1>Settings</h1>
                 <h2>{status}</h2>
             </div>
@@ -320,14 +320,14 @@ function Settings(props) {
     }
 
     return (
-        <div>
+        <div className='section-wrapper'>
             <h1>Settings</h1>
             {renderMessage()}
             <div className='settings-section-wrapper'>
-            {renderSettingsForm()}
-            {renderCategoriesForm()}
-            {renderDenominationsForm()}
-            {renderButtons()}
+                {renderSettingsForm()}
+                {renderCategoriesForm()}
+                {renderDenominationsForm()}
+                {renderButtons()}
             </div>
             {renderChangePasswordForm()}
         </div>

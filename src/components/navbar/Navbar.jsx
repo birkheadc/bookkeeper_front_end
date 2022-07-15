@@ -7,6 +7,7 @@ import createReportIcon from '../../media/images/icons/plus_icon.png';
 import logInIcon from '../../media/images/icons/log_in_b_icon.png';
 import settingsIcon from '../../media/images/icons/cog_wheel_icon.png';
 import summaryIcon from '../../media/images/icons/search_icon.png';
+import LogoutButton from '../logoutButton/LogoutButton';
 
 
 function Navbar(props) {
@@ -14,6 +15,12 @@ function Navbar(props) {
     const navigate = useNavigate();
 
     const [activeLink, setActiveLink] = useState('');
+
+    useEffect(() => {
+        if (props.isLoggedIn === false) {
+            navigate('../login');
+        }
+    }, [navigate]);
 
     useEffect(() => {
         setActiveLink(window.location.pathname.substring(1));
@@ -29,10 +36,15 @@ function Navbar(props) {
         return 'navbar-link navbar-link-inactive';
     }
 
+    const handleLogout = (e) => {
+        props.handleLogout(e);
+        navigate('../login');
+    }
+
     const getSessionLink = function() {
         if (props.isLoggedIn === true) {
             return(
-                props.logoutButton
+                <LogoutButton MOBILE_WIDTH={props.MOBILE_WIDTH} width={props.width} handleLogout={handleLogout} />
             );
         }
         return(
@@ -41,10 +53,12 @@ function Navbar(props) {
     }
 
     const getLinkLogin = function() {
-        if (props.width < props.MOBILE_WIDTH) {
-            return <img src={logInIcon} width={20}></img>;
-        }
-        return 'Log In';
+        return (
+            <>
+                <i className="fa-solid fa-arrow-right-to-bracket"></i>
+                <span className='navlink-text'>Log In</span>
+            </>
+        );
     }
 
     const getLinkHome = function() {
@@ -55,24 +69,30 @@ function Navbar(props) {
     }
 
     const getLinkReport = function() {
-        if (props.width < props.MOBILE_WIDTH) {
-            return <img src={createReportIcon} width={20}></img>;
-        }
-        return 'Create Report';
+        return (
+            <>
+                <i className="fa-solid fa-plus"></i>
+                <span className='navlink-text'>Create</span>
+            </>
+        );
     }
 
     const getLinkSummary = function() {
-        if (props.width < props.MOBILE_WIDTH) {
-            return <img src={summaryIcon} width={20}></img>;
-        }
-        return 'Browse';
+        return (
+            <>
+                <i className="fa-solid fa-magnifying-glass"></i>
+                <span className='navlink-text'>Browse</span>
+            </>
+        );
     }
 
     const getLinkSettings = function() {
-        if (props.width < props.MOBILE_WIDTH) {
-            return <img src={settingsIcon} width={20}></img>;
-        }
-        return 'Settings'
+        return (
+            <>
+                <i className="fa-solid fa-sliders"></i>
+                <span className='navlink-text'>Settings</span>
+            </>
+        );
     }
 
     return(

@@ -16,16 +16,6 @@ function Report(props) {
     const [report, setReport] = useState();
     const [message, setMessage] = useState();
 
-    const handleSubmitDate = (e) => {
-        e.preventDefault();
-        const date = document.getElementById('report-date-input').value;
-        if (date == null || date === '') {
-            return;
-        }
-        const params = { date: date };  
-        setSearchParams(params);
-    }
-
     useEffect(() => {
 
         function setDateFromSearchParams() {
@@ -113,21 +103,31 @@ function Report(props) {
         }
     }, [date]);
 
+    const handleChangeDate = (e) => {
+        e.preventDefault();
+        const date = e.target.value;
+        if (date == null || date === '') {
+            return;
+        }
+        const params = { date: date };
+        console.log(params);
+        setSearchParams(params);
+    }
+
     function renderSelectReportMethod() {
         return(
             <div className='select-report-method'>
                 <div>
                     <h3 className='centered'>Select Date</h3>
-                    <form onSubmit={handleSubmitDate} className='select-report-date-form'>
-                        <input defaultValue={searchParams.get('date')} id='report-date-input' type='date'></input>
-                        <button type='submit'>Go</button>
+                    <form className='select-report-date-form'>
+                        <input value={searchParams.get('date')} id='report-date-input' onChange={handleChangeDate} type='date'></input>
                     </form>
                 </div>
                 <div>
-                    <h3>Or</h3>
+                    <h3>or</h3>
                 </div>
                 <div>
-                    <h3><NavLink className='header-link' to="/upload">upload a csv</NavLink></h3>
+                    <h3><NavLink className='header-link' to="/upload">Upload CSV</NavLink></h3>
                 </div>
             </div>
         );

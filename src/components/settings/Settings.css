@@ -32,3 +32,13 @@
 .settings-button-wrapper>button {
     margin: 0;
 }
+
+@media (max-width: 60rem) {
+    .settings-section-wrapper {
+        padding: 1em 0.5em;
+    }
+
+    .settings-sub-section-wrapper {
+        padding: 1em;
+    }
+}

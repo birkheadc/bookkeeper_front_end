@@ -9,6 +9,8 @@
 }
 
 .settings-user-settings-row {
+    box-sizing: border-box;
+
     display: flex;
     flex-direction: row;
 
@@ -18,8 +20,23 @@
 
     align-content: center;
     align-items: center;
+
+    justify-content: space-between;
+
+    gap: 1em;
 }
 
 .settings-user-settings-row>label {
+    white-space: nowrap;
     flex-grow: 1;
+}
+
+.settings-user-settings-row>input, .settings-user-settings-row>select {
+    min-width: 0;
+}
+
+@media (max-width: 60rem) {
+    .settings-user-settings-row {
+        width: 100%;
+    }
 }
