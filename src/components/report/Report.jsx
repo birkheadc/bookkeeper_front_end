@@ -115,6 +115,9 @@ function Report(props) {
     }
 
     function renderSelectReportMethod() {
+        if (searchParams.get('date') == null) {
+            return null;
+        }
         return(
             <div className='select-report-method'>
                 <div>

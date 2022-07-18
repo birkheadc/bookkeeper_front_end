@@ -1,6 +1,8 @@
 import React from 'react';
 import './ReportFormEarning.css'
 import { TransactionCategoryHelpers } from '../../helpers';
+import Popup from 'reactjs-popup';
+import Calculator from '../calculator/Calculator';
 
 function ReportFormEarning(props) {
 
@@ -9,11 +11,16 @@ function ReportFormEarning(props) {
         props.removeEarning(id);
     }
 
-    const handleValueChange = () => {
+    const handleValueChange = (e) => {
+        const value = e.target.value;
+        updateValue(value);
+    }
+
+    const updateValue = (value) => {
         const earning = {
             id : props.earning.id,
             category : props.earning.category,
-            amount : parseInt(document.getElementById('earning-input_' + props.earning.id).value),
+            amount : value,
             date : props.date
         };
         props.updateValue(earning);
@@ -42,9 +49,8 @@ function ReportFormEarning(props) {
         handleCategoryNameChange(response);
     }
 
-    const openCalculator = () => {
-        // TODO
-        alert('Sorry, calculator is not yet implemented.');
+    const addCalculatorValue = (value) => {
+        updateValue(value);
     }
     
     return(
@@ -53,8 +59,8 @@ function ReportFormEarning(props) {
             <h3 className='report-form-transaction-line'><button className='report-form-transaction-title link-style-button large' onClick={openCategoryChangePrompt}>{TransactionCategoryHelpers.convertTransactionTypeName(props.earning.category)}</button></h3>
             <div className='report-form-transaction-line'>
                 <label htmlFor={'earning-input_' + props.earning.id}>₩</label>
-                <input id={'earning-input_' + props.earning.id} type='number' onChange={handleValueChange} value={props.earning.amount}></input>
-                <button className='report-form-calculator-button' onClick={openCalculator} type='button'>Calc</button>
+                <input className='input-number' id={'earning-input_' + props.earning.id} type='number' onChange={handleValueChange} value={props.earning.amount}></input>
+                <Calculator denominations={props.denominations} handleCancel handleSubmit={addCalculatorValue} oldTotal={props.earning.amount}/>
             </div>
         </div>
     );

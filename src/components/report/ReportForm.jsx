@@ -12,7 +12,7 @@ function ReportForm(props) {
                 <h3 className='centered'>Earnings</h3>
                 {earnings.map(
                     earning =>
-                    <ReportFormEarning date={props.report.reports[0].date} earning={earning} key={earning.id} removeEarning={props.removeEarning} updateValue={props.updateEarning}/>
+                    <ReportFormEarning date={props.report.reports[0].date} denominations={props.report.denominations} earning={earning} key={earning.id} removeEarning={props.removeEarning} updateValue={props.updateEarning}/>
                 )}
                 <button onClick={props.addEarning} type='button'>+</button>
             </div>
