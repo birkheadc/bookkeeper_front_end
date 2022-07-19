@@ -82,7 +82,9 @@ function Report(props) {
                         id : Utils.getNewUUID(),
                         category : report.expenseCategories[i].name,
                         amount : 0,
-                        date : new Date()
+                        date : new Date(),
+                        wasTakenFromCash : false,
+                        note : ''
                     };
                     expenses.push(expense);
                 }
@@ -110,7 +112,6 @@ function Report(props) {
             return;
         }
         const params = { date: date };
-        console.log(params);
         setSearchParams(params);
     }
 
@@ -168,22 +169,23 @@ function Report(props) {
         }
     }
 
-    const promptAddEarning = () => {
-        const response = prompt("Select a category.");
-        handleAddEarning(response);
-    }
-
     function handleAddEarning(category) {
         if (category == null || category === '') {
             return;
         }
-        if (TransactionCategoryHelpers.isTransactionNameValid(category) === false) {
+
+        const converted = TransactionCategoryHelpers.toSnakeCase(category)
+        if (TransactionCategoryHelpers.isTransactionNameValid(converted) === false) {
             alert('Sorry, that cannot be used.');
+            return;
+        }
+        if (doesEarningOfCategoryExist(converted) === true) {
+            alert('That is already being used.');
             return;
         }
         const earning = {
             id : Utils.getNewUUID(),
-            category : category,
+            category : converted,
             amount : 0,
             date : new Date()
         };
@@ -195,9 +197,14 @@ function Report(props) {
         setReport(newReport);
     }
 
-    const promptAddExpense = () => {
-        const response = prompt("Select a category.");
-        handleAddExpense(response);
+    function doesEarningOfCategoryExist(category) {
+        for (let i = 0; i < report.reports[0].earnings.length; i++) {
+            const earning = report.reports[0].earnings[i];
+            if (earning.category === category) {
+                return true;
+            }
+        }
+        return false;
     }
 
     function handleAddExpense(category) {
@@ -208,12 +215,17 @@ function Report(props) {
             alert('Sorry, that cannot be used.');
             return;
         }
-        console.log('Create expense of category: ' + category);
+        if (doesExpenseOfCategoryExist(category) === true) {
+            alert('That is already being used.');
+            return;
+        }
         const expense = {
             id : Utils.getNewUUID(),
             category : category,
             amount : 0,
-            date : new Date()
+            date : new Date(),
+            wasTakenFromCash : false,
+            note : ''
         };
 
         let newExpenses = [...report.reports[0].expenses];
@@ -221,6 +233,16 @@ function Report(props) {
         let newReport = {...report};
         newReport.reports[0].expenses = newExpenses;
         setReport(newReport);
+    }
+
+    function doesExpenseOfCategoryExist(category) {
+        for (let i = 0; i < report.reports[0].expenses.length; i++) {
+            const expense = report.reports[0].expenses[i];
+            if (expense.category === category) {
+                return true;
+            }
+        }
+        return false;
     }
 
     const removeEarning = (id) => {
@@ -257,6 +279,22 @@ function Report(props) {
         setReport(newReport);
     }
 
+    const addDefaultDenomination = (value) => {
+        let newDenominations = [...report.denominations];
+        for (let i = 0; i < newDenominations.length; i++) {
+            if (newDenominations[i].value === value) {
+                return;
+            }
+        }
+        newDenominations.push({
+            value: value,
+            isDefault: false
+        })
+        let newReport = {...report};
+        newReport.denominations = newDenominations;
+        setReport(newReport);
+    }
+
     const submitReport = async () => {
         clearMessage();
         setStatus('Submitting...');
@@ -267,7 +305,6 @@ function Report(props) {
         catch {
             displayMessage('Failed to submit.');
             setStatus('');
-            console.log(response);
             return;
         }
         displayMessage('Submitted Successfully!');
@@ -303,7 +340,7 @@ function Report(props) {
             );
         }
         return(
-            <ReportForm addEarning={promptAddEarning} addExpense={promptAddExpense} removeEarning={removeEarning} removeExpense={removeExpense} submitReport={submitReport} updateEarning={updateEarning} updateExpense={updateExpense} report={report} />
+            <ReportForm addEarning={handleAddEarning} addExpense={handleAddExpense} handleAddDefaultDenominationWithValue={addDefaultDenomination} removeEarning={removeEarning} removeExpense={removeExpense} submitReport={submitReport} updateEarning={updateEarning} updateExpense={updateExpense} report={report} />
         );
     }
 
@@ -330,7 +367,7 @@ function Report(props) {
     // useEffect(() => {
     //     console.log(":::REPORT DATA:::")
     //     console.log(reportData);
-    // }, [reportData]);
+    // }, [reportData]);f
 
     // const handleSubmitDate = (e) => {
     //     e.preventDefault();

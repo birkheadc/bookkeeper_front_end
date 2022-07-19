@@ -114,10 +114,10 @@ button:active {
     justify-items: center;
 }
 
-h1, h2 {
+h1 {
     font-family: 'Koulen', 'Noto Sans KR', sans-serif;
 }
-h3, h4, h5, h6, .header-link {
+h2, h3, h4, h5, h6, .header-link {
     font-family: 'Oswald', 'Noto Sans KR', sans-serif;
 }
 

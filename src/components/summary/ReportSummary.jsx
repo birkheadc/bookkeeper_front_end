@@ -3,6 +3,8 @@ import './ReportSummary.css'
 import { LocaleConversions } from '../../helpers';
 import { TransactionCategoryHelpers } from '../../helpers';
 import { useNavigate } from 'react-router-dom';
+import ReportSummaryTableRowEarning from './ReportSummaryTableRowEarning';
+import ReportSummaryTableRowExpense from './ReportSummaryTableRowExpense';
 
 function ReportSummary(props) {
 
@@ -30,28 +32,6 @@ function ReportSummary(props) {
         return '₩' + LocaleConversions.formatNumber(total);
     }
 
-    function renderExpenseCategoryName(expense) {
-        if (expense.wasTakenFromCash === true) {
-            return (
-                '*' + TransactionCategoryHelpers.convertTransactionTypeName(expense.category)
-            );
-        }
-        return (
-            TransactionCategoryHelpers.convertTransactionTypeName(expense.category)
-        );
-    }
-
-    function renderEarningAmount(earning) {
-        if (isNaN(earning.amount) === true) {
-            return 0;
-        }
-        return LocaleConversions.formatNumber(earning.amount);
-    }
-
-    function renderExpenseAmount(expense) {
-        return '-' + renderEarningAmount(expense);
-    }
-
     function renderEarnings(earnings) {
         if (earnings == null | earnings.length < 1) {
             return null;
@@ -60,10 +40,7 @@ function ReportSummary(props) {
             <tbody>
                 {earnings.map(
                 earning =>
-                <tr key={earning.id}>
-                    <td className='left-align'><span className='overflow'><span>{TransactionCategoryHelpers.convertTransactionTypeName(earning.category)}</span></span></td>
-                    <td className='right-align'>{renderEarningAmount(earning)}</td>
-                </tr>
+                <ReportSummaryTableRowEarning earning={earning} key={earning.id} />
             )}
             </tbody>
         );
@@ -77,33 +54,12 @@ function ReportSummary(props) {
             <tbody>
                 {expenses.map(
                 expense =>
-                <tr key={expense.id}>
-                    <td className='left-align'><span className='overflow'><span>{renderExpenseCategoryName(expense)}</span></span></td>
-                    <td className='right-align'>{renderExpenseAmount(expense)}</td>
-                    {renderNote(expense.note)}
-                </tr>
+                <ReportSummaryTableRowExpense expense={expense} key={expense.id} />
             )}
             </tbody>
         );
     }
-    
-    const handleViewNote = (e) => {
-        e.preventDefault();
-        const note = e.target.getAttribute('data-note');
-        alert(note);
-    }
 
-    function renderNote(note) {
-        if (note == null || note === '') {
-            return null;
-        }
-        return (
-            <td><div className='tooltip'>
-                <button className='link-style-button small' data-note={note} onClick={handleViewNote}>Note</button>
-                <span className='tooltiptext'>{note}</span>
-            </div></td>
-        );
-    }
 
     const handleEditButton = (e) => {
         const date = e.target.getAttribute('data-date');

@@ -50,6 +50,11 @@ function Calculator(props) {
 
     const submit = () => {
         props.handleSubmit(total);
+        for (let i = 0; i < values.length; i++) {
+            if (isNaN(values[i].label) === false) {
+                addDefaultDenomination(parseInt(values[i].label));
+            }
+        }
         close();
     }
 
@@ -61,15 +66,12 @@ function Calculator(props) {
         for (let i = 0; i < values.length; i++) {
             total+= values[i].multiplier * values[i].value;
         }
-        console.log(total);
         setTotal(total);
     }, [values]);
 
     const updateValue = (label, value) => {
         let newValues = [...values];
         for (let i = 0; i < newValues.length; i++) {
-            console.log(newValues[i].label)
-            console.log(label);
             if (newValues[i].label.toString() === label.toString()) {
                 newValues[i].value = value;
             }
@@ -78,7 +80,53 @@ function Calculator(props) {
     }
 
     const handleAddDenomination = (e) => {
-        console.log(e.target.value);
+        const value = e.target.value;
+        if (value === 'default') {
+            return;
+        }
+        if (value === 'new') {
+            promptNewDenomination();
+            resetDenominationSelect();
+            return;
+        }
+        addDenomination(parseInt(value));
+        resetDenominationSelect();
+    }
+
+    function promptNewDenomination() {
+        const value = prompt('Enter value for new denomination.');
+        if (value == null || value === '') {
+            return;
+        }
+        if (isNaN(value)) {
+            alert('Invalid value.');
+            return;
+        }
+        addDenomination(parseInt(value));
+    }
+
+    function addDenomination(value) {
+        for (let i = 0; i < values.length; i++) {
+            if (values[i].label === value) {
+                alert('That value is already being used!')
+                return;
+            }
+        }
+        let newValues = [...values];
+        newValues.push({
+            label: value,
+            multiplier: value,
+            value: 0
+        });
+        setValues(newValues);
+    }
+
+    function addDefaultDenomination(value) {
+        props.handleAddDefaultDenominationWithValue(value);
+    }
+
+    function resetDenominationSelect() {
+        document.getElementById('calculator-denomination-select').value = 'default';
     }
 
     if (values == null) {
@@ -94,17 +142,17 @@ function Calculator(props) {
                     <form>
                         {values.map(
                             value =>
-                            <CalculatorRow value={value} updateValue={updateValue} key={value.multiplier}/>
+                            <CalculatorRow value={value} updateValue={updateValue} key={value.label}/>
                         )}
                     </form>
                     <div className='calculator-row-wrapper'>
-                        <select onChange={handleAddDenomination}>
-                            <option>Add Denomination</option>
+                        <select id='calculator-denomination-select' onChange={handleAddDenomination}>
+                            <option value='default'>Add Denomination</option>
                             {props.denominations.map(
                                 denomination =>
-                                <option key={denomination.value}>{denomination.value}</option>
+                                <option key={denomination.value} value={denomination.value}>{denomination.value}</option>
                             )}
-                            <option>Create New</option>
+                            <option value='new'>Create New</option>
                         </select>
                     </div>
                     <div className='calculator-button-wrapper large-margin-top'>

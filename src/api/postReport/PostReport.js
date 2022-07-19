@@ -15,7 +15,8 @@ async function postReport(report) {
     const reportDto = {
         date : report.reports[0].date,
         earnings : report.reports[0].earnings,
-        expenses : report.reports[0].expenses
+        expenses : report.reports[0].expenses,
+        denominations : report.denominations
     }
 
     if (process.env.NODE_ENV === 'development') {
