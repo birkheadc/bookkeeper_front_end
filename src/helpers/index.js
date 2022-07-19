@@ -8,6 +8,7 @@ import getDateStringFromDate from "./GetDateStringFromDate";
 import formatNumber from "./FormatNumber";
 import getDatesByDateAndMode from "./GetDatesByDateAndMode";
 import camelCaseToTitleCaseSpaces from "./CamelCaseToTitleCaseSpaces";
+import toSnakeCase from "./ToSnakeCase";
 
 const Utils = {
     devlog,
@@ -18,6 +19,7 @@ const Utils = {
 
 const TransactionCategoryHelpers = {
     convertTransactionTypeName,
+    toSnakeCase,
     isTransactionNameValid
 }
 

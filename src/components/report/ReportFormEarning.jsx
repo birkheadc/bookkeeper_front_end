@@ -1,6 +1,8 @@
 import React from 'react';
 import './ReportFormEarning.css'
 import { TransactionCategoryHelpers } from '../../helpers';
+import Popup from 'reactjs-popup';
+import Calculator from '../calculator/Calculator';
 
 function ReportFormEarning(props) {
 
@@ -9,24 +11,18 @@ function ReportFormEarning(props) {
         props.removeEarning(id);
     }
 
-    const handleValueChange = () => {
-        const earning = {
-            id : props.earning.id,
-            category : props.earning.category,
-            amount : parseInt(document.getElementById('earning-input_' + props.earning.id).value),
-            date : props.date
-        };
-        props.updateValue(earning);
+    const handleValueChange = (e) => {
+        const value = parseInt(e.target.value);
+        let newEarning = {...props.earning};
+        newEarning.amount = value;
+        props.updateValue(newEarning);
+        
     }
 
     function handleCategoryNameChange(name) {
-        const earning = {
-            id : props.earning.id,
-            category : name,
-            amount : parseInt(document.getElementById('earning-input_' + props.earning.id).value),
-            date : props.date
-        };
-        props.updateValue(earning);
+        let newEarning = {...props.earning};
+        newEarning.category = name;
+        props.updateValue(newEarning);
     }
 
     const openCategoryChangePrompt = (e) => {
@@ -42,9 +38,10 @@ function ReportFormEarning(props) {
         handleCategoryNameChange(response);
     }
 
-    const openCalculator = () => {
-        // TODO
-        alert('Sorry, calculator is not yet implemented.');
+    const addCalculatorValue = (value) => {
+        let newEarning = {...props.earning};
+        newEarning.amount = value;
+        props.updateValue(newEarning);
     }
     
     return(
@@ -53,8 +50,8 @@ function ReportFormEarning(props) {
             <h3 className='report-form-transaction-line'><button className='report-form-transaction-title link-style-button large' onClick={openCategoryChangePrompt}>{TransactionCategoryHelpers.convertTransactionTypeName(props.earning.category)}</button></h3>
             <div className='report-form-transaction-line'>
                 <label htmlFor={'earning-input_' + props.earning.id}>₩</label>
-                <input id={'earning-input_' + props.earning.id} type='number' onChange={handleValueChange} value={props.earning.amount}></input>
-                <button className='report-form-calculator-button' onClick={openCalculator} type='button'>Calc</button>
+                <input className='input-number' id={'earning-input_' + props.earning.id} type='number' onChange={handleValueChange} onClick={(e) => e.target.select()} value={props.earning.amount}></input>
+                <Calculator denominations={props.denominations} handleAddDefaultDenominationWithValue={props.handleAddDefaultDenominationWithValue} handleCancel handleSubmit={addCalculatorValue} oldTotal={props.earning.amount}/>
             </div>
         </div>
     );

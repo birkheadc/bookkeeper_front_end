@@ -50,6 +50,14 @@ main, body {
     padding: 0;
 }
 
+input {
+    min-width: 0;
+}
+
+.input-number {
+    text-align: right;
+}
+
 body {
     background-image: linear-gradient(var(--clr-bg-1), var(--clr-bg-3));
     background-repeat: no-repeat;
@@ -106,10 +114,10 @@ button:active {
     justify-items: center;
 }
 
-h1, h2 {
+h1 {
     font-family: 'Koulen', 'Noto Sans KR', sans-serif;
 }
-h3, h4, h5, h6, .header-link {
+h2, h3, h4, h5, h6, .header-link {
     font-family: 'Oswald', 'Noto Sans KR', sans-serif;
 }
 
@@ -237,7 +245,9 @@ h5 {
     border-bottom: 2px solid var(--clr-border-1);
 }
 
-
+.large-margin-top {
+    margin-top: 2em;
+}
 
 @media (max-width: 60rem) {
 

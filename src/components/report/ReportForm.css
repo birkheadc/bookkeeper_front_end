@@ -19,21 +19,30 @@
     display: flex;
     flex-direction: row;
     gap: 3em;
+
+    margin: 0 auto;
 }
 
 .report-form-transactions-wrapper {
     display: flex;
     flex-direction: row;
+
+    width: 600px;
+
+    box-sizing: border-box;
 }
 
 .report-form-transactions-wrapper>div {
     display: flex;
     flex-direction: column;
     gap: 0.5em;
+
+    width: 50%;
+
+    box-sizing: border-box;
 }
 
 .report-form-body>div {
-    width: 100%;
     min-height: 100px;
     gap: 1em;
 }
@@ -85,9 +94,15 @@
 
     .report-form-body {
         flex-direction: column;
+        width: 100%;
     }
 
     .report-form-transactions-wrapper {
         flex-direction: column;
+        width: 100%;
+    }
+
+    .report-form-transactions-wrapper>div {
+        width: 100%;
     }
 }

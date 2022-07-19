@@ -1,6 +1,7 @@
 import React from 'react';
 import './ReportFormExpense.css'
 import { TransactionCategoryHelpers } from '../../helpers';
+import Calculator from '../calculator/Calculator';
 
 function ReportFormExpense(props) {
 
@@ -9,28 +10,31 @@ function ReportFormExpense(props) {
         props.removeExpense(id);
     }
 
-    const handleValueChange = () => {
-        const expense = {
-            id : props.expense.id,
-            category : props.expense.category,
-            amount : parseInt(document.getElementById('expense-input_' + props.expense.id).value),
-            date : props.date,
-            note : document.getElementById('expense-note-input_' + props.expense.id).value,
-            wasTakenFromCash : document.getElementById('expense-add_back_into_cash_' + props.expense.id).checked,
-        };
-        props.updateValue(expense);
+    const handleValueChange = (e) => {
+        const value = parseInt(e.target.value);
+        let newExpense = {...props.expense};
+        newExpense.amount = value;
+        props.updateValue(newExpense);
     }
 
     function handleCategoryNameChange(name) {
-        const expense = {
-            id : props.expense.id,
-            category : name,
-            amount : parseInt(document.getElementById('expense-input_' + props.expense.id).value),
-            date : props.date,
-            note : document.getElementById('expense-note-input_' + props.expense.id).value,
-            wasTakenFromCash : document.getElementById('expense-add_back_into_cash_' + props.expense.id).checked,
-        };
-        props.updateValue(expense);
+        let newExpense = {...props.expense};
+        newExpense.category = name;
+        props.updateValue(newExpense);
+    }
+
+    const handleWasTakenFromCashChange = (e) => {
+        const wasTakenFromCash = e.target.checked;
+        let newExpense = {...props.expense};
+        newExpense.wasTakenFromCash = wasTakenFromCash;
+        props.updateValue(newExpense);
+    }
+
+    const handleNoteChange = (e) => {
+        const note = e.target.value;
+        let newExpense = {...props.expense};
+        newExpense.note = note;
+        props.updateValue(newExpense);
     }
 
     const openCategoryChangePrompt = (e) => {
@@ -46,9 +50,10 @@ function ReportFormExpense(props) {
         handleCategoryNameChange(response);
     }
 
-    const openCalculator = () => {
-        // TODO
-        alert('Sorry, calculator is not yet implemented.');
+    const addCalculatorValue = (value) => {
+        let newExpense = {...props.expense};
+        newExpense.amount = value;
+        props.updateValue(newExpense);
     }
 
     return(
@@ -57,16 +62,16 @@ function ReportFormExpense(props) {
             <h3 className='report-form-transaction-line'><button className='report-form-transaction-title link-style-button large' onClick={openCategoryChangePrompt}>{TransactionCategoryHelpers.convertTransactionTypeName(props.expense.category)}</button></h3>
             <div className='report-form-transaction-line'>
                 <label htmlFor={'expense-input_' + props.expense.id}>₩</label>
-                <input id={'expense-input_' + props.expense.id} type='number' onChange={handleValueChange} value={props.expense.amount}></input>
-                <button className='report-form-calculator-button' onClick={openCalculator} type='button'>Calc</button>
+                <input className='input-number' id={'expense-input_' + props.expense.id} type='number' onChange={handleValueChange} onClick={(e) => e.target.select()} value={props.expense.amount}></input>
+                <Calculator denominations={props.denominations} handleAddDefaultDenominationWithValue={props.handleAddDefaultDenominationWithValue} handleCancel handleSubmit={addCalculatorValue} oldTotal={props.expense.amount}/>
             </div>
             <div className='report-form-transaction-line'>
                 <label htmlFor={'expense-add_back_into_cash_' + props.expense.id}>Add Back Into Cash</label>
-                <input checked={props.expense.wasTakenFromCash} id={'expense-add_back_into_cash_' + props.expense.id} onChange={handleValueChange} type='checkbox'></input>
+                <input checked={props.expense.wasTakenFromCash} id={'expense-add_back_into_cash_' + props.expense.id} onChange={handleWasTakenFromCashChange} type='checkbox'></input>
             </div>
             <div className='report-form-transaction-line'>
                 <label htmlFor={'expense-note-input_' + props.expense.id}>Note</label>
-                <input id={'expense-note-input_' + props.expense.id} type='text' onChange={handleValueChange} value={props.expense.note}></input>
+                <input id={'expense-note-input_' + props.expense.id} type='text' onChange={handleNoteChange} onClick={(e) => e.target.select()} value={props.expense.note}></input>
             </div>
         </div>
     );
