@@ -309,7 +309,7 @@ function Report(props) {
         }
         displayMessage('Submitted Successfully!');
         setStatus('');
-        nav('../browse?date=' + date.toISOString().slice(0, 10) + '&mode=week')
+        nav('../browse?date=' + date.toISOString().slice(0, 10));
     }
 
     function displayMessage(message) {
