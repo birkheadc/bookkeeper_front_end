@@ -13,8 +13,6 @@ async function fetchTransactionsFromDate(date) {
         earnings: summary.positiveTransactions,
         expenses: summary.negativeTransactions
     };
-
-    console.log(t);
     
     return t;
 }

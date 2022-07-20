@@ -9,8 +9,6 @@ function SettingsForm(props) {
         props.handleValueChange(name, value);
     }
 
-    console.log(props.settings.userSettings);
-
     return(
         <div className='settings-sub-section-wrapper'>
             <h2>User Settings</h2>
