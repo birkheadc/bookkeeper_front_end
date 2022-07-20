@@ -2,8 +2,9 @@ import React from 'react';
 import { useEffect } from 'react';
 import { useState } from 'react';
 import Popup from 'reactjs-popup';
-import './Calculator.css'
+import './Calculator.css';
 import CalculatorRow from './CalculatorRow';
+import { LocaleConversions } from '../../helpers';
 
 function Calculator(props) {
 
@@ -138,7 +139,7 @@ function Calculator(props) {
             <button className='report-form-calculator-button' onClick={handleToggleOpen} type='button'>Calc</button>
             <Popup open={open} onClose={close} modal>
                 <div className='calculator-wrapper'>
-                    <h3>Total: {total}</h3>
+                    <h3>Total: {LocaleConversions.formatNumber(total)}</h3>
                     <form>
                         {values.map(
                             value =>
