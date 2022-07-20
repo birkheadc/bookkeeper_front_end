@@ -56,7 +56,7 @@ function Report(props) {
                         id : Utils.getNewUUID(),
                         category : report.earningCategories[i].name,
                         amount : 0,
-                        date : new Date()
+                        date : report.reports[0].date
                     };
                     earnings.push(earning);
                 }
@@ -82,7 +82,7 @@ function Report(props) {
                         id : Utils.getNewUUID(),
                         category : report.expenseCategories[i].name,
                         amount : 0,
-                        date : new Date(),
+                        date : report.reports[0].date,
                         wasTakenFromCash : false,
                         note : ''
                     };
@@ -187,7 +187,7 @@ function Report(props) {
             id : Utils.getNewUUID(),
             category : converted,
             amount : 0,
-            date : new Date()
+            date : report.reports[0].date
         };
 
         let newEarnings = [...report.reports[0].earnings];
@@ -223,7 +223,7 @@ function Report(props) {
             id : Utils.getNewUUID(),
             category : category,
             amount : 0,
-            date : new Date(),
+            date : report.reports[0].date,
             wasTakenFromCash : false,
             note : ''
         };
