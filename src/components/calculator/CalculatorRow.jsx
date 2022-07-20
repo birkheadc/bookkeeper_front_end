@@ -18,7 +18,7 @@ function CalculatorRow(props) {
     return(
         <div className='calculator-row-wrapper'>
             <label htmlFor={'calculator-row_' + props.value.label}>{props.value.label}</label>
-            <input className='input-number' data-label={props.value.label} data-multiplier={props.value.multiplier} id={'calculator-row_' + props.value.label} onChange={handleChange} type='number' value={props.value.value}></input>
+            <input className='input-number' data-label={props.value.label} data-multiplier={props.value.multiplier} id={'calculator-row_' + props.value.label} onChange={handleChange} onClick={(e) => e.target.select()} type='number' value={props.value.value}></input>
             <button onClick={resetValue} type='button'>Reset</button>
         </div>
     );
