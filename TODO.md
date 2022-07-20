@@ -17,14 +17,6 @@ Check a box to include / ignore numbers from this percentage as well
 
 ## Add ability to register multiple e-mail addresses to send reports to. The front-end should call an api end-point, supplying those addresses to send to. The back-end does not do this automatically like the last iteration.
 
-## Somehow make a week fit horizontally on the screen when on PC. Make everything scroll vertically on mobile
-
 ## Add Next/Prev buttons to browse screen to go to the next day/week/month depending on mode
 
 ## Organize my to-do list better, maybe properly learn markdown for a start.
-
-## Finish formatting the SpanSummary on the Browse Page.
-
-## Add Email-backup when submitting a report. Email Name and Address should be accessable via the new UserSettings function.
-
-## Build Calculator functionality. Needs a popup that lets you simply count bills add fill in how many of each denomination. Especially useful for CASH but also COUPONS etc. At the moment the Open Calculator button on the report page just opens an alert saying 'sorry'.
