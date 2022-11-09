@@ -43,6 +43,14 @@ function Login(props) {
         );
     }
 
+    function getDemoMessage() {
+        if (process.env.REACT_APP_IS_DEMO === 'true') {
+          return (
+            <p>Password matching is disabled in the demo app. Just click Log In to proceed.</p>
+          );
+        }
+    }
+
     if (isLoggingIn === true) {
         return <h1>Logging in...</h1>
     }
@@ -57,6 +65,7 @@ function Login(props) {
                 </div>
                 <button onClick={handleLogin} type='submit'>Log In</button>
             </form>
+            {getDemoMessage()}
         </div>
     );
 }

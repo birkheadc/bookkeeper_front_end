@@ -1,6 +1,8 @@
 # build environment
 FROM node:17-alpine3.14 as build
 WORKDIR /app
+ARG IS_DEMO
+ENV REACT_APP_IS_DEMO=${IS_DEMO}
 ENV PATH /app/node_modules/.bin:$PATH
 COPY package.json ./
 COPY package-lock.json ./
