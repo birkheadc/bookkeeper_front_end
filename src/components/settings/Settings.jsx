@@ -310,6 +310,14 @@ function Settings(props) {
         );
     }
 
+    function renderDemoMessage() {
+      if (process.env.REACT_APP_IS_DEMO === 'true') {
+        return (
+          <p>This is a demo. Email notifications are disabled. Please do not save any identifying information here.</p>
+        );
+      }
+    }
+
     if (status !== '') {
         return (
             <div className='section-wrapper'>
@@ -322,6 +330,7 @@ function Settings(props) {
     return (
         <div className='section-wrapper'>
             <h1>Settings</h1>
+            {renderDemoMessage()}
             {renderMessage()}
             <div className='settings-section-wrapper'>
                 {renderSettingsForm()}
