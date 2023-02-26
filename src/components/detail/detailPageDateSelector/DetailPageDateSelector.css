@@ -1,0 +1,14 @@
+form.details-control-form {
+  width: fit-content;
+  margin: 1em auto;
+  display: flex;
+  flex-direction: column;
+  gap: 1em;
+}
+
+div.details-control-form-row {
+  display: flex;
+  flex-direction: row;
+  gap: 0.5em;
+  justify-content: space-between;
+}

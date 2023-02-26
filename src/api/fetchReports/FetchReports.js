@@ -1,7 +1,7 @@
 import { Utils } from '../../helpers'
 import getApiUrl from '../getApiUrl/GetApiUrl';
 
-async function fetchSummary(startDate, endDate) {
+async function fetchReports(startDate, endDate) {
     if (getApiUrl() == null) {
         Utils.devlog("Api url not set, aborting.");
         throw "Api url not configured.";
@@ -36,4 +36,4 @@ async function fetchSummary(startDate, endDate) {
     }
 }
 
-export default fetchSummary;
+export default fetchReports;
