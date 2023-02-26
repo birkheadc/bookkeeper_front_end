@@ -3,10 +3,6 @@ import { NavLink, useNavigate } from 'react-router-dom';
 import './Navbar.css';
 
 import homeIcon from '../../media/images/icons/home_icon.png';
-import createReportIcon from '../../media/images/icons/plus_icon.png';
-import logInIcon from '../../media/images/icons/log_in_b_icon.png';
-import settingsIcon from '../../media/images/icons/cog_wheel_icon.png';
-import summaryIcon from '../../media/images/icons/search_icon.png';
 import LogoutButton from '../logoutButton/LogoutButton';
 
 
@@ -61,11 +57,13 @@ function Navbar(props) {
         );
     }
 
-    const getLinkHome = function() {
-        if (props.width < props.MOBILE_WIDTH) {
-            return <img src={homeIcon} width={20}></img>;
-        }
-        return 'Home';
+    const getLinkDetail = function() {
+      return (
+        <>
+          <i className="fa-solid fa-magnifying-glass"></i>
+          <span className='navlink-text'>Detail</span>
+        </>
+      );
     }
 
     const getLinkReport = function() {
@@ -80,7 +78,7 @@ function Navbar(props) {
     const getLinkSummary = function() {
         return (
             <>
-                <i className="fa-solid fa-magnifying-glass"></i>
+                <i className="fa-solid fa-calendar-days"></i>
                 <span className='navlink-text'>Browse</span>
             </>
         );
@@ -99,6 +97,7 @@ function Navbar(props) {
         <nav id='navbar'>
             <ul>
                 <li><NavLink className={getNavlinkClass('browse')} to='/browse'>{getLinkSummary()}</NavLink></li>
+                <li><NavLink className={getNavlinkClass('detail')} to='/detail'>{getLinkDetail()}</NavLink></li>
                 <li><NavLink className={getNavlinkClass('report')} to='/report'>{getLinkReport()}</NavLink></li>
                 <li><NavLink className={getNavlinkClass('settings')} to='/settings'>{getLinkSettings()}</NavLink></li>
                 <li>{getSessionLink()}</li>
