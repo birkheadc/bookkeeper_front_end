@@ -14,6 +14,7 @@ import BrowsePage from './components/browse/browsePage/BrowsePage';
 import { Api } from './api';
 import { UserSettings } from './helpers/settings';
 import { Utils } from './helpers';
+import DetailPage from './components/detail/detailPage/DetailPage';
 
 function App() {
 
@@ -94,7 +95,8 @@ function App() {
                 <Route path ='/report' element={<Report width={width}/>} />
                 <Route path ='/settings' element={<Settings handleLogin={handleLogin} width={width} />} />
                 <Route path ='/login' element={<Login handleLogin={handleLogin}/>} />
-                <Route path ='/browse' element={<BrowsePage width={width}/>} />
+                <Route path ='/browse' element={<BrowsePage width={width} />} />
+                <Route path ='/detail' element={<DetailPage width={width} />} />
                 <Route path ='upload' element={<Upload />} />
               </Routes>
             </div>

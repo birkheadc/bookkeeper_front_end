@@ -2,7 +2,7 @@ import React from 'react';
 import { useEffect } from 'react';
 import { useState } from 'react';
 import { useSearchParams } from 'react-router-dom';
-import './BrowsePage.css'
+import './BrowsePage.css';
 import BrowseControls from '../browseControls/BrowseControls';
 import { Utils } from '../../../helpers';
 import { Api } from '../../../api';

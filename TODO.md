@@ -17,6 +17,8 @@ Check a box to include / ignore numbers from this percentage as well
 
 ## Add ability to register multiple e-mail addresses to send reports to. The front-end should call an api end-point, supplying those addresses to send to. The back-end does not do this automatically like the last iteration.
 
-## Add Next/Prev buttons to browse screen to go to the next day/week/month depending on mode
-
 ## Organize my to-do list better, maybe properly learn markdown for a start.
+
+## Change how average is calculated: currently it ignores empty days, instead ignore empty days *in the future* but include empty days *in the past*
+
+## Build detailsPage component
