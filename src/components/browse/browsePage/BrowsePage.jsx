@@ -89,12 +89,42 @@ function BrowsePage(props) {
         });
     }
 
+    const handleDateBack = () => {
+      const newDate = new Date(searchParams.get('date'));
+      const mode = searchParams.get('mode');
+      if (mode === 'day') {
+        newDate.setDate(newDate.getDate() - 1);
+      }
+      else if (mode === 'week') {
+        newDate.setDate(newDate.getDate() - 7);
+      }
+      else if (mode === 'month') {
+        newDate.setMonth(newDate.getMonth() - 1);
+      }
+      handleDateChange(newDate.toISOString().slice(0, 10));
+    }
+
+    const handleDateForward = () => {
+      const newDate = new Date(searchParams.get('date'));
+      const mode = searchParams.get('mode');
+      if (mode === 'day') {
+        newDate.setDate(newDate.getDate() + 1);
+      }
+      else if (mode === 'week') {
+        newDate.setDate(newDate.getDate() + 7);
+      }
+      else if (mode === 'month') {
+        newDate.setMonth(newDate.getMonth() + 1);
+      }
+      handleDateChange(newDate.toISOString().slice(0, 10));
+    }
+
     function renderControls() {
         if ((date == null) || (mode == null)) {
             return null;
         }
         return (
-            <BrowseControls date={searchParams.get('date')} handleDateChange={handleDateChange} handleModeChange={handleModeChange} mode={searchParams.get('mode')} />
+            <BrowseControls date={searchParams.get('date')} handleDateChange={handleDateChange} handleModeChange={handleModeChange} handleDateBack={handleDateBack} handleDateForward={handleDateForward} mode={searchParams.get('mode')} />
         );
     }
 

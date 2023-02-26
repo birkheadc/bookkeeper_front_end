@@ -13,6 +13,14 @@ function BrowseControls(props) {
         props.handleModeChange(mode);
     }
 
+    const handleBackButton = () => {
+      props.handleDateBack();
+    }
+
+    const handleForwardButton = () => {
+      props.handleDateForward();
+    }
+
     function highlightActiveButton() {
         const buttons = document.getElementsByClassName('browse-controls-button');
         for (let i = 0; i < buttons.length; i++) {
@@ -34,7 +42,11 @@ function BrowseControls(props) {
                 <button className='browse-controls-button' data-mode='week' onClick={handleModeChange} type='button'>Week</button>
                 <button className='browse-controls-button' data-mode='month' onClick={handleModeChange} type='button'>Month</button>
             </div>
-            <input onChange={handleDateChange} type='date' value={props.date}></input>
+            <div className='browse-controls-mode-buttons'>
+              <button onClick={handleBackButton} type='button'>{"<"}</button>
+              <input onChange={handleDateChange} type='date' value={props.date}></input>
+              <button onClick={handleForwardButton} type='button'>{">"}</button>
+            </div>
         </form>
     );
 }
