@@ -19,6 +19,4 @@ Check a box to include / ignore numbers from this percentage as well
 
 ## Organize my to-do list better, maybe properly learn markdown for a start.
 
-## Change how average is calculated: currently it ignores empty days, instead ignore empty days *in the future* but include empty days *in the past*
-
 ## Build detailsPage component
