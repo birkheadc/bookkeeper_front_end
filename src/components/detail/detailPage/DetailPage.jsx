@@ -11,17 +11,6 @@ function DetailPage(props) {
 
   const changeDates = async (from, to) => {
     setLoading(true);
-
-    // let date = new Date(from);
-    // const toDate = new Date(to);
-    // const dates = [];
-
-    // while (date <= toDate) {
-    //   dates.push(date);
-    //   console.log(date);
-    //   date.setDate(date.getDate() + 1);
-    // }
-
     const report = await Api.fetchReports(from, to);
     setReport(report);
 

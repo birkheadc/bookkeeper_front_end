@@ -10,6 +10,10 @@
     gap: 4em;
 }
 
+.browse-span-summary-wrapper h4 {
+  font-size: 1.4rem;
+}
+
 .browse-span-summary-wrapper>table {
     width: 100%;
 }

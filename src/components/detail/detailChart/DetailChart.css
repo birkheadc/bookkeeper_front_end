@@ -1,0 +1,10 @@
+div.detail-chart-wrapper {
+  height: 400px;
+  max-width: 90%;
+  margin: 0 auto;
+}
+
+div.detail-chart-controls-wrapper {
+  width: fit-content;
+  margin: 1em auto;
+}
