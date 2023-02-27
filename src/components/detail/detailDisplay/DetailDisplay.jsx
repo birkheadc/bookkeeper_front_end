@@ -12,8 +12,8 @@ function DetailDisplay(props) {
   return (
     <div className='detail-display-wrapper'>
       <h2>Display</h2>
-      {props.report.summary.aveNet}
-      {/* Todo: Build the display... */}
+      {props.report.summary.aveGross}
+      
     </div>
   );
 }
