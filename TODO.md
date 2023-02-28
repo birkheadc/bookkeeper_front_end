@@ -18,5 +18,3 @@ Check a box to include / ignore numbers from this percentage as well
 ## Add ability to register multiple e-mail addresses to send reports to. The front-end should call an api end-point, supplying those addresses to send to. The back-end does not do this automatically like the last iteration.
 
 ## Organize my to-do list better, maybe properly learn markdown for a start.
-
-## Build detailsPage component
