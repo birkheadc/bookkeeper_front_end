@@ -1,0 +1,19 @@
+div.mass-report-entry {
+  display: flex;
+  flex-direction: row;
+  gap: 1em;
+  align-items: center;
+}
+
+div.mass-report-entry>div {
+  padding: 0.1em 0.2em;
+  display: flex;
+  flex-direction: row;
+  gap: 0.5em;
+  background-color: var(--clr-bg-4);
+  align-items: center;
+}
+
+div.mass-report-entry>button {
+  font-size: 0.8rem;
+}

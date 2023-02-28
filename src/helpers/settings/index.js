@@ -1,9 +1,11 @@
 import retrieveUserSettingByName from "./RetrieveUserSettings";
 import storeUserSettings from "./StoreUserSettings";
+import retrieveExpenseCategories from "./RetreveExpenseCategories";
 
 const UserSettings = {
     retrieveUserSettingByName,
-    storeUserSettings
+    storeUserSettings,
+    retrieveExpenseCategories
 }
 
 export {

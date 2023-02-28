@@ -1,0 +1,12 @@
+form.mass-report-form {
+  padding: 0 1em;
+  margin: 1em auto;
+  display: flex;
+  flex-direction: column;
+  gap: 1em;
+}
+
+form.mass-report-form>select {
+  margin: 0 auto;
+  max-width: 200px;
+}
