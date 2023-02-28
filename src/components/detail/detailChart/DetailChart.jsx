@@ -26,26 +26,74 @@ export default function DetailChart(props) {
   Chart.register(LineElement);
 
   React.useEffect(() => {
+    // The code ahead is a nightmare, turn back now if you value your life.
     function generateChartData() {
 
       let labels = [];
       let grossData = [];
       let netData = [];
   
-      // Todo: This is wrong. This simply ignores 6/7 days. Instead I want to combine every week / month into one data unit.
-      // This looks like a job for all those leetcode algorithms I've been (not) doing (lately).
+      if (mode === 'month') {
+        let currentMonth = new Date(props.report.reports[0].date).toLocaleString('default', { month: 'long' });
+        let currentGross = 0;
+        let currentExpense = 0;
+
+        for (let i = 0; i < props.report.reports.length; i++) {
+          const report = props.report.reports[i];
+          const reportMonth = new Date(report.date).toLocaleString('default', { month: 'long' });
+          if (reportMonth !== currentMonth || i === props.report.reports.length - 1) {
+            labels.push(currentMonth + " '" + new Date(report.date).getFullYear().toString().slice(2));
+            currentMonth = reportMonth;
+            grossData.push(currentGross);
+            netData.push(currentGross - currentExpense);
+            currentGross = 0;
+            currentExpense = 0;
+          }
+          for (let j = 0; j < report.earnings.length; j++) {
+            currentGross += report.earnings[j].amount;
+          }
+          for (let j = 0; j < report.expenses.length; j++) {
+            currentExpense += report.expenses[j].amount;
+          }
+        }
+
+        setChartData({
+          labels: labels,
+          datasets: [
+            {
+              id: 'gross',
+              data: grossData,
+              borderColor: 'rgba(50, 50, 200, 0.8)',
+              tension: 0.3,
+              pointStyle: false,
+              pointHitRadius: 1000
+            }
+          ]
+        });
+        return;
+      }
+
+
       const span = (mode === 'week' ? 7 : 1);
 
-      for (let i = 0; i < props.report.reports.length; i+=span) {
+      let currentGross = 0;
+      let currentExpense = 0;
+
+      for (let i = 0; i < props.report.reports.length; i++) {
         const report = props.report.reports[i];
-        labels.push(report.date.slice(0, 10));
-        let gross = 0;
-        let expense = 0;
         for (let j = 0; j < report.earnings.length; j++) {
-          gross += report.earnings[j].amount;
+          currentGross += report.earnings[j].amount;
         }
-        grossData.push(gross);
-        netData.push(gross - expense);
+        for (let j = 0; j < report.expenses.length; j++) {
+          currentExpense += report.expenses[j].amount;
+        }
+        if ((i+1) % span === 0) {
+          labels.push((mode === 'week' ? '~' : '') + report.date.slice(0, 10));
+          grossData.push(currentGross);
+          netData.push(currentGross - currentExpense);
+          currentGross = 0;
+          currentExpense = 0;
+        }
       }
   
       setChartData({
@@ -64,8 +112,6 @@ export default function DetailChart(props) {
     }
     generateChartData();
   }, [mode]);
-
-  React.useEffect(() => { console.log(chartData) }, [chartData]);
 
   return (
     <div>
