@@ -1,4 +1,6 @@
 import React from 'react';
+import DetailChart from '../detailChart/DetailChart';
+import DetailSummary from '../detailSummary/DetailSummary';
 import './DetailDisplay.css';
 
 function DetailDisplay(props) {
@@ -11,9 +13,8 @@ function DetailDisplay(props) {
   }
   return (
     <div className='detail-display-wrapper'>
-      <h2>Display</h2>
-      {props.report.summary.aveGross}
-      
+      <DetailChart report={props.report} />
+      <DetailSummary report={props.report} />
     </div>
   );
 }
