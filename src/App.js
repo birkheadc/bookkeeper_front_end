@@ -15,6 +15,7 @@ import { Api } from './api';
 import { UserSettings } from './helpers/settings';
 import { Utils } from './helpers';
 import DetailPage from './components/detail/detailPage/DetailPage';
+import MassReportPage from './components/massReport/massReportPage/MassReportPage';
 
 function App() {
 
@@ -93,6 +94,7 @@ function App() {
               <Routes>
                 <Route path = '/' element={<Home />} />
                 <Route path ='/report' element={<Report width={width}/>} />
+                <Route path = '/mass-report' element={<MassReportPage />} />
                 <Route path ='/settings' element={<Settings handleLogin={handleLogin} width={width} />} />
                 <Route path ='/login' element={<Login handleLogin={handleLogin}/>} />
                 <Route path ='/browse' element={<BrowsePage width={width} />} />

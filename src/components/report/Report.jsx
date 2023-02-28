@@ -131,6 +131,8 @@ function Report(props) {
                     <h3>or</h3>
                 </div>
                 <div>
+                    <h3><NavLink className='header-link' to='/mass-report'>Mass Report</NavLink></h3>
+                    <hr></hr>
                     <h3><NavLink className='header-link' to="/upload">Upload CSV</NavLink></h3>
                 </div>
             </div>
@@ -179,10 +181,10 @@ function Report(props) {
             alert('Sorry, that cannot be used.');
             return;
         }
-        if (doesEarningOfCategoryExist(converted) === true) {
-            alert('That is already being used.');
-            return;
-        }
+        // if (doesEarningOfCategoryExist(converted) === true) {
+        //     alert('That is already being used.');
+        //     return;
+        // }
         const earning = {
             id : Utils.getNewUUID(),
             category : converted,
@@ -197,15 +199,15 @@ function Report(props) {
         setReport(newReport);
     }
 
-    function doesEarningOfCategoryExist(category) {
-        for (let i = 0; i < report.reports[0].earnings.length; i++) {
-            const earning = report.reports[0].earnings[i];
-            if (earning.category === category) {
-                return true;
-            }
-        }
-        return false;
-    }
+    // function doesEarningOfCategoryExist(category) {
+    //     for (let i = 0; i < report.reports[0].earnings.length; i++) {
+    //         const earning = report.reports[0].earnings[i];
+    //         if (earning.category === category) {
+    //             return true;
+    //         }
+    //     }
+    //     return false;
+    // }
 
     function handleAddExpense(category) {
         if (category == null || category === '') {
@@ -215,10 +217,10 @@ function Report(props) {
             alert('Sorry, that cannot be used.');
             return;
         }
-        if (doesExpenseOfCategoryExist(category) === true) {
-            alert('That is already being used.');
-            return;
-        }
+        // if (doesExpenseOfCategoryExist(category) === true) {
+        //     alert('That is already being used.');
+        //     return;
+        // }
         const expense = {
             id : Utils.getNewUUID(),
             category : category,
@@ -235,15 +237,15 @@ function Report(props) {
         setReport(newReport);
     }
 
-    function doesExpenseOfCategoryExist(category) {
-        for (let i = 0; i < report.reports[0].expenses.length; i++) {
-            const expense = report.reports[0].expenses[i];
-            if (expense.category === category) {
-                return true;
-            }
-        }
-        return false;
-    }
+    // function doesExpenseOfCategoryExist(category) {
+    //     for (let i = 0; i < report.reports[0].expenses.length; i++) {
+    //         const expense = report.reports[0].expenses[i];
+    //         if (expense.category === category) {
+    //             return true;
+    //         }
+    //     }
+    //     return false;
+    // }
 
     const removeEarning = (id) => {
         let newEarnings = [...report.reports[0].earnings];
