@@ -4,7 +4,32 @@ import './MassReportFormEntry.css';
 
 export default function MassReportFormEntry(props) {
 
+  const [categories, setCategories] = React.useState(UserSettings.retrieveExpenseCategories());
+
+  function isCategoryNameUnique(category) {
+    for (let i = 0; i < categories.length; i++) {
+      if (categories[i].name === category) return false;
+    }
+    return true;
+  }
+
   const handleCategoryChange = (e) => {
+    if (e.target.value === 'add-new') {
+      const newCategory = prompt('Enter name of new category');
+      if (newCategory == null || newCategory === '') return;
+      if (isCategoryNameUnique(newCategory) === true) {
+        const newCategories = [...categories];
+        newCategories.push({
+          name: newCategory,
+          isDefault: false
+        });
+        setCategories(newCategories);
+      }
+      const newTransaction = getShallowCopyOfTransaction();
+      newTransaction.category = newCategory;
+      props.updateTransaction(newTransaction);
+      return;
+    }
     const newTransaction = getShallowCopyOfTransaction();
     newTransaction.category = e.target.value;
     props.updateTransaction(newTransaction);
@@ -46,10 +71,11 @@ export default function MassReportFormEntry(props) {
     <div className="mass-report-entry">
       <select onChange={handleCategoryChange} value={props.transaction.category}>
         <option value=''>Select Category</option>
-        {UserSettings.retrieveExpenseCategories().map(
+        {categories.map(
           category =>
           <option key={category.name} value={category.name}>{category.name}</option>
         )}
+        <option key='add-new' value='add-new'>Create New</option>
       </select>
       <div>
         <label>₩</label>

@@ -91,6 +91,18 @@ button {
     font-size: 1.2rem;
 
     margin: 0 auto;
+
+    user-select: none;
+}
+
+button:disabled {
+  background-color: var(--clr-bg-4);
+  color: var(--clr-bg-1);
+  border-color: var(--clr-bg-1);
+}
+
+button:disabled {
+  pointer-events: none;
 }
 
 button:active {

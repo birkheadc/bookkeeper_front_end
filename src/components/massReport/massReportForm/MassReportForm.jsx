@@ -6,10 +6,29 @@ import './MassReportForm.css';
 
 export default function MassReportForm(props) {
 
+  const [canSubmit, setCanSubmit] = React.useState(false);
   const [transactions, setTransactions] = React.useState([]);
+
+  React.useEffect(() => {
+    if (transactions.length < 1) {
+      setCanSubmit(false);
+      return;
+    }
+    for (let i = 0; i < transactions.length; i++) {
+      if (isTransactionValid(transactions[i]) === false) {
+        setCanSubmit(false);
+        return;
+      }
+    }
+    setCanSubmit(true);
+  }, [transactions]);
   
   const handleSubmit = (e) => {
     e.preventDefault();
+    console.log('click');
+    if (transactions.length < 1) {
+      return;
+    }
     for (let i = 0; i < transactions.length; i++) {
       const transaction = transactions[i];
       if (isTransactionValid(transaction) === false) {
@@ -63,7 +82,7 @@ export default function MassReportForm(props) {
         <MassReportFormEntry key={index} transaction={transaction} removeTransaction={() => removeTransaction(index)} updateTransaction={(t) => updateTransaction(t, index)} />
       )}
       <button onClick={addTransaction} type='button'>+</button>
-      <button type='submit'>Submit</button>      
+      <button disabled={!canSubmit} type='submit'>Submit</button>    
     </form>
   );
 }

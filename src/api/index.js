@@ -18,6 +18,7 @@ import fetchTransactionsFromDate from "./fetchTransactionsFromDate/FetchTransact
 import fetchReports from "./fetchReports/FetchReports";
 import fetchCategories from "./fetchCategories/FetchCategories";
 import postSettings from "./postSettings/PostSettings";
+import postMassReport from "./postMassReport/postMassReport";
 
 const Api = {
     deleteDenominations,
@@ -40,7 +41,8 @@ const Api = {
     fetchTransactionsFromDate,
     fetchReports,
     fetchCategories,
-    postSettings
+    postSettings,
+    postMassReport
 }
 
 export { Api };
