@@ -14,8 +14,13 @@ export default function DetailChart(props) {
       data: [],
       borderColor: 'rgba(50, 50, 200, 0.8)',
       tension: 0.3,
-      pointStyle: false,
-      pointHitRadius: 1000
+      pointStyle: false
+    }, {
+      id: 'net',
+      data: [],
+      borderColor: 'rgba(0, 0, 0, 0.8)',
+      tension: 0.3,
+      pointStyle: false
     }]
   });
 
@@ -65,8 +70,14 @@ export default function DetailChart(props) {
               data: grossData,
               borderColor: 'rgba(50, 50, 200, 0.8)',
               tension: 0.3,
-              pointStyle: false,
-              pointHitRadius: 1000
+              pointStyle: false
+            },
+            {
+              id: 'net',
+              data: netData,
+              borderColor: 'rgba(0, 0, 0, 0.8)',
+              tension: 0.3,
+              pointStyle: false
             }
           ]
         });
@@ -106,6 +117,13 @@ export default function DetailChart(props) {
             tension: 0.3,
             pointStyle: false,
             pointHitRadius: 1000
+          },
+          {
+            id: 'net',
+            data: netData,
+            borderColor: 'rgba(0, 0, 0, 0.8)',
+            tension: 0.3,
+            pointStyle: false
           }
         ]
       });
