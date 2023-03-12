@@ -79,7 +79,7 @@ export default function MassReportFormEntry(props) {
       </select>
       <div>
         <label>₩</label>
-        <input onChange={handleAmountChange} type='number' value={props.transaction.amount}></input>
+        <input onChange={handleAmountChange} onClick={(e) => e.target.select()} type='number' value={props.transaction.amount}></input>
       </div>
       <div>
         <label>Date</label>
