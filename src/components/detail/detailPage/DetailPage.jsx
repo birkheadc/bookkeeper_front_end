@@ -8,12 +8,14 @@ function DetailPage(props) {
 
   const [isLoading, setLoading] = useState(false);
   const [report, setReport] = useState(null);
+  const [breakdowns, setBreakdowns] = useState(null);
 
   const changeDates = async (from, to) => {
     setLoading(true);
     const report = await Api.fetchReports(from, to);
+    const breakdowns = await Api.fetchBreakdowns(from, to);
     setReport(report);
-
+    setBreakdowns(breakdowns);
     setLoading(false);
   }
 
@@ -23,8 +25,9 @@ function DetailPage(props) {
         <h2>Loading...</h2>
       );
     }
+    console.log(breakdowns);
     return (
-      <DetailDisplay report={report} />
+      <DetailDisplay report={report} breakdowns={breakdowns} />
     );
   }
 

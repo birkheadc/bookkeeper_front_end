@@ -19,6 +19,7 @@ import fetchReports from "./fetchReports/FetchReports";
 import fetchCategories from "./fetchCategories/FetchCategories";
 import postSettings from "./postSettings/PostSettings";
 import postMassReport from "./postMassReport/postMassReport";
+import fetchBreakdowns from "./fetchBreakdowns/FetchBreakdowns";
 
 const Api = {
     deleteDenominations,
@@ -40,6 +41,7 @@ const Api = {
     getApiUrl,
     fetchTransactionsFromDate,
     fetchReports,
+    fetchBreakdowns,
     fetchCategories,
     postSettings,
     postMassReport
