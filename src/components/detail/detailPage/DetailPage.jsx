@@ -25,7 +25,6 @@ function DetailPage(props) {
         <h2>Loading...</h2>
       );
     }
-    console.log(breakdowns);
     return (
       <DetailDisplay report={report} breakdowns={breakdowns} />
     );

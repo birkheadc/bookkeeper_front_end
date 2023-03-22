@@ -1,8 +1,9 @@
 import React from "react";
-import { Line } from "react-chartjs-2";
-import { LineElement, PointElement, LinearScale, CategoryScale, Chart } from "chart.js";
+import { Bar, Line } from "react-chartjs-2";
+import { LineElement, PointElement, LinearScale, CategoryScale, Chart, BarElement } from "chart.js";
 import './BreakdownsChart.css';
 import BreakdownsChartControls from "./breakdownsChartControls/BreakdownsChartControls";
+import { Utils } from '../../../../src/helpers'
 
 const DAYS_OF_WEEK = [
   'Sunday',
@@ -32,6 +33,7 @@ export default function BreakdownsChart(props) {
   Chart.register(LinearScale);
   Chart.register(PointElement);
   Chart.register(LineElement);
+  Chart.register(BarElement);
 
   React.useEffect(() => {
     function generateChartData() {
@@ -59,14 +61,14 @@ export default function BreakdownsChart(props) {
           amountData.push(breakdown?.averageAmount ?? 0);
         }
       } else {
-        console.log('error, mode should not equal: ' + mode);
+        Utils.log('error, mode should not equal: ' + mode);
       }
       setChartData({
         labels: labels,
         datasets: [{
           id: 'amount',
           data: amountData,
-          borderColor: 'rgba(50, 50, 200, 0.8)',
+          backgroundColor: 'rgba(50, 50, 200, 0.8)',
           tension: 0.3,
           pointStyle: false
         }]
@@ -78,7 +80,7 @@ export default function BreakdownsChart(props) {
   return (
     <div>
       <div className="detail-chart-wrapper">
-        <Line datasetIdKey="id" data={chartData} options={{ maintainAspectRatio: false }} />
+        <Bar datasetIdKey="id" data={chartData} options={{ maintainAspectRatio: false }} />
       </div>
       <div className="detail-chart-controls-wrapper">
         <BreakdownsChartControls mode={mode} handleChangeMode={(mode) => setMode(mode)}/>

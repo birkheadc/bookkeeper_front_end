@@ -25,7 +25,6 @@ export default function MassReportForm(props) {
   
   const handleSubmit = (e) => {
     e.preventDefault();
-    console.log('click');
     if (transactions.length < 1) {
       return;
     }

@@ -4,7 +4,6 @@ import { LocaleConversions, TransactionCategoryHelpers } from "../../../helpers"
 
 
 export default function DetailSummary(props) {
-  console.log(props);
   return (
     <div className='browse-span-summary-wrapper'>
       <hr></hr>
