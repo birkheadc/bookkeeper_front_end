@@ -17,3 +17,17 @@ div.mass-report-entry>div {
 div.mass-report-entry>button {
   font-size: 0.8rem;
 }
+
+@media (max-width: 1100px) {
+  div.mass-report-entry {
+    padding: 1em;
+    flex-direction: column;
+    border-width: 2px;
+    border-style: solid;
+  }
+
+  div.mass-report-entry>div {
+    width: 100%;
+    justify-content: space-between;
+  }
+}
