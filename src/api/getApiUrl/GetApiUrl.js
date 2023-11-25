@@ -1,8 +1,8 @@
 function getApiUrl() {
     if (process.env.NODE_ENV === 'development') {
-        return process.env.REACT_APP_BOOKKEEPER_URL + "/api";
+        return "http://localhost:5000/api";
     }
-    return "https://" + window.location.host + "/api";
+    return "https://ghjsk7swkd.execute-api.ap-southeast-2.amazonaws.com/api";
 }
 
 export default getApiUrl;
