@@ -1,7 +1,7 @@
 import React from 'react';
 import { useEffect } from 'react';
 import { useState } from 'react';
-import { useNavigate, useSearchParams } from 'react-router-dom';
+import { useSearchParams } from 'react-router-dom';
 import './BrowsePage.css';
 import BrowseControls from '../browseControls/BrowseControls';
 import { Utils } from '../../../helpers';
@@ -17,8 +17,6 @@ function BrowsePage(props) {
     const [date, setDate] = useState();
     const [mode, setMode] = useState();
     const [report, setReport] = useState();
-
-    const nav = useNavigate();
 
     useEffect(() => {
         const modes = ['day', 'week', 'month'];
@@ -51,7 +49,7 @@ function BrowsePage(props) {
                 date: date.toISOString().slice(0, 10),
                 mode: mode
             }
-            nav(`?date=${newSearchParams.date}&mode=${newSearchParams.mode}`);
+            setSearchParams(newSearchParams);
         }
         else {
             setDate(date);
@@ -61,7 +59,8 @@ function BrowsePage(props) {
     }, [searchParams, setSearchParams]);
 
     useEffect(() => {
-
+        console.log('Date: ', date);
+        console.log('Mode: ', mode);
         async function loadAndSetReports() {
             setStatus('loading');
             const dates = Utils.getDatesByDateAndMode(date, mode);
