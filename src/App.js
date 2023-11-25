@@ -1,6 +1,6 @@
 import './App.css';
 import Navbar from './components/navbar/Navbar';
-import { Routes, Route, BrowserRouter, useNavigate } from 'react-router-dom';
+import { Routes, Route, BrowserRouter, useNavigate, Navigate } from 'react-router-dom';
 import Report from './components/report/Report';
 import Settings from './components/settings/Settings';
 import Login from './components/login/Login';
@@ -92,7 +92,7 @@ function App() {
           <main>
             <div className='main-wrapper'>
               <Routes>
-                <Route path = '/' element={<Home />} />
+                <Route path = '/' element={<Navigate replace={true} to={{ pathname: '/browse' }} />} />
                 <Route path ='/report' element={<Report width={width}/>} />
                 <Route path = '/mass-report' element={<MassReportPage />} />
                 <Route path ='/settings' element={<Settings handleLogin={handleLogin} width={width} />} />
