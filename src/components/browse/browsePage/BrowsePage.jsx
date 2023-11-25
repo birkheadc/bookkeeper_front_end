@@ -59,21 +59,24 @@ function BrowsePage(props) {
     }, [searchParams, setSearchParams]);
 
     useEffect(() => {
-        console.log('Date: ', date);
-        console.log('Mode: ', mode);
         async function loadAndSetReports() {
             setStatus('loading');
             const dates = Utils.getDatesByDateAndMode(date, mode);
             // Todo
-            const report = await Api.fetchReports(dates[0], dates[dates.length - 1]);
-            setReport(report);
+            try {
+              const report = await Api.fetchReports(dates[0], dates[dates.length - 1]);
+              setReport(report);
+            } catch {
+              console.log('error');
+            }
             setStatus('');
         }
-
         if ((date != null) && (mode != null)) {
             loadAndSetReports();
         }
-
+        return () => {
+          console.log('cancel');
+        }
     }, [date, mode]);
 
     const handleDateChange = (date) => {
