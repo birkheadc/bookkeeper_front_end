@@ -18,8 +18,6 @@ import MassReportPage from './components/massReport/massReportPage/MassReportPag
 
 function App() {
 
-  return (<h1>Test</h1>);
-
   const [isLoggedIn, setLoggedIn] = useState(false);
   const [width, setWidth] = useState(window.innerWidth);
 
@@ -31,10 +29,13 @@ function App() {
 
   useEffect(() => {
     const handleResize = () => {
-        setWidth(window.innerWidth);
+      setWidth(window.innerWidth);
     }
     window.addEventListener('resize', handleResize);
-})
+    return (() => {
+      window.removeEventListener('resize', handleResize);
+    })
+  })
 
   const handleLogout = (e) => {
     e.preventDefault();
@@ -42,7 +43,7 @@ function App() {
     setLoggedIn(false);
     return false;
   }
-  
+
   const handleLogin = async (pw) => {
     window.localStorage.setItem('password', pw);
     setLoggedIn(true);
@@ -89,19 +90,19 @@ function App() {
       <div className="App">
         <BrowserRouter>
           <header>
-            <Navbar MOBILE_WIDTH={Constants.MOBILE_WIDTH} width={width} isLoggedIn={isLoggedIn} handleLogout={handleLogout}/>
+            <Navbar MOBILE_WIDTH={Constants.MOBILE_WIDTH} width={width} isLoggedIn={isLoggedIn} handleLogout={handleLogout} />
           </header>
           <main>
             <div className='main-wrapper'>
               <Routes>
-                <Route path = '/' element={<Navigate replace={true} to={{ pathname: '/browse' }} />} />
-                <Route path ='/report' element={<Report width={width}/>} />
-                <Route path = '/mass-report' element={<MassReportPage />} />
-                <Route path ='/settings' element={<Settings handleLogin={handleLogin} width={width} />} />
-                <Route path ='/browse' element={<BrowsePage width={width} />} />
-                <Route path ='/detail' element={<DetailPage width={width} />} />
-                <Route path ='/upload' element={<Upload />} />
-                <Route path = '/login' element={<Navigate replace={true} to= {{ pathname: '/' }} />} />
+                <Route path='/' element={<Navigate replace={true} to={{ pathname: '/browse' }} />} />
+                <Route path='/report' element={<Report width={width} />} />
+                <Route path='/mass-report' element={<MassReportPage />} />
+                <Route path='/settings' element={<Settings handleLogin={handleLogin} width={width} />} />
+                <Route path='/browse' element={<BrowsePage width={width} />} />
+                <Route path='/detail' element={<DetailPage width={width} />} />
+                <Route path='/upload' element={<Upload />} />
+                <Route path='/login' element={<Navigate replace={true} to={{ pathname: '/' }} />} />
               </Routes>
             </div>
           </main>
@@ -109,23 +110,23 @@ function App() {
       </div>
     );
   }
-  
+
   return (
     <div className="App">
-        <BrowserRouter>
-          <header>
-            <Navbar MOBILE_WIDTH={1000} width={width} isLoggedIn={isLoggedIn} logoutButton={<LogoutButton handleLogout={handleLogout}/>}/>
-          </header>
-          <main>
-            <div className='main-wrapper'>
-              <Login handleLogin={handleLogin}/>
-            </div>
-          </main>
-        </BrowserRouter>
-      </div>
+      <BrowserRouter>
+        <header>
+          <Navbar MOBILE_WIDTH={1000} width={width} isLoggedIn={isLoggedIn} logoutButton={<LogoutButton handleLogout={handleLogout} />} />
+        </header>
+        <main>
+          <div className='main-wrapper'>
+            <Login handleLogin={handleLogin} />
+          </div>
+        </main>
+      </BrowserRouter>
+    </div>
   );
 
-  
+
 }
 
 export default App;
