@@ -18,6 +18,8 @@ import MassReportPage from './components/massReport/massReportPage/MassReportPag
 
 function App() {
 
+  return (<h1>Test</h1>);
+
   const [isLoggedIn, setLoggedIn] = useState(false);
   const [width, setWidth] = useState(window.innerWidth);
 
@@ -76,7 +78,7 @@ function App() {
       <div className='App'>
         <main>
           <div className='main-wrapper'>
-            <h2>Loading...</h2>
+            <h1>Loading</h1>
           </div>
         </main>
       </div>
