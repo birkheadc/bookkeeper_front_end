@@ -11,9 +11,7 @@ async function fetchCategories() {
     const subDir = "/category";
     const apiUrl = API_URL + subDir;
 
-    if (process.env.NODE_ENV === 'development') {
-        Utils.devlog("Attempting to fetch CATEGORIES from: " + apiUrl);
-    }
+    Utils.devlog("Attempting to fetch CATEGORIES from: " + apiUrl);
 
     try {
         let response = await fetch(apiUrl, {

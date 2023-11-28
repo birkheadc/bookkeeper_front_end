@@ -19,11 +19,9 @@ async function postReport(report) {
         denominations : report.denominations
     }
 
-    if (process.env.NODE_ENV === 'development') {
-        Utils.devlog("Attempting to post REPORT to: " + apiUrl);
-        Utils.devlog("Object to post: ");
-        Utils.devlog(reportDto);
-    }
+    Utils.devlog("Attempting to post REPORT to: " + apiUrl);
+    Utils.devlog("Object to post: ");
+    Utils.devlog(reportDto);
 
     try {
         let response = await fetch(apiUrl, {

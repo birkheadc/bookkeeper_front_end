@@ -13,9 +13,8 @@ async function fetchSummary(startDate, endDate) {
 
     const queryString = "?startDate=" + new Date(startDate).toLocaleDateString().replace(/\//g, '-') + "&endDate=" + new Date(endDate).toLocaleDateString().replace(/\//g, '-')
     
-    if (process.env.NODE_ENV === 'development') {
-        Utils.devlog("Attempting to fetch SUMMARY from " + apiUrl + queryString);
-    }
+    
+    Utils.devlog("Attempting to fetch SUMMARY from " + apiUrl + queryString);
 
     try {
         let response = await fetch(apiUrl + queryString, {

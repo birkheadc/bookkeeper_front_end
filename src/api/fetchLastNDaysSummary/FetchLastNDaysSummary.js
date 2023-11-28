@@ -14,9 +14,8 @@ async function fetchLastNDaysSummary(n) {
 
     const queryString = "?n=" + n;
     
-    if (process.env.NODE_ENV === 'development') {
-        Utils.devlog("Attempting to fetch SUMMARY from " + apiUrl + queryString);
-    }
+    
+    Utils.devlog("Attempting to fetch SUMMARY from " + apiUrl + queryString);
 
     try {
         let response = await fetch(apiUrl + queryString, {

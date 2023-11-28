@@ -11,9 +11,8 @@ async function fetchDenominations() {
     const subDir = "/denomination";
     const apiUrl = API_URL + subDir;
 
-    if (process.env.NODE_ENV === 'development') {
-        Utils.devlog("Attempting to fetch denominations from: " + apiUrl);
-    }
+    
+    Utils.devlog("Attempting to fetch denominations from: " + apiUrl);
 
     try {
         let response = await fetch(apiUrl, {

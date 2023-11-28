@@ -11,9 +11,7 @@ async function changePassword(oldPassword, newPassword) {
     const subdir = '/password';
     const apiUrl = API_URL + subdir;
 
-    if (process.env.NODE_ENV === 'development') {
-        Utils.devlog("Attempting to post NEW PASSWORD to: " + apiUrl);
-    }
+    Utils.devlog("Attempting to post NEW PASSWORD to: " + apiUrl);
 
     try {
         let response = await fetch(apiUrl, {

@@ -11,11 +11,9 @@ async function postTransactionTypes(transactionTypes) {
     const subdir = '/transactiontype';
     const apiUrl = API_URL + subdir;
 
-    if (process.env.NODE_ENV === 'development') {
-        Utils.devlog("Attempting to post TRANSACTION TYPES to " + apiUrl);
-        Utils.devlog("Object to post: ");
-        Utils.devlog(transactionTypes);
-    }
+    Utils.devlog("Attempting to post TRANSACTION TYPES to " + apiUrl);
+    Utils.devlog("Object to post: ");
+    Utils.devlog(transactionTypes);
 
     try {
         let response = await fetch(apiUrl, {

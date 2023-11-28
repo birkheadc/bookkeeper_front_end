@@ -11,9 +11,8 @@ async function fetchTransactionTypes() {
     const subDir = "/transactiontype";
     const apiUrl = API_URL + subDir;
 
-    if (process.env.NODE_ENV === 'development') {
-        Utils.devlog("Attempting to fetch TRANSACTION TYPES from: " + apiUrl);
-    }
+    
+    Utils.devlog("Attempting to fetch TRANSACTION TYPES from: " + apiUrl);
 
     try {
         let response = await fetch(apiUrl, {
