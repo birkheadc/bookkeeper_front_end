@@ -11,9 +11,7 @@ async function fetchSettings() {
     const subDir = "/settings";
     const apiUrl = API_URL + subDir;
 
-    if (process.env.NODE_ENV === 'development') {
-        Utils.devlog("Attempting to fetch settings from: " + apiUrl);
-    }
+    Utils.devlog("Attempting to fetch settings from: " + apiUrl);
 
     try {
         let response = await fetch(apiUrl, {

@@ -13,7 +13,6 @@ import * as Constants from './constants/Constants.js'
 import BrowsePage from './components/browse/browsePage/BrowsePage';
 import { Api } from './api';
 import { UserSettings } from './helpers/settings';
-import { Utils } from './helpers';
 import DetailPage from './components/detail/detailPage/DetailPage';
 import MassReportPage from './components/massReport/massReportPage/MassReportPage';
 
@@ -57,6 +56,7 @@ function App() {
 
   useEffect(() => {
     async function fetchAndStoreUserSettings() {
+      setLoading(true);
       let settings;
       try {
         settings = await Api.fetchSettings();
@@ -67,7 +67,6 @@ function App() {
       UserSettings.storeUserSettings(settings);
       setLoading(false);
     }
-    setLoading(true);
     fetchAndStoreUserSettings();
   }, [isLoggedIn]);
 
