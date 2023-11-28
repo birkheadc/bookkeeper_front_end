@@ -18,7 +18,7 @@ import MassReportPage from './components/massReport/massReportPage/MassReportPag
 
 function App() {
 
-  const [isLoggedIn, setLoggedIn] = useState();
+  const [isLoggedIn, setLoggedIn] = useState(false);
   const [width, setWidth] = useState(window.innerWidth);
 
   const [loading, setLoading] = useState(true);
@@ -67,21 +67,22 @@ function App() {
       UserSettings.storeUserSettings(settings);
       setLoading(false);
     }
+    if (isLoggedIn === false) return;
     fetchAndStoreUserSettings();
   }, [isLoggedIn]);
 
+  if (loading === true) {
+    return (
+      <div className='App'>
+        <main>
+          <div className='main-wrapper'>
+            <h2>Loading...</h2>
+          </div>
+        </main>
+      </div>
+    );
+  }
   if (isLoggedIn === true) {
-    if (loading === true) {
-      return (
-        <div className='App'>
-          <main>
-            <div className='main-wrapper'>
-
-            </div>
-          </main>
-        </div>
-      );
-    }
     return (
       <div className="App">
         <BrowserRouter>
@@ -95,10 +96,10 @@ function App() {
                 <Route path ='/report' element={<Report width={width}/>} />
                 <Route path = '/mass-report' element={<MassReportPage />} />
                 <Route path ='/settings' element={<Settings handleLogin={handleLogin} width={width} />} />
-                <Route path ='/login' element={<Login handleLogin={handleLogin}/>} />
                 <Route path ='/browse' element={<BrowsePage width={width} />} />
                 <Route path ='/detail' element={<DetailPage width={width} />} />
-                <Route path ='upload' element={<Upload />} />
+                <Route path ='/upload' element={<Upload />} />
+                <Route path = '/login' element={<Navigate replace={true} to= {{ pathname: '/' }} />} />
               </Routes>
             </div>
           </main>
@@ -106,6 +107,7 @@ function App() {
       </div>
     );
   }
+  
   return (
     <div className="App">
         <BrowserRouter>
