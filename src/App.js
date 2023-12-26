@@ -21,7 +21,7 @@ function App() {
   const [isLoggedIn, setLoggedIn] = useState(false);
   const [width, setWidth] = useState(window.innerWidth);
 
-  const [loading, setLoading] = useState(true);
+  const [loading, setLoading] = useState(false);
 
   useEffect(() => {
     checkLoggedIn();
@@ -59,6 +59,7 @@ function App() {
 
   useEffect(() => {
     async function fetchAndStoreUserSettings() {
+      console.log('fetchandstore');
       setLoading(true);
       let settings;
       try {
@@ -66,9 +67,10 @@ function App() {
       }
       catch {
         settings = {};
+      } finally {
+        UserSettings.storeUserSettings(settings);
+        setLoading(false);
       }
-      UserSettings.storeUserSettings(settings);
-      setLoading(false);
     }
     if (isLoggedIn === false) return;
     fetchAndStoreUserSettings();
